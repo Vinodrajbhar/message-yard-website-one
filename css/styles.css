@@ -847,8 +847,35 @@ a {
   letter-spacing: 0.06em;
 }
 
-.platform-card-icon {
-  font-size: 18px;
+.platform-card-icon-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--color-fog);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-carbon);
+  transition: all var(--transition-fast);
+}
+
+.platform-card:hover .platform-card-icon-badge {
+  background: var(--color-carbon);
+  color: var(--color-snow);
+  transform: scale(1.08);
+  border-color: transparent;
+}
+
+.platform-card.card-featured .platform-card-icon-badge {
+  background: rgba(246, 146, 81, 0.12);
+  color: var(--color-tangerine-tag);
+  border-color: rgba(246, 146, 81, 0.2);
+}
+
+.platform-card.card-featured:hover .platform-card-icon-badge {
+  background: var(--color-tangerine-tag);
+  color: var(--color-carbon);
 }
 
 .platform-card-link {
