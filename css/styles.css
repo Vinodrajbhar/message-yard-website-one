@@ -1139,8 +1139,16 @@ a {
 
 .check-icon {
   color: var(--color-tangerine-tag);
-  font-weight: 700;
   flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.p-features-list-neutral li .check-icon {
+  color: var(--color-carbon);
+  margin-top: 1px;
 }
 
 /* ==========================================================================
