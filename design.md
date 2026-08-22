@@ -1,442 +1,1290 @@
-# Dialog — Style Reference
-> Neutral showroom with one warm price tag. Every surface is a different tone of off-white; the orange CTA is the only color in the room.
-
-**Theme:** light
-
-Dialog feels like a high-end retail floor plan rendered in digital form — neutral, airy, and unhurried, with one warm accent that acts like a price tag sticker on white linen. The #f7f7f7 near-white background and pure white cards create a surface hierarchy so subtle it reads as continuous space rather than layered depth. PP Radio Grotesk Light at 50-70px is the defining move: a geometric grotesque rendered at its lightest weight makes large headlines feel handwritten on paper rather than stamped — zero aggression, maximum presence. The single orange #f69251 appears exclusively on CTAs, pulling attention the way a sale tag pops in a neutral showroom. Pill-shaped buttons (28px radius) float against square-cornered containers, the only soft shape in an otherwise rectilinear system.
-
-## Tokens — Colors
-
-| Name | Value | Token | Role |
-|------|-------|-------|------|
-| Tangerine Tag | `#f69251` | `--color-tangerine-tag` | Primary CTA buttons, 'Book a demo' pill — warm orange against near-white backgrounds signals action without urgency, echoing the palette of premium retail labels |
-| Midnight Ink | `#181825` | `--color-midnight-ink` | Body text, borders — near-black with a barely perceptible blue undertone, softer than pure black for long-form reading |
-| Graphite | `#484758` | `--color-graphite` | Secondary body text, descriptive copy, meta information |
-| Deep Slate | `#242433` | `--color-deep-slate` | Dark surface backgrounds, card overlays in dark sections |
-| Carbon | `#000000` | `--color-carbon` | Headings, icon fills, primary text — used at full weight for maximum legibility |
-| Stone | `#636363` | `--color-stone` | Supporting body text, nav labels, secondary labels |
-| Pebble | `#949494` | `--color-pebble` | Placeholder text, muted links, disabled states |
-| Ash | `#8b8b8b` | `--color-ash` | Tertiary text, icon strokes, faint borders |
-| Fog | `#f7f7f7` | `--color-fog` | Page background, section fills — the dominant surface of the entire site |
-| Snow | `#ffffff` | `--color-snow` | Card surfaces, nav background, button fill for ghost variant |
-| Peach Whisper | `linear-gradient(rgba(255, 219, 184, 0.06) 0%, rgba(255, 255, 255, 0.03) 100%)` | `--color-peach-whisper` | Decorative SVG fills, illustration accent highlights |
-| Dusty Rose | `#c97b84` | `--color-dusty-rose` | Semantic accent — appears in hover or highlight states on certain interactive elements |
-
-## Tokens — Typography
-
-### PP Radio Grotesk Light — All hero and section headings. Weight 400 in this geometric grotesque renders visually as 'light' — at 70px the type feels pencil-drawn rather than set, giving large-format headlines an editorial quality no system font can replicate. The signature typographic move of this site. · `--font-pp-radio-grotesk-light`
-- **Substitute:** Satoshi Light, DM Sans Light
-- **Weights:** 400
-- **Sizes:** 32px, 39px, 50px, 70px
-- **Line height:** 1.15–1.30
-- **Letter spacing:** -0.01em (approx -0.5px at 50px, -0.7px at 70px)
-- **OpenType features:** `"blwf", "cv03", "cv04", "cv09", "cv11"`
-- **Role:** All hero and section headings. Weight 400 in this geometric grotesque renders visually as 'light' — at 70px the type feels pencil-drawn rather than set, giving large-format headlines an editorial quality no system font can replicate. The signature typographic move of this site.
-
-### Inter — Navigation labels, body copy, input fields, UI labels, subheadings. Weight 400 for body, 500 for nav links and emphasis. The negative letter-spacing is tighter than Inter's default, compressing the text block slightly without feeling cramped. · `--font-inter`
-- **Substitute:** Inter (already Google-available)
-- **Weights:** 400, 500
-- **Sizes:** 12px, 13px, 14px, 16px, 18px, 24px
-- **Line height:** 1.20–1.70
-- **Letter spacing:** -0.02em at small sizes, -0.01em at mid sizes
-- **OpenType features:** `"blwf", "cv03", "cv04", "cv09"`
-- **Role:** Navigation labels, body copy, input fields, UI labels, subheadings. Weight 400 for body, 500 for nav links and emphasis. The negative letter-spacing is tighter than Inter's default, compressing the text block slightly without feeling cramped.
-
-### Inter Variable — Tightly set inline body snippets, single-line descriptors. Line-height 1.00 means no leading — used for compact label-style text only. · `--font-inter-variable`
-- **Substitute:** Inter
-- **Weights:** 400
-- **Sizes:** 15px
-- **Line height:** 1.00
-- **Letter spacing:** -0.01em
-- **OpenType features:** `"cv01", "cv05", "cv09", "cv11"`
-- **Role:** Tightly set inline body snippets, single-line descriptors. Line-height 1.00 means no leading — used for compact label-style text only.
-
-### Inter Display — Occasional heading contexts at small display sizes, card titles in feature sections. · `--font-inter-display`
-- **Substitute:** Inter
-- **Weights:** 400
-- **Sizes:** 14px
-- **Line height:** 1.43
-- **Letter spacing:** normal
-- **Role:** Occasional heading contexts at small display sizes, card titles in feature sections.
-
-### sans-serif (system fallback) — Icon labels, tooltip text, browser-level UI elements — not a designed choice. · `--font-sans-serif-system-fallback`
-- **Weights:** 400
-- **Sizes:** 12px
-- **Line height:** 1.20
-- **Letter spacing:** normal
-- **Role:** Icon labels, tooltip text, browser-level UI elements — not a designed choice.
-
-### Type Scale
-
-| Role | Size | Line Height | Letter Spacing | Token |
-|------|------|-------------|----------------|-------|
-| caption | 12px | 1.2 | — | `--text-caption` |
-| body | 16px | 1.5 | — | `--text-body` |
-| subheading | 18px | 1.4 | — | `--text-subheading` |
-| heading-sm | 24px | 1.33 | — | `--text-heading-sm` |
-| heading | 32px | 1.3 | -0.32px | `--text-heading` |
-| heading-lg | 50px | 1.2 | -0.5px | `--text-heading-lg` |
-| display | 70px | 1.15 | -0.7px | `--text-display` |
-
-## Tokens — Spacing & Shapes
-
-**Base unit:** 4px
-
-**Density:** comfortable
-
-### Spacing Scale
-
-| Name | Value | Token |
-|------|-------|-------|
-| 4 | 4px | `--spacing-4` |
-| 8 | 8px | `--spacing-8` |
-| 12 | 12px | `--spacing-12` |
-| 16 | 16px | `--spacing-16` |
-| 20 | 20px | `--spacing-20` |
-| 24 | 24px | `--spacing-24` |
-| 32 | 32px | `--spacing-32` |
-| 40 | 40px | `--spacing-40` |
-| 48 | 48px | `--spacing-48` |
-| 64 | 64px | `--spacing-64` |
-| 72 | 72px | `--spacing-72` |
-| 80 | 80px | `--spacing-80` |
-| 96 | 96px | `--spacing-96` |
-| 128 | 128px | `--spacing-128` |
-| 160 | 160px | `--spacing-160` |
-| 192 | 192px | `--spacing-192` |
+# 🎨 MESSAGE YARD — DESIGN.md v4.0
+## Logo-Derived Design System · Dark-First · Gradient Spectrum
+### Definitive Build Specification
 
-### Border Radius
+---
 
-| Element | Value |
-|---------|-------|
-| cards | 24px |
-| small | 8px |
-| badges | 100px |
-| inputs | 0px |
-| buttons | 28px |
-| overlays | 32px |
-| cardInner | 12px |
+## 0. WHAT THE LOGO TELLS US
 
-### Shadows
+The logo is not decoration — it is the design system in miniature. Before writing a single line of CSS, here is what it dictates:
 
-| Name | Value | Token |
-|------|-------|-------|
-| subtle | `rgba(24, 24, 37, 0.12) 0px 2px 3px -2px` | `--shadow-subtle` |
-| xl | `rgba(247, 247, 247, 0.5) 0px -40px 40px 0px` | `--shadow-xl` |
-| subtle-2 | `rgba(0, 0, 0, 0.04) 0px 1px 2px 0px, rgba(0, 0, 0, 0.02) ...` | `--shadow-subtle-2` |
+### 0.1 Extracted Colors (Sampled Directly)
 
-### Layout
+| Element | Hex | RGB | Role |
+|---|---|---|---|
+| Tile — top-left | `#29BBF0` | 41, 187, 240 | Spectrum start (Cyan) |
+| Tile — mid-left | `#329EF3` | 50, 158, 243 | Spectrum step |
+| Tile — top-right | `#3790F5` | 55, 144, 245 | Spectrum core (Blue) |
+| Tile — bottom-left | `#3B83F6` | 59, 131, 246 | Spectrum step |
+| Tile — mid-right | `#4C7AF6` | 76, 122, 246 | Spectrum step |
+| Tile — bottom-right | `#7C64F6` | 120, 101, 246 | Spectrum end (Violet) |
+| Canvas | `#070B17` | 7, 11, 23 | Deep space background |
+| Canvas edge | `#09101E` | 9, 16, 30 | Slightly lifted background |
+| Wordmark "Message" | `#FFFFFF` | 255, 255, 255 | Primary text |
 
-- **Page max-width:** 1200px
-- **Section gap:** 80-120px
-- **Card padding:** 24px
-- **Element gap:** 8-16px
+### 0.2 Structural Reads
 
-## Components
+**The mark is a speech bubble containing a 3×2 grid of tiles.**
 
-### Primary CTA Button (Orange Pill)
-**Role:** Hero and nav primary action — 'Book a demo'
+This gives us three non-negotiable design principles:
 
-Background #f69251, text #000000, border-radius 28px, padding 12px 24px. The fully pill-shaped silhouette at 28px radius is the only rounded element class in an otherwise angular layout. Subtle layered shadow: rgba(0,0,0,0.04) 0px 1px 2px, rgba(0,0,0,0.02) 0px 2px 4px, rgba(0,0,0,0.02) 0px 4px 8px. Font: Inter 14-16px weight 500.
+1. **The container holds the grid.** A conversation (speech bubble) is the outer frame; organized message units (tiles) live inside it. Every layout on the site should echo this: an outer conversational frame holding structured, gridded content.
 
-### Ghost CTA Button (White Pill)
-**Role:** Secondary actions on dark or image-backed surfaces
+2. **The gradient flows diagonally.** Cyan sits at top-left, violet at bottom-right. Every gradient on the site must run at the same **135° diagonal angle** — never vertical, never horizontal, never reversed. This diagonal is the brand's signature vector.
 
-Background #ffffff, text #000000, border-radius 28px, padding 12px 24px. Same pill shape as primary, but inverted to white fill — reads as outline-adjacent without an explicit border. Used where orange would clash with background.
+3. **This is a dark-first brand.** The logo is built for `#070B17`. The white stroke of the speech bubble only reads on dark. Light mode is the secondary theme, not the primary.
 
-### Email Input + CTA Inline Form
-**Role:** Hero email capture row
+### 0.3 The Tile Grid Is the Layout Grid
 
-Input field: transparent background, border-radius 0px, no padding — appears as a bare underline or bordered rectangle. Paired inline with the orange pill button. Input text #000000, placeholder color #949494 (Pebble). The zero-radius input contrasts sharply with the 28px pill button beside it, creating a deliberate tension between form and function.
+The 3×2 tile arrangement in the logo is literally the site's card grid ratio. The 6-pillar feature section uses a 3×2 grid. The tile corner radius (relative to tile size, roughly 22%) sets our card radius ratio. The tile gap sets our grid gap rhythm.
 
-### Testimonial Card
-**Role:** Social proof in scrolling testimonials section
+---
 
-White (#ffffff) card surface, border-radius 24px, padding 24px. Quote text in Inter 14-16px #181825. Author name in Inter 500 ~14px, role/handle in #636363 Inter 400 12-13px. Avatar image displayed at small size (32-40px) with circular crop. No border — card lifts via box-shadow rgba(24,24,37,0.12) 0px 2px 3px -2px. Placed in a horizontal scroll carousel.
+## 1. BRAND FOUNDATION
 
-### Product Screenshot Browser Frame
-**Role:** Product tour / hero UI illustration
+- **Name:** MessageYard
+- **Category:** Marketing Cloud + CPaaS (Communications Platform as a Service)
+- **Tagline:** *"The Marketing Cloud with real infrastructure underneath."*
+- **Metaphor:** A yard is where things are built, sorted, and shipped. MessageYard is where messages are composed, routed, and delivered.
+- **Aesthetic:** Deep-space precision. Think Vercel's dark confidence × Linear's geometric restraint × Stripe's editorial clarity.
+- **Voice:** Confident, exact, unadorned. State numbers. Never exclaim.
 
-White (#ffffff) card at border-radius 24px with decorative browser chrome: three colored dots (red #c97b84, yellow, green) in top-left at 12px circles. Interior filled with skeleton placeholder blocks at #f7f7f7 and #b2b2b2. Card uses rgba(247,247,247,0.5) 0px -40px 40px 0px shadow at bottom edge — a fade-up vignette that blends the mockup into the page background.
+---
 
-### Navigation Bar
-**Role:** Global top navigation
+## 2. COLOR SYSTEM
+
+### 2.1 The Spectrum (Brand Gradient)
+
+The single most important brand asset after the logo. Three stops, 135° diagonal, always.
+
+```css
+--gradient-brand: linear-gradient(135deg, #29BBF0 0%, #3B82F6 50%, #7C64F6 100%);
+```
 
-White (#ffffff) background, height ~64px, max-width contained. Logo (Dialog wordmark with arrow icon) left-aligned. Links in Inter 400 14px #636363, spacing 6-8px gaps. 'Book a demo' orange pill button right-aligned. Border-radius 32px on the nav container when scrolled (floating pill nav pattern). No visible bottom border — separates from page via background contrast.
+```
+STOP 1 — SIGNAL CYAN     #29BBF0    Ingress. Where messages enter.
+STOP 2 — ROUTE BLUE      #3B82F6    Transit. The core infrastructure.
+STOP 3 — DISPATCH VIOLET #7C64F6    Egress. Where messages land.
+```
 
-### Feature Badge / Pill Label
-**Role:** Category tags, section labels like 'AI product recommender'
+**Individual spectrum colors (for solid fills, borders, icons):**
+
+```css
+--cyan:        #29BBF0;   /* Ingress, inbound, receiving */
+--cyan-dim:    #1E96C4;   /* Pressed/hover state */
+--blue:        #3B82F6;   /* Primary action, core brand, links */
+--blue-dim:    #2E6BD4;   /* Pressed/hover state */
+--violet:      #7C64F6;   /* Dispatch, outbound, AI features */
+--violet-dim:  #6450D0;   /* Pressed/hover state */
+```
 
-Border-radius 100px, background white or #f7f7f7, padding 4-8px 12px. Text Inter 500 12-13px #484758. No colored background — neutral pill that organizes content without adding chroma.
+**Spectrum tints (for backgrounds, subtle fills):**
 
-### Section Heading Block
-**Role:** Main headline + supporting subtext for each content section
+```css
+--cyan-a08:    rgba(41, 187, 240, 0.08);
+--cyan-a16:    rgba(41, 187, 240, 0.16);
+--blue-a08:    rgba(59, 130, 246, 0.08);
+--blue-a16:    rgba(59, 130, 246, 0.16);
+--blue-a24:    rgba(59, 130, 246, 0.24);
+--violet-a08:  rgba(124, 100, 246, 0.08);
+--violet-a16:  rgba(124, 100, 246, 0.16);
+```
 
-Headline: PP Radio Grotesk Light 50px, letter-spacing -0.01em, color #000000, line-height 1.20. Subtext: Inter 400 16-18px #636363, line-height 1.50. Vertically stacked, center-aligned in hero, left-aligned in feature sections. Gap between headline and subtext: 12-16px.
-
-### Star Rating Row
-**Role:** Social proof trust indicators below hero CTA
-
-Inline row of icon + 5-star glyphs in #f69251 orange. Icon badge (Shopify/G2 logo) at 20px followed by five ★ characters. Text Inter 400 12px #636363. Two rating rows displayed side-by-side with 16-24px gap. Acts as micro-credibility anchor beneath the email capture form.
-
-## Do's and Don'ts
-
-### Do
-- Use PP Radio Grotesk Light (weight 400) exclusively for headings at 32px+; never substitute Inter for headlines at large sizes
-- Apply #f69251 only to primary CTA buttons — never to text, icons, decorative shapes, or backgrounds
-- Set all buttons to border-radius 28px (pill shape) regardless of button width; this is the only rounded UI element in the system
-- Maintain #f7f7f7 as the page background and #ffffff for all card surfaces — the 2-tone near-white surface system defines the visual plane
-- Use Inter at -0.01em to -0.02em letter-spacing for body and nav text — never at default or positive tracking
-- Set card shadows to rgba(24,24,37,0.12) 0px 2px 3px -2px — single low-offset shadow, never stacked high-elevation shadows
-- Give testimonial and feature cards border-radius 24px with 24px internal padding — do not use smaller radii for large containers
-
-### Don't
-- Do not use #f69251 for more than one element category (CTAs only) — introducing orange to icons, text, or decoration breaks the single-accent discipline
-- Do not apply border-radius less than 24px to card containers — 8px or 12px radii belong to inner UI chips, not layout-level cards
-- Do not use bold or heavy weights (600+) with PP Radio Grotesk — the light grotesque loses its identity at high weight
-- Do not introduce colored section backgrounds (blue, green, purple bands) — section variation comes from #f7f7f7 vs #ffffff swaps only
-- Do not use drop shadows larger than 8px blur or opacity above 0.12 — the elevation system is deliberately flush with the page plane
-- Do not crop or bleed photography to page edges on interior pages — photography lives inside 24px-radius card containers only
-- Do not set input fields to a rounded border-radius — inputs use 0px or minimal radius to contrast with the pill button system
-
-## Surfaces
-
-| Level | Name | Value | Purpose |
-|-------|------|-------|---------|
-| 0 | Page Canvas | `#f7f7f7` | Full-bleed page background — the base of the entire composition |
-| 1 | Card Surface | `#ffffff` | Testimonial cards, feature cards, browser mockup frames |
-| 2 | Dark Card | `#242433` | Feature section dark-mode panels, contrast sections |
-
-## Elevation
-
-Shadows are used at near-invisible intensity — rgba(24,24,37,0.12) at 2px blur and rgba(0,0,0,0.04) layered micro-shadows on buttons. The effect is less about lifting surfaces and more about defining their edges against the #f7f7f7 background. Cards do not compete for vertical attention; they sit in the plane. The rgba(247,247,247,0.5) 0px -40px 40px fade on the browser mockup is the most dramatic shadow on the page, and it fades INTO the background color — erasing depth rather than creating it.
-
-## Imagery
-
-Two modes of imagery coexist. Product screenshots are rendered as browser-chrome wireframe mockups on white card surfaces — functional and diagrammatic, showing the AI chat interface UI rather than lifestyle. Customer testimonials in the second section use editorial photography: close-cropped product still life (perfume bottle, textured surface) and brand identity shots (Delsey luggage, car dashboard detail). These are contained within 24px-radius cards in a horizontal carousel, with no full-bleed photography on the main page. Photography is warm-toned and moody — shot in ambient/low light, desaturated with brown or bronze casts. The contrast between the clinical wireframe mockups and the warm editorial photos is deliberate: product as system, proof as atmosphere.
-
-## Layout
-
-Max-width ~1200px centered on a #f7f7f7 full-bleed background. Hero is a center-stack layout: headline in PP Radio Grotesk at 70px, subtext, then inline email+CTA form, then trust-badge row — all vertically centered with generous whitespace (~120px top padding). The browser mockup floats below, cropped at the bottom viewport edge to hint at scrollable content. Below: alternating content sections using left-aligned headline + body text paired with right-side UI mockups (2-column). Testimonial section breaks the grid into a horizontal scroll carousel with 3-column partial cards visible. Navigation is a floating white pill (border-radius 32px) that appears contained within a header band — minimal, no mega-menu, no sidebar.
-
-## Agent Prompt Guide
-
-**Quick Color Reference**
-- Page background: #f7f7f7
-- Card surface: #ffffff
-- Primary text / headings: #000000
-- Body / secondary text: #636363
-- CTA button fill: #f69251
-- CTA button text: #000000
-- Border / subtle divider: #b2b2b2
-- Muted / placeholder text: #949494
-
-**Example Component Prompts**
-
-1. **Hero Section**: #f7f7f7 background, full-width centered layout. Headline 'The AI shopping agent that boosts your sales' in PP Radio Grotesk Light 70px, color #000000, letter-spacing -0.70px, line-height 1.15. Subtext 'Guide shoppers in real time, like you would in store.' in Inter 400 18px, color #636363, line-height 1.50. Below: inline row with a bare text input (transparent bg, 0px radius, border-bottom 1px #000) and an orange pill button (#f69251 fill, #000 text, 28px radius, 12px 24px padding, Inter 500 14px). Below that: two star-rating badge rows in #f69251 stars, Inter 400 12px #636363.
-
-2. **Testimonial Card**: White (#ffffff) card, border-radius 24px, padding 24px, shadow rgba(24,24,37,0.12) 0px 2px 3px -2px. Quote in Inter 400 14px #181825, line-height 1.50. Author row: circular avatar 36px, name in Inter 500 14px #000, handle in Inter 400 12px #636363, gap 8px.
-
-3. **Navigation Bar**: White #ffffff pill container, border-radius 32px. Logo left. Nav links in Inter 400 14px #636363 with 6px column gap. 'Book a demo' orange pill button right (#f69251, #000 text, 28px radius, 12px 24px padding).
-
-4. **Feature Section**: #f7f7f7 background, 2-column layout: left = section label pill (100px radius, #f7f7f7 bg, Inter 500 12px #484758) + heading in PP Radio Grotesk Light 50px #000 + body Inter 400 16px #636363; right = white card (24px radius) containing UI screenshot or product mockup.
-
-5. **Browser Mockup Frame**: White card, border-radius 24px, shadow rgba(247,247,247,0.5) 0px -40px 40px 0px at bottom edge. Top-left: three dots at 10px circle (colors: #c97b84, #f69251, #8b8b8b). Interior: skeleton blocks at #f7f7f7 and #b2b2b2 varying widths, row-gap 8px.
-
-## Similar Brands
-
-- **Intercom** — Neutral off-white backgrounds, single warm-brand CTA color, testimonial carousel pattern, Inter-based body type
-- **Typeform** — Geometric grotesque display type at light weight for hero headlines, orange-family accent color on pill buttons
-- **Gorgias** — AI/e-commerce SaaS with editorial product photography mixed with UI mockup screenshots, near-identical testimonial card layout
-- **Klaviyo** — Same pill-nav-bar pattern floating above #f7f7f7 backgrounds, Inter body text with tight letter-spacing
-- **Rebuy Commerce** — Shopify-native AI commerce tool with warm accent buttons, light muted surfaces, and wireframe-style product preview mockups
-
-## Quick Start
-
-### CSS Custom Properties
+### 2.2 Dark Theme (Primary)
+
+```css
+/* Surfaces — each step is a "lift" in elevation */
+--bg-void:        #070B17;   /* Page background. Deepest layer. */
+--bg-base:        #0A0F1E;   /* Section backgrounds */
+--bg-surface:     #101728;   /* Cards, panels */
+--bg-elevated:    #16203440; /* Hover states, raised cards */
+--bg-overlay:     rgba(16, 23, 40, 0.72);  /* Modals, nav pill (with blur) */
+
+/* Borders — hairlines only, never heavy */
+--border-subtle:  rgba(255, 255, 255, 0.06);
+--border-default: rgba(255, 255, 255, 0.10);
+--border-strong:  rgba(255, 255, 255, 0.16);
+--border-brand:   rgba(59, 130, 246, 0.32);
+
+/* Text */
+--text-primary:   #FFFFFF;
+--text-secondary: #9BA5BC;   /* Body copy */
+--text-tertiary:  #5F6B85;   /* Captions, metadata */
+--text-disabled:  #3A4459;
+```
+
+### 2.3 Light Theme (Secondary)
+
+The site is dark-first, but certain sections invert for contrast and rhythm — specifically the Pricing section and the Industry Solutions section. This "surfacing" from dark to light is a deliberate narrative beat.
+
+```css
+--bg-void-light:      #FFFFFF;
+--bg-base-light:      #F7F9FC;
+--bg-surface-light:   #FFFFFF;
+--border-subtle-light: rgba(0, 0, 0, 0.06);
+--text-primary-light:  #070B17;
+--text-secondary-light: #4A5568;
+--text-tertiary-light:  #8B96AB;
+```
+
+### 2.4 Semantic Colors
+
+```css
+--success:  #10B981;   /* Delivered, active, online */
+--warning:  #F59E0B;   /* Queued, pending, throttled */
+--danger:   #EF4444;   /* Failed, bounced, error */
+--whatsapp: #25D366;   /* Channel-specific (WhatsApp green) */
+```
+
+### 2.5 Gradient Usage Rules
+
+```
+✓ ALLOWED
+  - Logo mark (always)
+  - Primary CTA button backgrounds
+  - Section heading accent words (via background-clip: text)
+  - Active tab indicator underline
+  - Card border on featured/highlighted cards (1px gradient border)
+  - Decorative glow orbs in section backgrounds (heavily blurred, low opacity)
+  - Progress bars and data visualization fills
+
+✗ FORBIDDEN
+  - Body text (illegible)
+  - Large background fills (overwhelming — use blurred orbs instead)
+  - Multiple gradients competing in one viewport
+  - Any angle other than 135°
+  - Reversed direction (violet → cyan)
+```
+
+### 2.6 The Glow System
+
+Because this is a dark theme, glows replace shadows as the primary depth cue.
+
+```css
+--glow-cyan:   0 0 40px rgba(41, 187, 240, 0.18);
+--glow-blue:   0 0 40px rgba(59, 130, 246, 0.20);
+--glow-violet: 0 0 40px rgba(124, 100, 246, 0.18);
+--glow-brand:  0 0 32px rgba(59, 130, 246, 0.24), 0 0 64px rgba(124, 100, 246, 0.12);
+
+/* Shadows still exist for physical elevation, but are near-black */
+--shadow-sm:   0 2px 8px rgba(0, 0, 0, 0.32);
+--shadow-md:   0 8px 24px rgba(0, 0, 0, 0.40);
+--shadow-lg:   0 20px 56px rgba(0, 0, 0, 0.48);
+--shadow-xl:   0 32px 80px rgba(0, 0, 0, 0.56);
+```
+
+---
+
+## 3. TYPOGRAPHY
+
+The logo wordmark is a **heavy geometric sans** — that sets the tone for headings.
+
+```css
+--font-display: "Plus Jakarta Sans", "Inter", sans-serif;   /* Headings */
+--font-body:    "Inter", sans-serif;                        /* Body, UI */
+--font-mono:    "JetBrains Mono", monospace;                /* Telemetry, code */
+```
+
+### 3.1 Scale
+
+```
+DISPLAY (Hero H1)
+  Size:     clamp(44px, 5.5vw, 76px)
+  Weight:   700 (matches logo wordmark weight)
+  Tracking: -0.035em
+  Leading:  1.05
+  Balance:  text-wrap: balance
+
+H2 (Section headings)
+  Size:     clamp(32px, 3.8vw, 52px)
+  Weight:   600
+  Tracking: -0.03em
+  Leading:  1.15
+
+H3 (Card titles)
+  Size:     20px–24px
+  Weight:   600
+  Tracking: -0.02em
+  Leading:  1.3
+
+BODY LARGE (Hero subhead, section intros)
+  Size:     18px
+  Weight:   400
+  Leading:  1.6
+  Color:    var(--text-secondary)
+
+BODY (Card copy, paragraphs)
+  Size:     15px–16px
+  Weight:   400
+  Leading:  1.65
+  Color:    var(--text-secondary)
+
+CAPTION
+  Size:     13px
+  Weight:   400
+  Color:    var(--text-tertiary)
+
+TELEMETRY (Badges, labels, eyebrows, code)
+  Font:     var(--font-mono)
+  Size:     11px–12px
+  Weight:   500
+  Tracking: 0.08em
+  Case:     UPPERCASE
+```
+
+### 3.2 The Gradient Word Technique
+
+The logo splits "Message" (white) from "Yard" (gradient). Headings echo this: one key word per heading receives the gradient treatment.
+
+```css
+.gradient-word {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+```
+
+```
+EXAMPLES
+  "The Marketing Cloud with real infrastructure underneath."
+                              └─ gradient ─┘
+
+  "Two products. One platform."
+                     └gradient┘
+
+  "Built for your industry."
+             └─gradient─┘
+
+RULE: Maximum ONE gradient word per heading. Never two.
+```
+
+---
+
+## 4. SHAPE LANGUAGE — DERIVED FROM THE TILE GRID
+
+### 4.1 Radii
+
+The logo tiles have a radius roughly 22% of their width. We apply that ratio consistently.
+
+```css
+--radius-xs:    6px;    /* Badges, small chips */
+--radius-sm:    10px;   /* Inputs, small buttons */
+--radius-md:    14px;   /* Tiles, icon containers */
+--radius-lg:    20px;   /* Cards */
+--radius-xl:    24px;   /* Large panels, browser frames */
+--radius-pill:  999px;  /* Pill buttons, nav bar */
+```
+
+### 4.2 The Tile — The Atomic Unit
+
+Every icon container, feature marker, and channel indicator is a "tile" that references the logo.
+
+```css
+.tile {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);          /* 14px — matches logo ratio */
+  background: var(--gradient-brand);
+  display: grid;
+  place-items: center;
+}
+
+.tile--outline {                             /* Inactive/secondary state */
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+}
+
+.tile--glow {                                /* Active/featured state */
+  background: var(--gradient-brand);
+  box-shadow: var(--glow-brand);
+}
+```
+
+**Tile grid rhythm:** When multiple tiles appear together (feature grids, channel selectors), use a **12px gap** — proportionally matching the logo's tile spacing.
+
+### 4.3 The Bubble Frame
+
+The speech bubble outline in the logo becomes a recurring container treatment for testimonials, quotes, and conversational UI mockups.
+
+```css
+.bubble-frame {
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-xl);
+  position: relative;
+}
+
+/* The tail — a small triangle at bottom-left, matching the logo */
+.bubble-frame::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 32px;
+  width: 16px;
+  height: 16px;
+  background: inherit;
+  border-left: 1.5px solid var(--border-strong);
+  border-bottom: 1.5px solid var(--border-strong);
+  transform: rotate(-45deg);
+}
+```
+
+### 4.4 Spacing Scale
+
+```css
+--space-1:  4px;
+--space-2:  8px;
+--space-3:  12px;    /* Tile gap — logo-derived */
+--space-4:  16px;
+--space-5:  24px;
+--space-6:  32px;
+--space-8:  48px;
+--space-10: 64px;
+--space-12: 96px;
+--space-16: 128px;   /* Section vertical padding (desktop) */
+
+/* Layout */
+--container-max:  1200px;
+--container-wide: 1360px;   /* Matches logo file width — nice symmetry */
+--section-py-desktop: 128px;
+--section-py-tablet:  88px;
+--section-py-mobile:  64px;
+```
+
+---
+
+## 5. BACKGROUND SYSTEM
+
+The logo sits on a subtle dotted grid over near-black. That's our page background.
+
+### 5.1 Base Layer — The Dot Grid
+
+```css
+.bg-grid {
+  background-color: var(--bg-void);
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgba(255, 255, 255, 0.05) 1px,
+    transparent 0
+  );
+  background-size: 32px 32px;
+}
+```
+
+A subtle **radial mask** fades the grid toward the page edges so it never feels like graph paper:
+
+```css
+mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+```
+
+### 5.2 Ambient Glow Orbs
+
+Instead of large gradient fills, use heavily blurred colored orbs positioned behind content. These give the page depth and color without overwhelming it.
+
+```css
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.20;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Placement rules */
+.orb--cyan   { background: #29BBF0; width: 520px; height: 520px; }
+.orb--blue   { background: #3B82F6; width: 640px; height: 640px; }
+.orb--violet { background: #7C64F6; width: 480px; height: 480px; }
+```
+
+**Per-section orb placement:**
+
+| Section | Orbs |
+|---|---|
+| Hero | Cyan top-left (−15%, −10%), Violet bottom-right (110%, 80%) |
+| Two Products | Blue centered behind the divider, opacity 0.12 |
+| Why MessageYard | Violet right side, opacity 0.16 |
+| Pricing (light) | None — light sections stay clean |
+| Footer | Blue bottom-center, opacity 0.10 |
+
+**Orb animation:** Extremely slow drift — 24s ease-in-out infinite, translating ±40px. Barely perceptible, but keeps the page feeling alive.
+
+### 5.3 Section Transitions
+
+Moving from dark to light sections must never be a hard edge.
+
+```css
+/* Dark → Light transition band (80px tall) */
+.transition-band {
+  height: 80px;
+  background: linear-gradient(to bottom, var(--bg-void), var(--bg-base-light));
+}
+```
+
+---
+
+## 6. COMPONENT SPECIFICATIONS
+
+### 6.1 Buttons
+
+```css
+/* PRIMARY — Gradient fill */
+.btn-primary {
+  background: var(--gradient-brand);
+  color: #FFFFFF;
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  font: 500 15px var(--font-body);
+  border: none;
+  transition: all 250ms var(--ease-out);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--glow-brand);
+  filter: brightness(1.08);
+}
+.btn-primary:active {
+  transform: translateY(0) scale(0.98);
+  filter: brightness(0.95);
+}
+
+/* SECONDARY — Glass */
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-default);
+  color: var(--text-primary);
+  backdrop-filter: blur(12px);
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+}
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+}
+
+/* GHOST — Text only */
+.btn-ghost {
+  color: var(--text-secondary);
+  padding: 12px 16px;
+}
+.btn-ghost:hover {
+  color: var(--text-primary);
+}
+```
+
+### 6.2 Cards
+
+```css
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  transition: all 350ms var(--ease-out);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Top-edge gradient hairline — appears on hover */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: var(--gradient-brand);
+  opacity: 0;
+  transition: opacity 350ms var(--ease-out);
+}
+
+.card:hover {
+  background: var(--bg-elevated);
+  border-color: var(--border-default);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+.card:hover::before { opacity: 1; }
+```
+
+**Featured card variant** — gradient border via mask technique:
+
+```css
+.card--featured {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--bg-surface), var(--bg-surface)) padding-box,
+    var(--gradient-brand) border-box;
+  box-shadow: var(--glow-brand);
+}
+```
+
+### 6.3 Badges
+
+```css
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: var(--radius-xs);
+  font: 500 11px var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.badge--active   { background: rgba(16,185,129,0.12);  color: #34D399; }
+.badge--dispatch { background: var(--violet-a16);      color: #A78BFA; }
+.badge--branch   { background: var(--blue-a16);        color: #60A5FA; }
+.badge--ingress  { background: var(--cyan-a16);        color: #67D9F5; }
+.badge--queued   { background: rgba(255,255,255,0.06); color: var(--text-tertiary); }
+```
+
+Each badge carries a leading **6px status dot** in the matching color. Active/success dots pulse:
+
+```css
+@keyframes signalPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.45); }
+  50%      { box-shadow: 0 0 0 6px rgba(16,185,129,0); }
+}
+```
+
+### 6.4 Navigation Pill
+
+```css
+.nav {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 1140px;
+  width: calc(100% - 32px);
+  padding: 10px 16px 10px 20px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-overlay);
+  backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid var(--border-subtle);
+  z-index: 100;
+  transition: all 350ms var(--ease-out);
+}
+
+/* Scrolled state */
+.nav--scrolled {
+  padding: 8px 14px 8px 18px;
+  border-color: var(--border-default);
+  box-shadow: var(--shadow-md);
+}
+```
+
+Nav link hover: underline scales from center (`transform-origin: center; scaleX(0) → scaleX(1)`), colored with `var(--gradient-brand)`.
+
+Smart hide/show: slides to `translateY(-120%)` on scroll-down, returns on scroll-up.
+
+---
+
+## 7. HERO SECTION
+
+### 7.1 Structure
+
+```
+┌─────────────────────────────────────────────────┐
+│  [Nav Pill — floating, glass]                   │
+│                                                 │
+│         ● MARKETING CLOUD + CPaaS               │  ← Eyebrow badge
+│                                                 │
+│      The Marketing Cloud with                   │  ← H1, "real
+│      real infrastructure underneath.            │     infrastructure"
+│                                                 │     is gradient
+│      Plan campaigns, build journeys, and        │  ← Subhead
+│      segment audiences — then send it all       │
+│      through the same infrastructure that       │
+│      powers 12 billion conversations a year.    │
+│                                                 │
+│      [Start free trial]  [Book a demo]          │  ← CTAs
+│                                                 │
+│      No credit card · 99.999% uptime · SOC 2    │  ← Trust line
+│                                                 │
+│  ┌───────────────────────────────────────────┐  │
+│  │     [Studio Console — browser frame]      │  │  ← Product UI
+│  └───────────────────────────────────────────┘  │
+│                                                 │
+│   3,200+    12B+     34%      190+              │  ← Metrics strip
+└─────────────────────────────────────────────────┘
+```
+
+### 7.2 Background Composition
+
+```
+Layer 0: --bg-void (#070B17)
+Layer 1: Dot grid (32px, masked to fade at edges)
+Layer 2: Cyan orb top-left (blur 120px, opacity 0.20)
+Layer 3: Violet orb bottom-right (blur 120px, opacity 0.18)
+Layer 4: Floating channel tiles (parallax, see below)
+Layer 5: Content (text, CTAs)
+Layer 6: Studio Console (raised, shadow-xl)
+```
+
+### 7.3 Floating Channel Tiles
+
+Six tiles echo the logo's 3×2 grid, floating in 3D space behind and around the hero text. Each represents a channel.
+
+```
+TILE POSITIONS (desktop, relative to hero container)
+
+  [1] SMS       left: 6%,   top: 20%    rotateY(14deg)  parallax 1.12x
+  [2] WhatsApp  right: 8%,  top: 16%    rotateY(-12deg) parallax 1.16x
+  [3] Email     left: 12%,  top: 52%    rotateY(10deg)  parallax 0.88x
+  [4] Voice     right: 5%,  top: 48%    rotateY(-16deg) parallax 0.92x
+  [5] RCS       left: 3%,   top: 76%    rotateY(8deg)   parallax 1.08x
+  [6] Push      right: 14%, top: 78%    rotateY(-10deg) parallax 0.86x
+
+EACH TILE
+  Size:       64px × 64px
+  Radius:     var(--radius-md) — 14px
+  Background: var(--bg-surface) with 1px var(--border-default)
+  Icon:       24px monoline channel icon, var(--text-secondary)
+  Shadow:     var(--shadow-md)
+
+  Two tiles (WhatsApp + SMS) are "active" — gradient background,
+  white icon, var(--glow-brand). The rest are outline state.
+
+FLOAT ANIMATION (staggered per tile)
+  @keyframes tileFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-8px) rotate(1deg); }
+  }
+  Duration: 4s–6s (varied per tile), infinite, ease-in-out
+  Delay: staggered 0s, 0.7s, 1.4s, 2.1s, 2.8s, 3.5s
+```
+
+**Connecting lines:** Thin SVG bezier paths link the tiles to the center of the hero (where the headline sits), suggesting all channels route through one platform. Lines are `1px`, `rgba(255,255,255,0.06)`, with animated `stroke-dashoffset` so a faint pulse of light travels along each path every 3 seconds.
+
+### 7.4 Hero Entrance Choreography
+
+```
+Beat 0 (0ms):     Logo mark tiles draw in sequentially (6 tiles × 60ms)
+Beat 1 (200ms):   Orbs fade in, 900ms
+Beat 2 (400ms):   Eyebrow badge fades up from translateY(14px)
+Beat 3 (550ms):   H1 reveals line-by-line via clip-path inset wipe, 700ms
+                  Gradient word's background-position animates 0% → 100%
+Beat 4 (850ms):   Subhead fades up, 500ms
+Beat 5 (1000ms):  CTAs fade up + scale(0.96 → 1), 450ms
+Beat 6 (1150ms):  Channel tiles scale in (0.7 → 1) staggered 80ms apart,
+                  drifting to final positions
+Beat 7 (1400ms):  Connecting lines draw via stroke-dashoffset, 900ms
+Beat 8 (1600ms):  Studio Console rises from translateY(60px) + scale(0.94 → 1),
+                  shadow expands beneath, 800ms
+Beat 9 (2000ms):  Trust line + metrics strip fade in
+```
+
+### 7.5 Studio Console
+
+```
+FRAME
+  Width:      min(1120px, 92vw)
+  Radius:     var(--radius-xl) — 24px
+  Background: var(--bg-surface)
+  Border:     1px solid var(--border-default)
+  Shadow:     var(--shadow-xl)
+  Perspective: parent has perspective: 1800px
+  Initial tilt: rotateX(6deg) — flattens to rotateX(0) as it scrolls to center
+
+TITLE BAR
+  Height: 40px
+  Three window dots (12px): #FF5F57, #FEBC2E, #28C840
+  Center: URL-style pill reading "app.messageyard.com/studio"
+  Font: var(--font-mono), 11px, var(--text-tertiary)
+
+TABS (below title bar)
+  "Journey Builder" | "Campaign Composer" | "Team Inbox"
+  Active tab: white text + 2px gradient underline
+  Inactive: var(--text-tertiary)
+  Switch animation: 150ms fade-out + translateY(6px), then
+                    200ms fade-in from translateY(-6px), 50ms overlap
+```
+
+**Tab 1 — Journey Builder:** Flow nodes connected by bezier lines with animated dash-flow. Node 1 = `⚡ Cart Abandoned (30m)` + `ACTIVE` badge. Node 2 = `⌥ VIP Customer?` + `BRANCH` badge. Node 3 = `💬 WhatsApp 1-Click Buy` + `DISPATCH` badge + `34% lift` stat.
+
+**Tab 2 — Campaign Composer:** Left = form fields with `{{first_name}}` merge tags and a blinking cursor. Right = phone mockup rendering a rich WhatsApp card, tilted `rotateY(-6deg)`.
+
+**Tab 3 — Team Inbox:** Three columns — conversation queue (with pulsing signal dots), live chat thread with staggered bubble entrances, CRM panel showing `€2,450.00` lifetime spend and behavioral tags.
+
+### 7.6 Metrics Strip
+
+```
+LAYOUT: 4-column grid, divided by 1px vertical hairlines
+BACKGROUND: transparent (sits on the void)
+PADDING: 40px 0
+
+EACH METRIC
+  Number:  clamp(32px, 3vw, 44px), weight 700, gradient text
+  Label:   var(--font-mono), 11px, uppercase, var(--text-tertiary)
+
+  3,200+   BRANDS ON MESSAGEYARD
+  12B+     MESSAGES DELIVERED / YEAR
+  34%      AVERAGE ENGAGEMENT LIFT
+  190+     COUNTRIES REACHED
+
+ANIMATION
+  Count-up via requestAnimationFrame, 1800ms, eased deceleration
+  Trigger: IntersectionObserver threshold 0.3
+  On complete: subtle scale pulse (1.04 → 1.0, 300ms)
+```
+
+---
+
+## 8. SECTION-BY-SECTION SPECIFICATION
+
+### 8.1 Logo Marquee — Trust
+
+```
+Background: var(--bg-void)
+Headline: "Trusted by 3,200+ brands worldwide" — 13px, var(--text-tertiary), centered
+Marquee: infinite horizontal scroll, 40s loop, duplicated set for seamless wrap
+Logos: white at 32% opacity, grayscale
+Hover: pause marquee; hovered logo → 100% opacity
+Edge mask: linear-gradient fade to transparent at left/right 15%
+```
+
+### 8.2 Two Products, One Platform
+
+```
+Background: var(--bg-base)
+Headline: "Two products. One platform." — "One platform" gradient
+Layout: 2 columns, gap 24px
+
+LEFT CARD — Marketing Cloud
+  Tile icon: cyan-dominant gradient
+  Badge: "FOR MARKETERS" (cyan variant)
+  H3: "No-code journey canvas, unified campaigns, dynamic segmentation."
+  Image: Journey Builder screenshot, radius 14px, inset border
+  Link: "Explore Marketing Cloud →"
+
+RIGHT CARD — CPaaS Infrastructure
+  Tile icon: violet-dominant gradient
+  Badge: "FOR ENGINEERS" (violet variant)
+  H3: "Programmable APIs, sub-second carrier delivery, AI agents."
+  Image: Dark terminal showing a POST /v1/messages call with JSON payload
+  Link: "Explore CPaaS →"
+
+3D: left card rotateY(3deg), right card rotateY(-3deg) — both flatten on hover
+CONNECTOR: animated gradient line bridging the two cards at center-bottom
+ENTRANCE: left from translateX(-32px), right from translateX(32px), 600ms
+```
+
+### 8.3 Platform at a Glance — 6 Pillars
+
+**This section directly mirrors the logo's 3×2 tile grid.**
+
+```
+Background: var(--bg-void)
+Headline: "The platform, at a glance"
+Layout: 3×2 grid, gap 12px (logo-derived tile spacing)
+
+CARDS
+  01 / Journey Builder        — Visual drag-and-drop workflow canvas
+  02 / Campaign Manager       — Multichannel calendar & approval workflows
+  03 / Audience Segmentation  — Dynamic behavioral segmenting, no SQL
+  04 / Personalization Engine — 1:1 AI recommendations, send-time optimization
+  05 / Analytics & Attribution— Multi-touch revenue attribution, cohort curves
+  06 / Omnichannel CPaaS      — Native SMS, WhatsApp, Voice, Email delivery
+
+EACH CARD
+  Watermark number "01" — 64px, weight 700, rgba(255,255,255,0.03), top-right
+  Tile icon: 48px, gradient background, white monoline icon
+  H3 + 2-line description
+  Bottom-pinned link: "Learn more →" (arrow slides 4px right on hover)
+
+GRADIENT PROGRESSION (the standout detail)
+  Each card's tile icon steps along the brand spectrum by position,
+  exactly like the logo's tiles:
+    Card 01 → #29BBF0 (cyan)
+    Card 02 → #349DF3
+    Card 03 → #3B82F6 (blue)
+    Card 04 → #4C7AF6
+    Card 05 → #6470F6
+    Card 06 → #7C64F6 (violet)
+  Reading the grid left-to-right, top-to-bottom reproduces the logo gradient.
+
+3D: independent cursor-tracked perspective tilt, max ±3deg
+ENTRANCE: staggered 80ms per card, translateY(24px) → 0
+```
+
+### 8.4 Why MessageYard
+
+```
+Background: var(--bg-base) + violet orb (right side, opacity 0.16)
+Layout: 2 columns (5:7 ratio)
+
+LEFT — The Argument
+  H2: "Marketing platforms promise omnichannel. We own the channel."
+      ("own the channel" = gradient)
+  5 checklist items, each with a gradient check icon:
+    ✓ Zero vendor markup on every message sent
+    ✓ Same infrastructure handles transactional and marketing
+    ✓ Sub-second delivery across 190+ countries
+    ✓ 99.999% uptime SLA — contractual, not aspirational
+    ✓ SOC 2 Type II and HIPAA-eligible out of the box
+
+  Entrance: items appear one by one, 120ms stagger
+  Check icon: spring scale-in (0 → 1.15 → 1.0)
+
+RIGHT — Telemetry Dashboard
+  Large dark dashboard screenshot in a bubble-frame container
+  3D: rotateY(-7deg), flattens to rotateY(-3deg) on scroll to center
+  Live elements inside:
+    - Throughput bars fill upward on viewport entry (staggered 60ms)
+    - "99.999%" counts up from 99.000%
+    - Latency ticker cycles "12ms → 11ms → 13ms → 12ms" every 2s
+    - A gradient sparkline draws left-to-right via stroke-dashoffset
+```
+
+### 8.5 Industry Solutions — LIGHT SECTION
+
+The first inversion. Coming up from the dark infrastructure into daylight.
+
+```
+Background: var(--bg-base-light) #F7F9FC
+Transition: 80px gradient band from --bg-base to --bg-base-light above
+
+Headline: "Built for your industry." — var(--text-primary-light)
+Layout: 4 cards in a row
+
+CARDS (photographic)
+  [1] Retail & eCommerce   — "Cart recovery & WhatsApp VIP shopping"
+  [2] Financial Services   — "TCPA-compliant alerts & 2FA delivery"
+  [3] Healthcare           — "HIPAA-eligible appointment journeys"
+  [4] Travel & Hospitality — "Real-time itinerary pushes"
+
+TREATMENT
+  Aspect ratio: 4/5
+  Radius: var(--radius-lg)
+  Photo: object-fit cover, saturate(0.9)
+  Overlay: linear-gradient(transparent 45%, rgba(7,11,23,0.85))
+  Badge: category chip, top-left, glass background
+  Text: white, bottom-aligned
+
+HOVER
+  Photo layer parallax-shifts opposite to cursor tilt (depth-of-field window)
+  Text stays fixed
+  Card lifts translateY(-4px)
+  A gradient hairline appears along the bottom edge
+```
+
+### 8.6 Customer Proof
+
+```
+Background: var(--bg-base-light) — continues light
+Headline: "Trusted by teams that ship."
+
+LAYOUT: 3 testimonial cards, using the BUBBLE-FRAME component
+  (This is where the logo's speech bubble shape earns its keep.)
+
+CARDS
+  [1] Priya Desai — VP Growth Marketing, Northbeam
+  [2] Marcus Ellery — Head of Marketing Ops, Lumen Retail
+  [3] Ana Beltrán — CMO, Finwave
+
+EACH CARD
+  Bubble frame with tail at bottom-left
+  Background: #FFFFFF
+  Border: 1.5px solid rgba(0,0,0,0.08)
+  Quote: 16px, var(--text-primary-light), line-height 1.6
+  Bottom: 44px circular avatar + name (600 weight) + title (13px, tertiary)
+  Avatar has a 2px gradient ring
+
+HOVER: perspective tilt max ±2deg, avatar translateZ(6px) forward pop
+
+TRUST BADGE ROW (below)
+  SOC 2 Type II | GDPR Ready | HIPAA-Eligible | ISO 27001 | TCPA | TLS 1.3
+  Monoline outlined badges, var(--text-tertiary-light)
+  Gentle float bob, staggered
+```
+
+### 8.7 Pricing — LIGHT SECTION
+
+```
+Background: var(--bg-base-light)
+Headline: "Simple, transparent pricing." — "transparent" gradient
+Layout: 3 tier cards, equal height, gap 20px
+
+  STARTER
+    Price: "Pay as you go"
+    5,000 contacts · core channels · 1 AI agent · community support
+    CTA: secondary button
+
+  GROWTH  ← FEATURED
+    Badge: "MOST POPULAR" (gradient chip, top-center, overlapping card edge)
+    Price: "$499" + "/mo" (price counts up on scroll entry)
+    100K contacts · all channels · 10 AI agents · priority support
+    CTA: primary gradient button
+    Card: gradient border (mask technique), var(--glow-brand),
+          translateY(-12px) — physically elevated above siblings
+
+  ENTERPRISE
+    Price: "Custom"
+    Unlimited contacts · dedicated carrier routes · custom SLA · SSO/SAML
+    CTA: secondary button
+
+COMPARISON TABLE (below, collapsible)
+  Row hover: background → var(--blue-a08)
+  Checkmarks: gradient-filled, animate in row-by-row (40ms stagger)
+  Sticky header row on scroll
+```
+
+### 8.8 Contact & Leadership — RETURN TO DARK
+
+```
+Background: var(--bg-void) + transition band above
+"Returning to the yard at night."
+
+PART A — Leadership (4-column grid)
+  Aarav Nair (CEO) · Elena Whitfield (CTO) · Jordan Tanaka (VP AI) · Priya Menon (VP Product)
+  Photos: grayscale → full color on hover
+  Hover: card tilts, photo gains a gradient ring, LinkedIn icon fades in
+
+PART B — Contact (2 columns)
+  LEFT: Three route cards
+    sales@messageyard.com     — "Talk to our team about enterprise plans"
+    support@messageyard.com   — "Technical help, 24/7 response"
+    partners@messageyard.com  — "Integration and reseller partnerships"
+    Each: tile icon + email + description; hover reveals gradient left border
+
+  RIGHT: Contact form
+    Fields: Name · Work email · Company · Message
+    Style: var(--bg-surface) inputs, var(--border-default) borders
+    Focus: border becomes gradient (mask technique) + soft glow
+    Floating labels lift on focus
+    Submit: primary gradient button, full width
+```
+
+### 8.9 Footer
+
+```
+Background: var(--bg-void), with a 1px gradient hairline as the top border
+Blue orb, bottom-center, opacity 0.10
+
+LAYOUT: 5 columns
+  Col 1: Logo (full lockup) + tagline + social icons
+  Col 2: Product      Col 3: Solutions
+  Col 4: Company      Col 5: Legal
+
+BOTTOM BAR
+  Left:  © 2026 MessageYard. All rights reserved.
+  Right: Privacy · Terms · Status ● (green pulse dot)
+
+EASTER EGG
+  Beneath the copyright, in var(--font-mono), 11px, var(--text-disabled):
+  "MESSAGES DISPATCHED SINCE YOU ARRIVED: 4,231"
+  Counts up at ~70/second. The yard never closes.
+
+LINK HOVER: color → white + translateX(3px)
+
+BACK-TO-TOP: floating gradient circle (↑), 48px, appears past hero,
+             gentle float bob, smooth-scroll on click
+```
+
+---
+
+## 9. ANIMATION SYSTEM
+
+### 9.1 Easing Tokens
+
+```css
+--ease-out:    cubic-bezier(0.22, 1, 0.36, 1);      /* Entrances (default) */
+--ease-in:     cubic-bezier(0.55, 0, 1, 0.45);      /* Exits */
+--ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);   /* Overshoot */
+--ease-smooth: cubic-bezier(0.45, 0, 0.55, 1);      /* Symmetric, loops */
+
+--dur-micro:  150ms;
+--dur-fast:   250ms;
+--dur-normal: 350ms;
+--dur-reveal: 600ms;
+--dur-hero:   800ms;
+```
+
+### 9.2 Scroll Reveals
+
+```
+Observer: single IntersectionObserver instance
+Threshold: 0.15
+rootMargin: "0px 0px -60px 0px"
+Re-trigger: yes, debounced — element must be out of view 500ms+ first
+
+VARIANTS
+  fade-up      translateY(28px) → 0, opacity 0 → 1              [default]
+  fade-lateral translateX(±32px) → 0                            [2-col splits]
+  stagger      transition-delay: calc(var(--i) * 80ms)          [grids]
+  scale-in     scale(0.94) → 1                                  [console, images]
+  clip-wipe    clip-path: inset(0 100% 0 0) → inset(0 0 0 0)    [headlines]
+  draw         stroke-dashoffset: len → 0                       [lines, sparklines]
+```
+
+### 9.3 Signature Animations
+
+**Gradient Shimmer (headlines).** On reveal, the gradient word's `background-position` animates `0% → 100%` over 1200ms, making light sweep across the text once.
+
+```css
+.gradient-word {
+  background-size: 200% 100%;
+  animation: shimmer 1200ms var(--ease-out) forwards;
+}
+@keyframes shimmer {
+  from { background-position: 0% 50%; }
+  to   { background-position: 100% 50%; }
+}
+```
+
+**Route Pulse (connecting lines).** A short bright segment travels along each SVG connector path every 3s, suggesting a message in transit.
+
+```css
+.route-line {
+  stroke-dasharray: 8 400;
+  animation: routePulse 3s linear infinite;
+}
+@keyframes routePulse {
+  from { stroke-dashoffset: 408; }
+  to   { stroke-dashoffset: 0; }
+}
+```
+
+**Tile Cascade (logo + feature grid).** Tiles appear in the logo's reading order (top-left → bottom-right), 60ms apart, each scaling `0.6 → 1.08 → 1.0` with `--ease-spring`. This is the site's signature entrance and is reused for the 6-pillar grid.
+
+**Card Lift.** `translateY(-4px)` + shadow deepen + top gradient hairline fades in, 350ms.
+
+**Button Dispatch.** Hover: `translateY(-2px)` + glow. Active: `scale(0.98)`. On click, a 1px gradient line briefly draws outward from the button's right edge and fades over 400ms — the message leaving the yard.
+
+**Counter.** `requestAnimationFrame`, 1800ms, eased deceleration, `Intl.NumberFormat` for separators, scale pulse on completion.
+
+### 9.4 3D Perspective Tilt
+
+```javascript
+// Parent: perspective: 1200px
+// Card: transform-style: preserve-3d
+
+function handleTilt(card, e) {
+  const r = card.getBoundingClientRect();
+  const x = (e.clientX - r.left) / r.width  - 0.5;
+  const y = (e.clientY - r.top)  / r.height - 0.5;
+  card.style.transform = `rotateX(${y * -6}deg) rotateY(${x * 6}deg) translateY(-4px)`;
+}
+
+function resetTilt(card) {
+  card.style.transition = 'transform 500ms var(--ease-out)';
+  card.style.transform = 'rotateX(0) rotateY(0) translateY(0)';
+}
+```
+
+Max rotation ±3°. A radial highlight gradient tracks the cursor position across the card surface at 6% opacity, simulating light reflection.
+
+### 9.5 Parallax Depth Planes
+
+```
+PLANE -1  scroll × 0.3   Glow orbs, dot grid
+PLANE  0  scroll × 1.0   All content
+PLANE +1  scroll × 1.08  Nav pill, floating channel tiles, status badges
+```
+
+Implement via GSAP ScrollTrigger with `scrub: 0.6` for smoothing, or CSS `translateZ` within a perspective container.
+
+---
+
+## 10. RESPONSIVE BEHAVIOR
+
+| Breakpoint | Behavior |
+|---|---|
+| **≥1200px** | Full 3D tilt, all parallax, 6 floating tiles, 3×2 and 4-col grids |
+| **768–1199px** | Tilt reduced to ±2°, parallax off, 2 floating tiles only, 2-col grids, console shows one tab |
+| **<768px** | **All 3D disabled.** Fade-up reveals only. Durations −30%. Single column. Nav → hamburger. Hero = text + one centered product screenshot. Orbs reduced to one, opacity 0.12. Glow effects simplified to flat shadows. |
+
+---
+
+## 11. PERFORMANCE BUDGET
+
+**Target: Lighthouse Performance ≥ 90**
+
+```
+✓ Animate only transform, opacity, filter (GPU composited)
+✓ One IntersectionObserver instance for all reveals
+✓ will-change: transform only while element is in/near viewport; removed after
+✓ Blurred orbs are CSS filter on static divs — never re-rendered per frame
+✓ font-display: swap; preload Plus Jakarta Sans 600/700
+✓ All images WebP/AVIF, loading="lazy", decoding="async"
+✓ Hero critical images preloaded; total hero payload < 400KB
+✓ Lenis for smooth scroll (better control than scroll-behavior)
+✓ Backdrop-filter used sparingly — max 3 elements simultaneously
+
+✗ Never animate width, height, margin, padding, top, left, box-shadow directly
+✗ Never stack more than 4 blurred orbs in one viewport
+✗ No WebGL/Three.js in the critical path — defer past LCP if used at all
+```
+
+---
+
+## 12. ACCESSIBILITY
+
+```
+✓ prefers-reduced-motion: reduce → disable all transforms, parallax, counters,
+  shimmer, pulse, float. Render final states immediately.
+✓ Focus-visible: 2px solid var(--blue), 2px offset, on every interactive element
+✓ Contrast (dark theme):
+    #FFFFFF on #070B17      = 18.9:1  ✓ AAA
+    #9BA5BC on #070B17      =  8.1:1  ✓ AAA
+    #5F6B85 on #070B17      =  3.6:1  ✓ AA (large text / captions only)
+✓ Gradient text: always verify the darkest stop (#29BBF0 on dark = 7.2:1 ✓)
+✓ Console tabs: role="tablist", aria-selected, ←/→ keyboard navigation
+✓ Marquees pause on :hover and :focus-within
+✓ All decorative orbs and grid: aria-hidden="true"
+✓ Skip-to-content link as first focusable element
+✓ Status dots always paired with text labels — never color alone
+```
+
+---
+
+## 13. ANTI-PATTERNS
+
+```
+❌ Gradients at any angle other than 135°
+❌ Reversing the gradient (violet → cyan)
+❌ More than one gradient word per heading
+❌ Introducing a color outside the spectrum + semantic set
+   (no green CTAs, no orange accents, no pink)
+❌ Large flat gradient background fills — use blurred orbs instead
+❌ Heavy borders — hairlines only (0.06–0.16 white alpha)
+❌ Placeholder copy — every metric, quote, and payload must be real
+❌ Generic SaaS illustrations, blob people, isometric offices
+❌ 3D transforms on mobile
+❌ Scroll-jacking or mandatory scroll-snap
+❌ Neon/cyberpunk styling — this is precise and premium, not Blade Runner
+❌ Pure black (#000000) backgrounds — always #070B17, which has blue depth
+❌ Animation without communicative purpose
+```
+
+---
+
+## 14. COMPLETE TOKEN EXPORT
 
 ```css
 :root {
-  /* Colors */
-  --color-tangerine-tag: #f69251;
-  --color-midnight-ink: #181825;
-  --color-graphite: #484758;
-  --color-deep-slate: #242433;
-  --color-carbon: #000000;
-  --color-stone: #636363;
-  --color-pebble: #949494;
-  --color-ash: #8b8b8b;
-  --color-fog: #f7f7f7;
-  --color-snow: #ffffff;
-  --color-peach-whisper: #fad7c1;
-  --gradient-peach-whisper: linear-gradient(rgba(255, 219, 184, 0.06) 0%, rgba(255, 255, 255, 0.03) 100%);
-  --color-dusty-rose: #c97b84;
+  /* ── Brand Gradient ────────────────────────────── */
+  --gradient-brand: linear-gradient(135deg, #29BBF0 0%, #3B82F6 50%, #7C64F6 100%);
 
-  /* Typography — Font Families */
-  --font-pp-radio-grotesk-light: 'PP Radio Grotesk Light', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-inter: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-inter-variable: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-inter-display: 'Inter Display', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-sans-serif-system-fallback: 'sans-serif (system fallback)', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  /* ── Spectrum ──────────────────────────────────── */
+  --cyan: #29BBF0;        --cyan-dim: #1E96C4;
+  --blue: #3B82F6;        --blue-dim: #2E6BD4;
+  --violet: #7C64F6;      --violet-dim: #6450D0;
 
-  /* Typography — Scale */
-  --text-caption: 12px;
-  --leading-caption: 1.2;
-  --text-body: 16px;
-  --leading-body: 1.5;
-  --text-subheading: 18px;
-  --leading-subheading: 1.4;
-  --text-heading-sm: 24px;
-  --leading-heading-sm: 1.33;
-  --text-heading: 32px;
-  --leading-heading: 1.3;
-  --tracking-heading: -0.32px;
-  --text-heading-lg: 50px;
-  --leading-heading-lg: 1.2;
-  --tracking-heading-lg: -0.5px;
-  --text-display: 70px;
-  --leading-display: 1.15;
-  --tracking-display: -0.7px;
+  --cyan-a08: rgba(41,187,240,0.08);
+  --cyan-a16: rgba(41,187,240,0.16);
+  --blue-a08: rgba(59,130,246,0.08);
+  --blue-a16: rgba(59,130,246,0.16);
+  --blue-a24: rgba(59,130,246,0.24);
+  --violet-a08: rgba(124,100,246,0.08);
+  --violet-a16: rgba(124,100,246,0.16);
 
-  /* Typography — Weights */
-  --font-weight-regular: 400;
-  --font-weight-medium: 500;
+  /* ── Dark Surfaces ─────────────────────────────── */
+  --bg-void: #070B17;
+  --bg-base: #0A0F1E;
+  --bg-surface: #101728;
+  --bg-elevated: #162034;
+  --bg-overlay: rgba(16,23,40,0.72);
 
-  /* Spacing */
-  --spacing-unit: 4px;
-  --spacing-4: 4px;
-  --spacing-8: 8px;
-  --spacing-12: 12px;
-  --spacing-16: 16px;
-  --spacing-20: 20px;
-  --spacing-24: 24px;
-  --spacing-32: 32px;
-  --spacing-40: 40px;
-  --spacing-48: 48px;
-  --spacing-64: 64px;
-  --spacing-72: 72px;
-  --spacing-80: 80px;
-  --spacing-96: 96px;
-  --spacing-128: 128px;
-  --spacing-160: 160px;
-  --spacing-192: 192px;
+  /* ── Light Surfaces ────────────────────────────── */
+  --bg-void-light: #FFFFFF;
+  --bg-base-light: #F7F9FC;
+  --bg-surface-light: #FFFFFF;
 
-  /* Layout */
-  --page-max-width: 1200px;
-  --section-gap: 80-120px;
-  --card-padding: 24px;
-  --element-gap: 8-16px;
+  /* ── Borders ───────────────────────────────────── */
+  --border-subtle: rgba(255,255,255,0.06);
+  --border-default: rgba(255,255,255,0.10);
+  --border-strong: rgba(255,255,255,0.16);
+  --border-brand: rgba(59,130,246,0.32);
+  --border-subtle-light: rgba(0,0,0,0.06);
 
-  /* Border Radius */
-  --radius-md: 4px;
-  --radius-lg: 8px;
-  --radius-xl: 12px;
-  --radius-2xl: 16px;
-  --radius-2xl-2: 20px;
-  --radius-3xl: 24px;
-  --radius-3xl-2: 28px;
-  --radius-3xl-3: 32px;
-  --radius-full: 48px;
-  --radius-full-2: 100px;
+  /* ── Text ──────────────────────────────────────── */
+  --text-primary: #FFFFFF;
+  --text-secondary: #9BA5BC;
+  --text-tertiary: #5F6B85;
+  --text-disabled: #3A4459;
+  --text-primary-light: #070B17;
+  --text-secondary-light: #4A5568;
+  --text-tertiary-light: #8B96AB;
 
-  /* Named Radii */
-  --radius-cards: 24px;
-  --radius-small: 8px;
-  --radius-badges: 100px;
-  --radius-inputs: 0px;
-  --radius-buttons: 28px;
-  --radius-overlays: 32px;
-  --radius-cardinner: 12px;
+  /* ── Semantic ──────────────────────────────────── */
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --whatsapp: #25D366;
 
-  /* Shadows */
-  --shadow-subtle: rgba(24, 24, 37, 0.12) 0px 2px 3px -2px;
-  --shadow-xl: rgba(247, 247, 247, 0.5) 0px -40px 40px 0px;
-  --shadow-subtle-2: rgba(0, 0, 0, 0.04) 0px 1px 2px 0px, rgba(0, 0, 0, 0.02) 0px 2px 4px 0px, rgba(0, 0, 0, 0.02) 0px 4px 8px 0px;
+  /* ── Glows & Shadows ───────────────────────────── */
+  --glow-cyan: 0 0 40px rgba(41,187,240,0.18);
+  --glow-blue: 0 0 40px rgba(59,130,246,0.20);
+  --glow-violet: 0 0 40px rgba(124,100,246,0.18);
+  --glow-brand: 0 0 32px rgba(59,130,246,0.24), 0 0 64px rgba(124,100,246,0.12);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.32);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.40);
+  --shadow-lg: 0 20px 56px rgba(0,0,0,0.48);
+  --shadow-xl: 0 32px 80px rgba(0,0,0,0.56);
 
-  /* Surfaces */
-  --surface-page-canvas: #f7f7f7;
-  --surface-card-surface: #ffffff;
-  --surface-dark-card: #242433;
+  /* ── Typography ────────────────────────────────── */
+  --font-display: "Plus Jakarta Sans", "Inter", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* ── Radii ─────────────────────────────────────── */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+
+  /* ── Spacing ───────────────────────────────────── */
+  --space-1: 4px;    --space-2: 8px;    --space-3: 12px;
+  --space-4: 16px;   --space-5: 24px;   --space-6: 32px;
+  --space-8: 48px;   --space-10: 64px;  --space-12: 96px;
+  --space-16: 128px;
+
+  --container-max: 1200px;
+  --container-wide: 1360px;
+
+  /* ── Motion ────────────────────────────────────── */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in: cubic-bezier(0.55, 0, 1, 0.45);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.45, 0, 0.55, 1);
+
+  --dur-micro: 150ms;
+  --dur-fast: 250ms;
+  --dur-normal: 350ms;
+  --dur-reveal: 600ms;
+  --dur-hero: 800ms;
 }
 ```
 
-### Tailwind v4
+---
 
-```css
-@theme {
-  /* Colors */
-  --color-tangerine-tag: #f69251;
-  --color-midnight-ink: #181825;
-  --color-graphite: #484758;
-  --color-deep-slate: #242433;
-  --color-carbon: #000000;
-  --color-stone: #636363;
-  --color-pebble: #949494;
-  --color-ash: #8b8b8b;
-  --color-fog: #f7f7f7;
-  --color-snow: #ffffff;
-  --color-peach-whisper: #fad7c1;
-  --color-dusty-rose: #c97b84;
+## 15. IMPLEMENTATION CHECKLIST
 
-  /* Typography */
-  --font-pp-radio-grotesk-light: 'PP Radio Grotesk Light', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-inter: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-inter-variable: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-inter-display: 'Inter Display', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-sans-serif-system-fallback: 'sans-serif (system fallback)', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-
-  /* Typography — Scale */
-  --text-caption: 12px;
-  --leading-caption: 1.2;
-  --text-body: 16px;
-  --leading-body: 1.5;
-  --text-subheading: 18px;
-  --leading-subheading: 1.4;
-  --text-heading-sm: 24px;
-  --leading-heading-sm: 1.33;
-  --text-heading: 32px;
-  --leading-heading: 1.3;
-  --tracking-heading: -0.32px;
-  --text-heading-lg: 50px;
-  --leading-heading-lg: 1.2;
-  --tracking-heading-lg: -0.5px;
-  --text-display: 70px;
-  --leading-display: 1.15;
-  --tracking-display: -0.7px;
-
-  /* Spacing */
-  --spacing-4: 4px;
-  --spacing-8: 8px;
-  --spacing-12: 12px;
-  --spacing-16: 16px;
-  --spacing-20: 20px;
-  --spacing-24: 24px;
-  --spacing-32: 32px;
-  --spacing-40: 40px;
-  --spacing-48: 48px;
-  --spacing-64: 64px;
-  --spacing-72: 72px;
-  --spacing-80: 80px;
-  --spacing-96: 96px;
-  --spacing-128: 128px;
-  --spacing-160: 160px;
-  --spacing-192: 192px;
-
-  /* Border Radius */
-  --radius-md: 4px;
-  --radius-lg: 8px;
-  --radius-xl: 12px;
-  --radius-2xl: 16px;
-  --radius-2xl-2: 20px;
-  --radius-3xl: 24px;
-  --radius-3xl-2: 28px;
-  --radius-3xl-3: 32px;
-  --radius-full: 48px;
-  --radius-full-2: 100px;
-
-  /* Shadows */
-  --shadow-subtle: rgba(24, 24, 37, 0.12) 0px 2px 3px -2px;
-  --shadow-xl: rgba(247, 247, 247, 0.5) 0px -40px 40px 0px;
-  --shadow-subtle-2: rgba(0, 0, 0, 0.04) 0px 1px 2px 0px, rgba(0, 0, 0, 0.02) 0px 2px 4px 0px, rgba(0, 0, 0, 0.02) 0px 4px 8px 0px;
-}
-```
+| # | Item | Section |
+|---|---|---|
+| 1 | Dot-grid background with radial edge mask | Global |
+| 2 | Glow orb system (cyan/blue/violet, blur 120px) | Global |
+| 3 | Floating glass nav pill with smart hide/show | Global |
+| 4 | Gradient-word heading utility (`background-clip: text`) | Global |
+| 5 | Tile component (gradient / outline / glow variants) | Global |
+| 6 | Bubble-frame component with tail | Testimonials |
+| 7 | Card with hover gradient top-hairline | Global |
+| 8 | Gradient-border card via mask technique | Featured/Pricing |
+| 9 | 6 floating channel tiles with parallax + route lines | Hero |
+| 10 | 9-beat hero entrance choreography | Hero |
+| 11 | Studio Console with 3 tabs + scroll flatten | Hero |
+| 12 | Count-up metrics with gradient numbers | Hero, Pricing |
+| 13 | Logo marquee with edge fade + hover pause | Trust |
+| 14 | 6-pillar grid with stepped gradient tiles | Platform |
+| 15 | Dark→light transition bands | Solutions, Contact |
+| 16 | Photo-parallax industry cards | Solutions |
+| 17 | Cursor-tracked 3D perspective tilt | All cards |
+| 18 | Route-pulse SVG line animation | Hero, Journey Builder |
+| 19 | Gradient shimmer on heading reveal | All headings |
+| 20 | Live dispatch counter | Footer |
+| 21 | `prefers-reduced-motion` global override | Global |

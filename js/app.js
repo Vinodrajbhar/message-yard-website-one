@@ -1,306 +1,248 @@
-/* ==========================================================================
-   MessageYard — Dialog UI Interactions & Micro-Animations
-   Strict implementation of design.md with Bidirectional Scroll Reveals
-   ========================================================================== */
+/**
+ * MESSAGE YARD — INTERACTION SYSTEM
+ * Supports DESIGN.md v4.0 Specification
+ * 3D Perspective Tilt · Studio Console · Telemetry · Live Counters
+ */
 
 document.addEventListener('DOMContentLoaded', () => {
-  initScrollReveals();
-  initNavbarScroll();
-  init3DParallax();
-  initBrowserTabs();
-  initInboxShowroom();
-  initWhatsAppEditor();
-  initFaqAccordion();
-  initContactForm();
-});
+  const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
-/* ==========================================================================
-   1. Bidirectional "To and Fro" Scroll Reveal Engine
-   ========================================================================== */
-function initScrollReveals() {
+  /* --------------------------------------------------------------------------
+     1. Unified IntersectionObserver for Scroll Reveals & Animations
+     -------------------------------------------------------------------------- */
   const revealElements = document.querySelectorAll(
-    '.reveal-on-scroll, .reveal-left, .reveal-right, .reveal-scale'
+    '.reveal-fade-up, .reveal-fade-lateral-left, .reveal-fade-lateral-right, .reveal-scale-in, .stagger-group, .metrics-strip'
   );
 
-  if (!('IntersectionObserver' in window)) {
-    revealElements.forEach((el) => el.classList.add('is-visible'));
-    return;
-  }
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
 
-  const revealObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          // Entering the viewport: trigger reveal animation
-          entry.target.classList.add('is-visible');
+        // Trigger number count-ups if within metrics strip
+        if (entry.target.classList.contains('metrics-strip') || entry.target.querySelector('[data-target]')) {
+          initCounters(entry.target);
+        }
+
+        // Trigger shimmer on gradient words inside revealed section
+        const gradientWords = entry.target.querySelectorAll('.gradient-word');
+        gradientWords.forEach(word => word.classList.add('shimmer-active'));
+
+        // Unobserve after entrance if not re-triggerable
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.15,
+    rootMargin: '0px 0px -50px 0px'
+  });
+
+  revealElements.forEach(el => revealObserver.observe(el));
+
+  /* --------------------------------------------------------------------------
+     2. Count-Up Metrics Animation (requestAnimationFrame)
+     -------------------------------------------------------------------------- */
+  function initCounters(container) {
+    const counterEls = container.querySelectorAll('[data-target]');
+    counterEls.forEach(counter => {
+      if (counter.dataset.animated) return;
+      counter.dataset.animated = 'true';
+
+      const target = parseFloat(counter.dataset.target);
+      const suffix = counter.dataset.suffix || '';
+      const duration = 1800; // ms
+      const startTime = performance.now();
+
+      function updateCounter(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Easing: easeOutExpo
+        const easedProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+        const currentVal = Math.floor(easedProgress * target);
+
+        counter.textContent = currentVal.toLocaleString() + suffix;
+
+        if (progress < 1) {
+          requestAnimationFrame(updateCounter);
         } else {
-          // Leaving the viewport (scrolled past or scrolled back up): reset for re-reveal
-          const bounding = entry.boundingClientRect;
-          if (bounding.top > 0 || bounding.bottom < 0) {
-            entry.target.classList.remove('is-visible');
-          }
+          counter.textContent = target.toLocaleString() + suffix;
         }
+      }
+
+      if (!isReducedMotion) {
+        requestAnimationFrame(updateCounter);
+      } else {
+        counter.textContent = target.toLocaleString() + suffix;
+      }
+    });
+  }
+
+  /* --------------------------------------------------------------------------
+     3. Studio Console Tab Switcher
+     -------------------------------------------------------------------------- */
+  const consoleTabs = document.querySelectorAll('.console-tab');
+  const consolePanes = document.querySelectorAll('.console-tab-pane');
+
+  consoleTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const targetId = tab.dataset.tab;
+
+      consoleTabs.forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
       });
-    },
-    {
-      threshold: 0.08,
-      rootMargin: '0px 0px -30px 0px'
-    }
-  );
+      consolePanes.forEach(p => p.classList.remove('active'));
 
-  revealElements.forEach((el) => revealObserver.observe(el));
-}
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
 
-/* ==========================================================================
-   2. Floating Nav Pill Scroll Elevation
-   ========================================================================== */
-function initNavbarScroll() {
-  const navPill = document.getElementById('main-nav-pill');
-  if (!navPill) return;
+      const activePane = document.getElementById(targetId);
+      if (activePane) {
+        activePane.classList.add('active');
+      }
+    });
+  });
 
-  const handleScroll = () => {
-    if (window.scrollY > 30) {
-      navPill.classList.add('is-scrolled');
+  /* --------------------------------------------------------------------------
+     4. Studio Console Scroll-Based 3D Flattening
+     -------------------------------------------------------------------------- */
+  const studioConsole = document.getElementById('studio-console');
+  if (studioConsole && !isTouchDevice && !isReducedMotion) {
+    window.addEventListener('scroll', () => {
+      const rect = studioConsole.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      if (rect.top < windowHeight * 0.75 && rect.bottom > 0) {
+        studioConsole.classList.add('flattened');
+      } else {
+        studioConsole.classList.remove('flattened');
+      }
+    }, { passive: true });
+  }
+
+  /* --------------------------------------------------------------------------
+     5. 3D Perspective Tilt on Interactive Cards (Desktop Only)
+     -------------------------------------------------------------------------- */
+  if (!isTouchDevice && !isReducedMotion && window.innerWidth >= 1200) {
+    const tiltCards = document.querySelectorAll('.tilt-card');
+
+    tiltCards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+        const rotateX = y * -6; // max ±3deg
+        const rotateY = x * 6;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transition = 'transform 500ms cubic-bezier(0.22, 1, 0.36, 1)';
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+        setTimeout(() => {
+          card.style.transition = '';
+        }, 500);
+      });
+    });
+  }
+
+  /* --------------------------------------------------------------------------
+     6. Smart Navigation Hide/Show on Scroll
+     -------------------------------------------------------------------------- */
+  const navContainer = document.getElementById('main-nav-container');
+  let lastScrollY = window.scrollY;
+  let scrollThreshold = 100;
+
+  window.addEventListener('scroll', () => {
+    const currentScrollY = window.scrollY;
+
+    if (currentScrollY > 60) {
+      navContainer.classList.add('nav--scrolled');
     } else {
-      navPill.classList.remove('is-scrolled');
+      navContainer.classList.remove('nav--scrolled');
     }
-  };
 
-  window.addEventListener('scroll', handleScroll, { passive: true });
-  handleScroll();
-}
+    // Hide on scroll down, show on scroll up
+    if (currentScrollY > scrollThreshold && currentScrollY > lastScrollY + 10) {
+      navContainer.classList.add('nav--hidden');
+    } else if (currentScrollY < lastScrollY - 10) {
+      navContainer.classList.remove('nav--hidden');
+    }
 
-/* ==========================================================================
-   3. Browser Frame Tab Switcher with Micro-Transitions
-   ========================================================================== */
-function initBrowserTabs() {
-  const tabBtns = document.querySelectorAll('.browser-tab-btn');
-  const panes = document.querySelectorAll('.studio-pane-layout');
+    lastScrollY = currentScrollY;
+  }, { passive: true });
 
-  tabBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const viewKey = btn.getAttribute('data-view');
-      tabBtns.forEach((b) => b.classList.remove('active'));
-      panes.forEach((p) => p.classList.remove('active'));
+  /* --------------------------------------------------------------------------
+     7. Live Telemetry Latency Ticker (Cycles 12ms -> 11ms -> 13ms -> 12ms)
+     -------------------------------------------------------------------------- */
+  const latencyEl = document.getElementById('telemetry-latency');
+  if (latencyEl) {
+    const latencyValues = ['12ms', '11ms', '13ms', '12ms', '10ms', '12ms'];
+    let latencyIndex = 0;
 
-      btn.classList.add('active');
-      const targetPane = document.getElementById(`view-${viewKey}`);
-      if (targetPane) {
-        targetPane.classList.add('active');
+    setInterval(() => {
+      latencyIndex = (latencyIndex + 1) % latencyValues.length;
+      latencyEl.textContent = latencyValues[latencyIndex];
+    }, 2200);
+  }
+
+  /* --------------------------------------------------------------------------
+     8. Easter Egg: Continuous Live Dispatch Counter (~70 msg/sec)
+     -------------------------------------------------------------------------- */
+  const dispatchCounterEl = document.getElementById('live-dispatch-counter');
+  if (dispatchCounterEl) {
+    let dispatchCount = 4231;
+
+    setInterval(() => {
+      // Add a randomized batch between 3 and 8 messages per tick (~70/sec)
+      const increment = Math.floor(Math.random() * 6) + 3;
+      dispatchCount += increment;
+      dispatchCounterEl.textContent = dispatchCount.toLocaleString();
+    }, 90);
+  }
+
+  /* --------------------------------------------------------------------------
+     9. Pricing Detailed Comparison Table Accordion Toggle
+     -------------------------------------------------------------------------- */
+  const comparisonToggle = document.getElementById('comparison-toggle');
+  const comparisonContent = document.getElementById('comparison-content');
+  const toggleChevron = document.getElementById('toggle-chevron');
+
+  if (comparisonToggle && comparisonContent) {
+    comparisonToggle.addEventListener('click', () => {
+      const isExpanded = comparisonToggle.getAttribute('aria-expanded') === 'true';
+      comparisonToggle.setAttribute('aria-expanded', !isExpanded);
+
+      if (isExpanded) {
+        comparisonContent.style.display = 'none';
+        if (toggleChevron) toggleChevron.style.transform = 'rotate(0deg)';
+      } else {
+        comparisonContent.style.display = 'block';
+        if (toggleChevron) toggleChevron.style.transform = 'rotate(180deg)';
       }
     });
-  });
-}
-
-/* ==========================================================================
-   4. Showroom Inbox Interactive Demo
-   ========================================================================== */
-const showroomThreads = {
-  1: {
-    name: 'Sophia Laurent',
-    location: 'Paris, France • VIP Customer',
-    org: 'Luxe Boutique Paris',
-    spend: '€2,450.00',
-    avatar: 'assets/images/avatar-claire.jpg',
-    messages: [
-      { type: 'in', text: 'Bonjour! Could you confirm if the Summer Silk Trench is in stock in Paris?' },
-      { type: 'out', text: 'Hello Sophia! Yes, we have 2 pieces reserved in store for you. Would you like a direct checkout link?' },
-      { type: 'in', text: 'Yes please, send the payment link via WhatsApp!' }
-    ]
-  },
-  2: {
-    name: 'David Miller',
-    location: 'San Francisco, USA • Enterprise Lead',
-    org: 'Miller Dev & Cloud',
-    spend: '$14,200.00',
-    avatar: 'assets/images/avatar-tobias.jpg',
-    messages: [
-      { type: 'in', text: 'Hi! We need Postgres trigger webhooks configured for our team trial.' },
-      { type: 'out', text: 'Hey David! Your Postgres real-time telemetry pipeline is now active in workspace settings.' },
-      { type: 'in', text: 'Stripe webhook question: can we pass custom metadata tags?' }
-    ]
-  },
-  3: {
-    name: 'Marcus Vance',
-    location: 'London, UK • Logistics Partner',
-    org: 'Vance Fleet Logistics',
-    spend: '$4,150.00',
-    avatar: 'assets/images/avatar-rajesh.jpg',
-    messages: [
-      { type: 'in', text: 'Order #MY-9821 dispatch received. SMS tracking delivered instantly.' },
-      { type: 'out', text: 'Great to hear Marcus! Let us know if you need automated customs clearance notifications configured.' }
-    ]
-  }
-};
-
-let activeThreadId = '1';
-
-function initInboxShowroom() {
-  const cards = document.querySelectorAll('.showroom-thread-card');
-  const chatStream = document.getElementById('chat-stream-box');
-  const inputElem = document.getElementById('showroom-input');
-  const sendBtn = document.getElementById('showroom-send-btn');
-
-  const avatarElem = document.getElementById('active-avatar');
-  const nameElem = document.getElementById('active-name');
-  const orgElem = document.getElementById('crm-org');
-  const valElem = document.getElementById('crm-val');
-
-  function renderThread() {
-    const thread = showroomThreads[activeThreadId];
-    if (!thread) return;
-
-    if (avatarElem) avatarElem.src = thread.avatar;
-    if (nameElem) nameElem.textContent = thread.name;
-    if (orgElem) orgElem.textContent = thread.org;
-    if (valElem) valElem.textContent = thread.spend;
-
-    if (chatStream) {
-      chatStream.innerHTML = '';
-      thread.messages.forEach((msg) => {
-        const bubble = document.createElement('div');
-        bubble.className = `s-bubble ${msg.type}`;
-        bubble.textContent = msg.text;
-        chatStream.appendChild(bubble);
-      });
-      chatStream.scrollTop = chatStream.scrollHeight;
-    }
   }
 
-  cards.forEach((card) => {
-    card.addEventListener('click', () => {
-      cards.forEach((c) => c.classList.remove('active'));
-      card.classList.add('active');
-      activeThreadId = card.getAttribute('data-id');
-      renderThread();
-    });
-  });
-
-  function handleSend() {
-    if (!inputElem || !inputElem.value.trim()) return;
-    const text = inputElem.value.trim();
-
-    if (showroomThreads[activeThreadId]) {
-      showroomThreads[activeThreadId].messages.push({ type: 'out', text: text });
-    }
-
-    renderThread();
-    inputElem.value = '';
-  }
-
-  if (sendBtn) sendBtn.addEventListener('click', handleSend);
-  if (inputElem) {
-    inputElem.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') handleSend();
-    });
-  }
-
-  renderThread();
-}
-
-/* ==========================================================================
-   5. WhatsApp Studio Live Two-Way Editor
-   ========================================================================== */
-function initWhatsAppEditor() {
-  const titleIn = document.getElementById('wa-title-in');
-  const bodyIn = document.getElementById('wa-body-in');
-  const titleOut = document.getElementById('wa-title-out');
-  const bodyOut = document.getElementById('wa-body-out');
-
-  if (titleIn && titleOut) {
-    titleIn.addEventListener('input', (e) => {
-      titleOut.textContent = e.target.value || 'VIP PRIVATE SALE';
-    });
-  }
-
-  if (bodyIn && bodyOut) {
-    bodyIn.addEventListener('input', (e) => {
-      bodyOut.textContent = e.target.value || 'Hello, your private shopping code is ready.';
-    });
-  }
-}
-
-/* ==========================================================================
-   6. FAQ Showroom Accordion with Spring Transition
-   ========================================================================== */
-function initFaqAccordion() {
-  const cards = document.querySelectorAll('.faq-showroom-card');
-  cards.forEach((card) => {
-    const q = card.querySelector('.faq-showroom-q');
-    if (q) {
-      q.addEventListener('click', () => {
-        const isOpen = card.classList.contains('open');
-        cards.forEach((c) => c.classList.remove('open'));
-        if (!isOpen) card.classList.add('open');
-      });
-    }
-  });
-}
-
-/* ==========================================================================
-   7. Interactive Contact Form
-   ========================================================================== */
-function initContactForm() {
-  const form = document.getElementById('contact-form-element');
-  const successMsg = document.getElementById('contact-success-msg');
-
-  if (form && successMsg) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const submitBtn = form.querySelector('button[type="submit"]');
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending...';
+  /* --------------------------------------------------------------------------
+     10. Floating Back-to-Top Button
+     -------------------------------------------------------------------------- */
+  const backToTopBtn = document.getElementById('back-to-top-btn');
+  if (backToTopBtn) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 600) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
       }
+    }, { passive: true });
 
-      setTimeout(() => {
-        if (submitBtn) {
-          submitBtn.textContent = 'Message Sent ✓';
-          submitBtn.style.background = '#059669';
-          submitBtn.style.color = '#FFFFFF';
-        }
-        successMsg.style.display = 'block';
-        form.reset();
-      }, 600);
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     });
   }
-}
-
-/* ==========================================================================
-   8. 3D Parallax Mouse Physics Engine
-   ========================================================================== */
-function init3DParallax() {
-  const stage = document.getElementById('hero-3d-stage');
-  const scene = document.getElementById('hero-3d-scene');
-  if (!stage || !scene) return;
-
-  let mouseX = 0, mouseY = 0;
-  let currentX = 0, currentY = 0;
-
-  stage.addEventListener('mousemove', (e) => {
-    const rect = stage.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    mouseX = x;
-    mouseY = y;
-  });
-
-  stage.addEventListener('mouseleave', () => {
-    mouseX = 0;
-    mouseY = 0;
-  });
-
-  function animate() {
-    currentX += (mouseX - currentX) * 0.08;
-    currentY += (mouseY - currentY) * 0.08;
-
-    const rotX = 14 - currentY * 24;
-    const rotY = -16 + currentX * 30;
-    const rotZ = 2 - currentX * 3;
-
-    scene.style.transform = `rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) rotateZ(${rotZ.toFixed(2)}deg)`;
-    requestAnimationFrame(animate);
-  }
-
-  animate();
-}
+});
