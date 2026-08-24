@@ -95,15 +95,31 @@
 
         <a href="#contact" class="btn btn-ghost btn-sm">Book a demo</a>
         <a href="#pricing" class="btn btn-primary btn-sm">Start free trial</a>
-        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+          <svg class="hamburger-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line class="line-top" x1="4" y1="7" x2="20" y2="7"></line>
+            <line class="line-mid" x1="4" y1="12" x2="20" y2="12"></line>
+            <line class="line-bot" x1="4" y1="17" x2="20" y2="17"></line>
           </svg>
         </button>
       </div>
     </header>
+
+    <!-- Mobile Dropdown Navigation Drawer -->
+    <div class="mobile-nav-drawer" id="mobile-nav-drawer" aria-hidden="true">
+      <nav class="mobile-nav-menu" aria-label="Mobile Navigation">
+        <a href="#platform" class="mobile-nav-link">Platform</a>
+        <a href="#why-messageyard" class="mobile-nav-link">Why MessageYard</a>
+        <a href="#solutions" class="mobile-nav-link">Solutions</a>
+        <a href="#pricing" class="mobile-nav-link">Pricing</a>
+        <a href="#company" class="mobile-nav-link">Company</a>
+        <a href="#contact" class="mobile-nav-link">Contact</a>
+      </nav>
+      <div class="mobile-nav-actions">
+        <a href="#contact" class="btn btn-secondary mobile-btn">Book a demo</a>
+        <a href="#pricing" class="btn btn-primary mobile-btn">Start free trial</a>
+      </div>
+    </div>
   </div>
 
   <main id="main-content">

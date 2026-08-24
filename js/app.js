@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (entry.isIntersecting) {
         entry.target.classList.add('revealed');
 
-        // Trigger number count-ups if within metrics strip
+        // Trigger number count-ups if within metrics strip or contains data-target
         if (entry.target.classList.contains('metrics-strip') || entry.target.querySelector('[data-target]')) {
           initCounters(entry.target);
         }
@@ -29,16 +29,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const gradientWords = entry.target.querySelectorAll('.gradient-word');
         gradientWords.forEach(word => word.classList.add('shimmer-active'));
 
-        // Unobserve after entrance if not re-triggerable
+        // Unobserve after entrance
         observer.unobserve(entry.target);
       }
     });
   }, {
-    threshold: 0.15,
-    rootMargin: '0px 0px -50px 0px'
+    threshold: 0.05,
+    rootMargin: '0px 0px -30px 0px'
   });
 
   revealElements.forEach(el => revealObserver.observe(el));
+
+  // Immediate check for elements already in viewport on page load
+  setTimeout(() => {
+    revealElements.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        el.classList.add('revealed');
+        if (el.classList.contains('metrics-strip') || el.querySelector('[data-target]')) {
+          initCounters(el);
+        }
+      }
+    });
+  }, 100);
 
   /* --------------------------------------------------------------------------
      2. Count-Up Metrics Animation (requestAnimationFrame)
@@ -232,6 +245,49 @@ document.addEventListener('DOMContentLoaded', () => {
         top: 0,
         behavior: 'smooth'
       });
+    });
+  }
+
+  /* --------------------------------------------------------------------------
+     10b. Mobile Navigation Drawer Controller
+     -------------------------------------------------------------------------- */
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileNavDrawer = document.getElementById('mobile-nav-drawer');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link, .mobile-btn');
+
+  function toggleMobileMenu(open) {
+    if (!mobileNavDrawer || !mobileMenuBtn) return;
+    const shouldOpen = open !== undefined ? open : !mobileNavDrawer.classList.contains('open');
+    mobileNavDrawer.classList.toggle('open', shouldOpen);
+    mobileNavDrawer.setAttribute('aria-hidden', !shouldOpen);
+    mobileMenuBtn.classList.toggle('active', shouldOpen);
+    mobileMenuBtn.setAttribute('aria-expanded', shouldOpen);
+  }
+
+  if (mobileMenuBtn && mobileNavDrawer) {
+    mobileMenuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMobileMenu();
+    });
+
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        toggleMobileMenu(false);
+      });
+    });
+
+    // Close when clicking outside drawer
+    document.addEventListener('click', (e) => {
+      if (mobileNavDrawer.classList.contains('open') && !navContainer.contains(e.target)) {
+        toggleMobileMenu(false);
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileNavDrawer.classList.contains('open')) {
+        toggleMobileMenu(false);
+      }
     });
   }
 
