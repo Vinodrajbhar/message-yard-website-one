@@ -240,13 +240,55 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }, { passive: true });
 
-    backToTopBtn.addEventListener('click', () => {
+    backToTopBtn.addEventListener('click', (e) => {
+      e.preventDefault();
       window.scrollTo({
         top: 0,
         behavior: 'smooth'
       });
     });
   }
+
+  /* --------------------------------------------------------------------------
+     10c. Clean URL Navigation (No Hash in Address Bar)
+     -------------------------------------------------------------------------- */
+  // Remove existing hash from address bar on initial load
+  if (window.location.hash) {
+    history.replaceState(null, '', window.location.pathname + window.location.search);
+  }
+
+  // Intercept all anchor clicks to prevent hash in URL
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const hash = this.getAttribute('href');
+      if (!hash || hash === '#') {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
+      try {
+        const targetEl = document.querySelector(hash);
+        if (targetEl) {
+          e.preventDefault();
+
+          const navOffset = 70;
+          const elementPosition = targetEl.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+
+          window.scrollTo({
+            top: Math.max(0, offsetPosition),
+            behavior: 'smooth'
+          });
+
+          // Ensure address bar remains clean without hash
+          if (window.location.hash) {
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+          }
+        }
+      } catch (err) {}
+    });
+  });
 
   /* --------------------------------------------------------------------------
      10b. Mobile Navigation Drawer Controller
