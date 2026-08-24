@@ -162,6 +162,30 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* --------------------------------------------------------------------------
+     5b. 21st.dev Spotlight Card Effect (Mouse-Tracking Radial Light)
+     -------------------------------------------------------------------------- */
+  const spotlightTargets = document.querySelectorAll(
+    '.card, .pillar-card, .pricing-card, .testimonial-card, .industry-card, .product-split-card'
+  );
+
+  spotlightTargets.forEach(card => {
+    if (!card.querySelector('.spotlight-overlay')) {
+      const overlay = document.createElement('div');
+      overlay.className = 'spotlight-overlay';
+      overlay.setAttribute('aria-hidden', 'true');
+      card.appendChild(overlay);
+    }
+
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+    });
+  });
+
+  /* --------------------------------------------------------------------------
      6. Navigation Elevation on Scroll (Permanently Fixed)
      -------------------------------------------------------------------------- */
   const navContainer = document.getElementById('main-nav-container');
@@ -448,4 +472,35 @@ document.addEventListener('DOMContentLoaded', () => {
   updateHeroRoutes();
   window.addEventListener('resize', updateHeroRoutes, { passive: true });
   window.addEventListener('load', updateHeroRoutes, { passive: true });
+
+  /* --------------------------------------------------------------------------
+     13. 21st.dev Pricing Interval Switcher Controller
+     -------------------------------------------------------------------------- */
+  const switcherBtns = document.querySelectorAll('.switcher-btn');
+  const priceElements = document.querySelectorAll('.price-val');
+
+  switcherBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const interval = btn.dataset.interval;
+      switcherBtns.forEach(b => {
+        const isActive = b === btn;
+        b.classList.toggle('active', isActive);
+        b.setAttribute('aria-checked', isActive);
+      });
+
+      priceElements.forEach(priceEl => {
+        const newVal = priceEl.dataset[interval];
+        if (newVal) {
+          priceEl.style.opacity = '0';
+          priceEl.style.transform = 'translateY(-6px)';
+          setTimeout(() => {
+            priceEl.textContent = newVal;
+            priceEl.style.transition = 'opacity 200ms ease, transform 200ms ease';
+            priceEl.style.opacity = '1';
+            priceEl.style.transform = 'translateY(0)';
+          }, 150);
+        }
+      });
+    });
+  });
 });

@@ -128,9 +128,13 @@
          1. HERO SECTION
          ========================================================================== -->
     <section class="section section-hero">
-      <!-- Atmospheric Glow Orbs -->
-      <div class="glow-orb orb--cyan" style="top: -10%; left: -10%;" aria-hidden="true"></div>
-      <div class="glow-orb orb--violet" style="bottom: 0%; right: -10%;" aria-hidden="true"></div>
+      <!-- Atmospheric Aurora Mesh Glow (21st.dev inspired) -->
+      <div class="aurora-glow-container" aria-hidden="true">
+        <div class="aurora-mesh aurora-mesh--cyan"></div>
+        <div class="aurora-mesh aurora-mesh--violet"></div>
+        <div class="aurora-mesh aurora-mesh--blue"></div>
+        <div class="aurora-beam"></div>
+      </div>
 
       <!-- 6 Floating Channel Tiles & SVG Connectors (Logo's 3x2 Grid in 3D Space) -->
       <div class="hero-tiles-canvas" aria-hidden="true">
@@ -204,11 +208,14 @@
       <div class="container">
         <!-- Hero Copy Content -->
         <div class="hero-content">
-          <div class="hero-eyebrow">
-            <span class="badge badge--active">
-              <span class="badge-dot"></span>
-              MARKETING CLOUD + CPaaS
+          <!-- 21st.dev Glowing Eyebrow Badge -->
+          <div class="hero-eyebrow-pill reveal-fade-up">
+            <span class="eyebrow-beacon">
+              <span class="beacon-ping"></span>
+              <span class="beacon-core"></span>
             </span>
+            <span class="eyebrow-text">MessageYard 4.0 · Infrastructure-Backed Marketing Cloud</span>
+            <span class="eyebrow-badge">Live</span>
           </div>
 
           <h1 class="h1-hero hero-title">
@@ -938,12 +945,25 @@
           <p class="body-large">Scale with predictable message volume and zero hidden platform markups.</p>
         </div>
 
+        <!-- 21st.dev Interactive Billing Interval Switcher -->
+        <div class="pricing-switcher-wrapper reveal-fade-up">
+          <div class="pricing-switcher" role="radiogroup" aria-label="Billing frequency">
+            <button class="switcher-btn active" id="billing-monthly" role="radio" aria-checked="true" data-interval="monthly">
+              Monthly billing
+            </button>
+            <button class="switcher-btn" id="billing-annual" role="radio" aria-checked="false" data-interval="annual">
+              Annual billing
+              <span class="discount-badge">Save 20%</span>
+            </button>
+          </div>
+        </div>
+
         <div class="pricing-grid">
           <!-- Tier 1: Starter -->
           <div class="pricing-card tilt-card reveal-fade-lateral-left">
             <h3 class="pricing-title">Starter</h3>
             <p class="caption-text">For early-stage products and testing.</p>
-            <div class="pricing-amount">Pay as you go</div>
+            <div class="pricing-amount"><span class="price-val" data-monthly="$99" data-annual="$79">$99</span> <span class="price-period">/ mo</span></div>
 
             <div class="pricing-features-list">
               <div class="pricing-feature-item">
@@ -972,7 +992,7 @@
             <div class="popular-chip">MOST POPULAR</div>
             <h3 class="pricing-title">Growth</h3>
             <p class="caption-text">For scaling brands requiring multi-channel power.</p>
-            <div class="pricing-amount">$499 <span>/ mo</span></div>
+            <div class="pricing-amount"><span class="price-val" data-monthly="$499" data-annual="$399">$499</span> <span class="price-period">/ mo</span></div>
 
             <div class="pricing-features-list">
               <div class="pricing-feature-item">
