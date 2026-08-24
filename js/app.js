@@ -139,40 +139,29 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       card.addEventListener('mouseleave', () => {
-        card.style.transition = 'transform 500ms cubic-bezier(0.22, 1, 0.36, 1)';
+        card.style.transition = 'transform 250ms cubic-bezier(0.16, 1, 0.3, 1)';
         card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
         setTimeout(() => {
           card.style.transition = '';
-        }, 500);
+        }, 250);
       });
     });
   }
 
   /* --------------------------------------------------------------------------
-     6. Smart Navigation Hide/Show on Scroll
+     6. Navigation Elevation on Scroll (Permanently Fixed)
      -------------------------------------------------------------------------- */
   const navContainer = document.getElementById('main-nav-container');
-  let lastScrollY = window.scrollY;
-  let scrollThreshold = 100;
 
-  window.addEventListener('scroll', () => {
-    const currentScrollY = window.scrollY;
-
-    if (currentScrollY > 60) {
-      navContainer.classList.add('nav--scrolled');
-    } else {
-      navContainer.classList.remove('nav--scrolled');
-    }
-
-    // Hide on scroll down, show on scroll up
-    if (currentScrollY > scrollThreshold && currentScrollY > lastScrollY + 10) {
-      navContainer.classList.add('nav--hidden');
-    } else if (currentScrollY < lastScrollY - 10) {
-      navContainer.classList.remove('nav--hidden');
-    }
-
-    lastScrollY = currentScrollY;
-  }, { passive: true });
+  if (navContainer) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 40) {
+        navContainer.classList.add('nav--scrolled');
+      } else {
+        navContainer.classList.remove('nav--scrolled');
+      }
+    }, { passive: true });
+  }
 
   /* --------------------------------------------------------------------------
      7. Live Telemetry Latency Ticker (Cycles 12ms -> 11ms -> 13ms -> 12ms)
@@ -245,4 +234,120 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  /* --------------------------------------------------------------------------
+     11. Light / Dark Theme Toggle Controller
+     -------------------------------------------------------------------------- */
+  const themeToggleBtn = document.getElementById('theme-toggle-btn');
+
+  function getCurrentTheme() {
+    return document.documentElement.getAttribute('data-theme') || 'light';
+  }
+
+  function applyTheme(theme, savePreference = true) {
+    const isLight = theme === 'light';
+    document.documentElement.setAttribute('data-theme', isLight ? 'light' : 'dark');
+
+    if (themeToggleBtn) {
+      const nextThemeLabel = isLight ? 'Switch to dark theme' : 'Switch to light theme';
+      themeToggleBtn.setAttribute('aria-label', nextThemeLabel);
+      themeToggleBtn.setAttribute('title', nextThemeLabel);
+    }
+
+    if (savePreference) {
+      try {
+        localStorage.setItem('messageyard-theme', theme);
+      } catch (e) {
+        console.warn('Unable to persist theme preference in localStorage:', e);
+      }
+    }
+  }
+
+  // Initialize theme button states on load
+  const initialTheme = getCurrentTheme();
+  applyTheme(initialTheme, false);
+
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+      const current = getCurrentTheme();
+      const nextTheme = current === 'dark' ? 'light' : 'dark';
+      applyTheme(nextTheme, true);
+    });
+  }
+
+  // Listen for storage events across other tabs
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'messageyard-theme' && (e.newValue === 'light' || e.newValue === 'dark')) {
+      applyTheme(e.newValue, false);
+    }
+  });
+
+  // Listen to OS system color scheme changes if user hasn't explicitly set a preference
+  const colorSchemeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  colorSchemeMediaQuery.addEventListener('change', (e) => {
+    try {
+      const hasStored = localStorage.getItem('messageyard-theme');
+      if (!hasStored) {
+        applyTheme(e.matches ? 'dark' : 'light', false);
+      }
+    } catch (err) {}
+  });
+
+  /* --------------------------------------------------------------------------
+     12. Hero Channel Connectors Dynamic Anchor Alignment
+     -------------------------------------------------------------------------- */
+  function updateHeroRoutes() {
+    const canvas = document.querySelector('.hero-tiles-canvas');
+    const svg = document.querySelector('.hero-svg-routes');
+    const heroContent = document.querySelector('.hero-content');
+    if (!canvas || !svg || !heroContent) return;
+
+    const canvasRect = canvas.getBoundingClientRect();
+    const width = canvasRect.width;
+    const height = canvasRect.height;
+    if (width === 0 || height === 0) return;
+
+    svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+
+    const contentRect = heroContent.getBoundingClientRect();
+    const targetX = (contentRect.left - canvasRect.left) + contentRect.width / 2;
+    const targetY = (contentRect.top - canvasRect.top) + contentRect.height * 0.42;
+
+    const tileConfigs = [
+      { tile: document.querySelector('.hero-tile-1'), routeId: 'hero-route-1', pulseId: 'hero-pulse-1' },
+      { tile: document.querySelector('.hero-tile-2'), routeId: 'hero-route-2', pulseId: 'hero-pulse-2' },
+      { tile: document.querySelector('.hero-tile-3'), routeId: 'hero-route-3', pulseId: 'hero-pulse-3' },
+      { tile: document.querySelector('.hero-tile-4'), routeId: 'hero-route-4', pulseId: 'hero-pulse-4' },
+      { tile: document.querySelector('.hero-tile-5'), routeId: 'hero-route-5', pulseId: null },
+      { tile: document.querySelector('.hero-tile-6'), routeId: 'hero-route-6', pulseId: null },
+    ];
+
+    tileConfigs.forEach(({ tile, routeId, pulseId }) => {
+      if (!tile) return;
+      const tileRect = tile.getBoundingClientRect();
+      // Center coordinates of the tile card
+      const startX = (tileRect.left - canvasRect.left) + tileRect.width / 2;
+      const startY = (tileRect.top - canvasRect.top) + tileRect.height / 2;
+
+      const dx = targetX - startX;
+      const cp1x = startX + dx * 0.45;
+      const cp1y = startY;
+      const cp2x = startX + dx * 0.75;
+      const cp2y = targetY;
+
+      const pathD = `M ${startX.toFixed(1)} ${startY.toFixed(1)} C ${cp1x.toFixed(1)} ${cp1y.toFixed(1)}, ${cp2x.toFixed(1)} ${cp2y.toFixed(1)}, ${targetX.toFixed(1)} ${targetY.toFixed(1)}`;
+
+      const routeEl = document.getElementById(routeId);
+      if (routeEl) routeEl.setAttribute('d', pathD);
+
+      if (pulseId) {
+        const pulseEl = document.getElementById(pulseId);
+        if (pulseEl) pulseEl.setAttribute('d', pathD);
+      }
+    });
+  }
+
+  updateHeroRoutes();
+  window.addEventListener('resize', updateHeroRoutes, { passive: true });
+  window.addEventListener('load', updateHeroRoutes, { passive: true });
 });

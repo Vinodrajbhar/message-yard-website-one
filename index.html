@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +13,22 @@
 
   <link rel="icon" type="image/png" href="assets/messageyard-icon.png">
   <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Immediate Theme Detector (Prevents FOUC, Default: Light) -->
+  <script>
+    (function() {
+      try {
+        var savedTheme = localStorage.getItem('messageyard-theme');
+        if (savedTheme === 'light' || savedTheme === 'dark') {
+          document.documentElement.setAttribute('data-theme', savedTheme);
+        } else {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
 </head>
 <body>
 
@@ -53,6 +69,30 @@
       </nav>
 
       <div class="nav-actions">
+        <!-- Light / Dark Theme Toggle Button -->
+        <button class="theme-toggle-btn" id="theme-toggle-btn" type="button" aria-label="Switch to light theme" title="Toggle Light/Dark Theme">
+          <!-- Sun Icon (shown when light theme is active) -->
+          <span class="theme-toggle-icon theme-toggle-icon--sun" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </span>
+          <!-- Moon Icon (shown when dark theme is active) -->
+          <span class="theme-toggle-icon theme-toggle-icon--moon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </span>
+        </button>
+
         <a href="#contact" class="btn btn-ghost btn-sm">Book a demo</a>
         <a href="#pricing" class="btn btn-primary btn-sm">Start free trial</a>
         <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
@@ -80,18 +120,18 @@
       <div class="hero-tiles-canvas" aria-hidden="true">
         <svg class="hero-svg-routes" viewBox="0 0 1440 900" preserveAspectRatio="none">
           <!-- Background connector routes -->
-          <path d="M 120 200 C 400 200, 500 350, 720 350" class="route-path" />
-          <path d="M 1320 180 C 1040 180, 940 350, 720 350" class="route-path" />
-          <path d="M 180 500 C 450 500, 550 380, 720 380" class="route-path" />
-          <path d="M 1360 460 C 1050 460, 920 380, 720 380" class="route-path" />
-          <path d="M 100 750 C 420 750, 560 410, 720 410" class="route-path" />
-          <path d="M 1260 750 C 980 750, 880 410, 720 410" class="route-path" />
+          <path id="hero-route-1" d="M 120 200 C 400 200, 500 350, 720 350" class="route-path" />
+          <path id="hero-route-2" d="M 1320 180 C 1040 180, 940 350, 720 350" class="route-path" />
+          <path id="hero-route-3" d="M 180 500 C 450 500, 550 380, 720 380" class="route-path" />
+          <path id="hero-route-4" d="M 1360 460 C 1050 460, 920 380, 720 380" class="route-path" />
+          <path id="hero-route-5" d="M 100 750 C 420 750, 560 410, 720 410" class="route-path" />
+          <path id="hero-route-6" d="M 1260 750 C 980 750, 880 410, 720 410" class="route-path" />
 
           <!-- Dynamic pulse segments -->
-          <path d="M 120 200 C 400 200, 500 350, 720 350" class="route-line-pulse" />
-          <path d="M 1320 180 C 1040 180, 940 350, 720 350" class="route-line-pulse" style="animation-delay: 1.2s;" />
-          <path d="M 180 500 C 450 500, 550 380, 720 380" class="route-line-pulse" style="animation-delay: 2.1s;" />
-          <path d="M 1360 460 C 1050 460, 920 380, 720 380" class="route-line-pulse" style="animation-delay: 0.8s;" />
+          <path id="hero-pulse-1" d="M 120 200 C 400 200, 500 350, 720 350" class="route-line-pulse" />
+          <path id="hero-pulse-2" d="M 1320 180 C 1040 180, 940 350, 720 350" class="route-line-pulse" style="animation-delay: 1.2s;" />
+          <path id="hero-pulse-3" d="M 180 500 C 450 500, 550 380, 720 380" class="route-line-pulse" style="animation-delay: 2.1s;" />
+          <path id="hero-pulse-4" d="M 1360 460 C 1050 460, 920 380, 720 380" class="route-line-pulse" style="animation-delay: 0.8s;" />
         </svg>
 
         <!-- [1] SMS (Active) -->
@@ -717,18 +757,15 @@
       </div>
     </section>
 
-    <!-- 80px Transition Band: Dark Base -> Light Base -->
-    <div class="transition-band-dark-to-light" aria-hidden="true"></div>
-
     <!-- ==========================================================================
-         6. INDUSTRY SOLUTIONS (LIGHT MODE NARRATIVE INVERSION)
+         6. INDUSTRY SOLUTIONS
          ========================================================================== -->
-    <section class="section section--light" id="solutions">
+    <section class="section section--base" id="solutions">
       <div class="container">
         <div class="section-header-center reveal-fade-up">
-          <div class="section-eyebrow">Tailored Solutions</div>
+          <div class="section-eyebrow"><span class="eyebrow-dot"></span> Tailored Solutions</div>
           <h2 class="section-heading">Built for <span class="gradient-word">your industry.</span></h2>
-          <p class="section-subhead">Designed for the unique compliance, volume, and customer journey needs of high-growth verticals.</p>
+          <p class="body-large">Designed for the unique compliance, volume, and customer journey needs of high-growth verticals.</p>
         </div>
 
         <div class="industry-solutions-grid stagger-group">
@@ -786,17 +823,17 @@
     <!-- ==========================================================================
          7. CUSTOMER PROOF (BUBBLE-FRAME TESTIMONIALS & TRUST BADGES)
          ========================================================================== -->
-    <section class="section section--light" style="padding-top: 0;" id="testimonials">
+    <section class="section section--dark" id="testimonials">
       <div class="container">
         <div class="section-header-center reveal-fade-up">
-          <div class="section-eyebrow">Customer Stories</div>
+          <div class="section-eyebrow"><span class="eyebrow-dot"></span> Customer Stories</div>
           <h2 class="section-heading">Trusted by <span class="gradient-word">teams that ship.</span></h2>
-          <p class="section-subhead">See why fast-scaling leaders switched from legacy providers to MessageYard.</p>
+          <p class="body-large">See why fast-scaling leaders switched from legacy providers to MessageYard.</p>
         </div>
 
         <div class="customer-proof-grid stagger-group">
           <!-- Card 1 -->
-          <div class="bubble-frame bubble-frame--light bubble-frame--tail testimonial-card tilt-card">
+          <div class="bubble-frame bubble-frame--tail testimonial-card tilt-card">
             <div class="testimonial-quote">
               "Switching our journey orchestration to MessageYard cut our vendor bills by 42% while simultaneously dropping our WhatsApp dispatch latency to sub-second speeds."
             </div>
@@ -812,7 +849,7 @@
           </div>
 
           <!-- Card 2 -->
-          <div class="bubble-frame bubble-frame--light bubble-frame--tail testimonial-card tilt-card">
+          <div class="bubble-frame bubble-frame--tail testimonial-card tilt-card">
             <div class="testimonial-quote">
               "We run Black Friday flash campaigns across 8 countries simultaneously. MessageYard didn't drop a single packet across 30 million messages in 4 hours."
             </div>
@@ -828,7 +865,7 @@
           </div>
 
           <!-- Card 3 -->
-          <div class="bubble-frame bubble-frame--light bubble-frame--tail testimonial-card tilt-card">
+          <div class="bubble-frame bubble-frame--tail testimonial-card tilt-card">
             <div class="testimonial-quote">
               "Our engineering team loves the clean REST APIs, and our growth team loves the no-code visual canvas. It's the first time both departments share one tool."
             </div>
@@ -875,14 +912,14 @@
     </section>
 
     <!-- ==========================================================================
-         8. PRICING SECTION (LIGHT MODE CONTINUED)
+         8. PRICING SECTION
          ========================================================================== -->
-    <section class="section section--light" id="pricing" style="padding-top: 0;">
+    <section class="section section--base" id="pricing">
       <div class="container">
         <div class="section-header-center reveal-fade-up">
-          <div class="section-eyebrow">Pricing Plans</div>
+          <div class="section-eyebrow"><span class="eyebrow-dot"></span> Pricing Plans</div>
           <h2 class="section-heading">Simple, <span class="gradient-word">transparent</span> pricing.</h2>
-          <p class="section-subhead">Scale with predictable message volume and zero hidden platform markups.</p>
+          <p class="body-large">Scale with predictable message volume and zero hidden platform markups.</p>
         </div>
 
         <div class="pricing-grid">
@@ -911,7 +948,7 @@
               </div>
             </div>
 
-            <a href="#contact" class="btn btn-secondary" style="width:100%; color:var(--text-primary-light); border-color:var(--border-default-light);">Get Started</a>
+            <a href="#contact" class="btn btn-secondary" style="width:100%;">Get Started</a>
           </div>
 
           <!-- Tier 2: Growth (FEATURED & ELEVATED) -->
@@ -968,7 +1005,7 @@
               </div>
             </div>
 
-            <a href="#contact" class="btn btn-secondary" style="width:100%; color:var(--text-primary-light); border-color:var(--border-default-light);">Contact Enterprise</a>
+            <a href="#contact" class="btn btn-secondary" style="width:100%;">Contact Enterprise</a>
           </div>
         </div>
 
@@ -1026,9 +1063,6 @@
         </div>
       </div>
     </section>
-
-    <!-- 80px Transition Band: Light Base -> Dark Void -->
-    <div class="transition-band-light-to-dark" aria-hidden="true"></div>
 
     <!-- ==========================================================================
          9. CONTACT & LEADERSHIP (RETURN TO THE YARD AT NIGHT)
