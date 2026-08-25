@@ -1,5 +1,3 @@
-providers = ["static"]
-
 [phases.setup]
 nixPkgs = ["caddy"]
 
