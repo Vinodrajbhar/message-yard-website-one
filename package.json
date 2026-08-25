@@ -1,0 +1,27 @@
+{
+  "name": "my2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node scripts/build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vinodrajbhar/message-yard-website-one.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Vinodrajbhar/message-yard-website-one/issues"
+  },
+  "homepage": "https://github.com/Vinodrajbhar/message-yard-website-one#readme",
+  "devDependencies": {
+    "clean-css": "^5.3.3",
+    "html-minifier-terser": "^7.2.0",
+    "sharp": "^0.35.3",
+    "terser": "^5.50.0"
+  }
+}
