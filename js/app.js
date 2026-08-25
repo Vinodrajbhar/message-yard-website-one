@@ -162,30 +162,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* --------------------------------------------------------------------------
-     5b. 21st.dev Spotlight Card Effect (Mouse-Tracking Radial Light)
-     -------------------------------------------------------------------------- */
-  const spotlightTargets = document.querySelectorAll(
-    '.card, .pillar-card, .pricing-card, .testimonial-card, .industry-card, .product-split-card'
-  );
-
-  spotlightTargets.forEach(card => {
-    if (!card.querySelector('.spotlight-overlay')) {
-      const overlay = document.createElement('div');
-      overlay.className = 'spotlight-overlay';
-      overlay.setAttribute('aria-hidden', 'true');
-      card.appendChild(overlay);
-    }
-
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      card.style.setProperty('--mouse-x', `${x}px`);
-      card.style.setProperty('--mouse-y', `${y}px`);
-    });
-  });
-
-  /* --------------------------------------------------------------------------
      6. Navigation Elevation on Scroll (Permanently Fixed)
      -------------------------------------------------------------------------- */
   const navContainer = document.getElementById('main-nav-container');
@@ -214,20 +190,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 2200);
   }
 
-  /* --------------------------------------------------------------------------
-     8. Easter Egg: Continuous Live Dispatch Counter (~70 msg/sec)
-     -------------------------------------------------------------------------- */
-  const dispatchCounterEl = document.getElementById('live-dispatch-counter');
-  if (dispatchCounterEl) {
-    let dispatchCount = 4231;
-
-    setInterval(() => {
-      // Add a randomized batch between 3 and 8 messages per tick (~70/sec)
-      const increment = Math.floor(Math.random() * 6) + 3;
-      dispatchCount += increment;
-      dispatchCounterEl.textContent = dispatchCount.toLocaleString();
-    }, 90);
-  }
 
   /* --------------------------------------------------------------------------
      9. Pricing Detailed Comparison Table Accordion Toggle
@@ -368,7 +330,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function applyTheme(theme, savePreference = true) {
     const isLight = theme === 'light';
+    
+    // Add smooth theme transition class to prevent color flashing
+    document.documentElement.classList.add('theme-transitioning');
     document.documentElement.setAttribute('data-theme', isLight ? 'light' : 'dark');
+
+    setTimeout(() => {
+      document.documentElement.classList.remove('theme-transitioning');
+    }, 450);
 
     if (themeToggleBtn) {
       const nextThemeLabel = isLight ? 'Switch to dark theme' : 'Switch to light theme';
@@ -472,35 +441,4 @@ document.addEventListener('DOMContentLoaded', () => {
   updateHeroRoutes();
   window.addEventListener('resize', updateHeroRoutes, { passive: true });
   window.addEventListener('load', updateHeroRoutes, { passive: true });
-
-  /* --------------------------------------------------------------------------
-     13. 21st.dev Pricing Interval Switcher Controller
-     -------------------------------------------------------------------------- */
-  const switcherBtns = document.querySelectorAll('.switcher-btn');
-  const priceElements = document.querySelectorAll('.price-val');
-
-  switcherBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const interval = btn.dataset.interval;
-      switcherBtns.forEach(b => {
-        const isActive = b === btn;
-        b.classList.toggle('active', isActive);
-        b.setAttribute('aria-checked', isActive);
-      });
-
-      priceElements.forEach(priceEl => {
-        const newVal = priceEl.dataset[interval];
-        if (newVal) {
-          priceEl.style.opacity = '0';
-          priceEl.style.transform = 'translateY(-6px)';
-          setTimeout(() => {
-            priceEl.textContent = newVal;
-            priceEl.style.transition = 'opacity 200ms ease, transform 200ms ease';
-            priceEl.style.opacity = '1';
-            priceEl.style.transform = 'translateY(0)';
-          }, 150);
-        }
-      });
-    });
-  });
 });
