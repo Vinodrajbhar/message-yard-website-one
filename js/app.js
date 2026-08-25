@@ -190,20 +190,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 2200);
   }
 
-  /* --------------------------------------------------------------------------
-     8. Easter Egg: Continuous Live Dispatch Counter (~70 msg/sec)
-     -------------------------------------------------------------------------- */
-  const dispatchCounterEl = document.getElementById('live-dispatch-counter');
-  if (dispatchCounterEl) {
-    let dispatchCount = 4231;
-
-    setInterval(() => {
-      // Add a randomized batch between 3 and 8 messages per tick (~70/sec)
-      const increment = Math.floor(Math.random() * 6) + 3;
-      dispatchCount += increment;
-      dispatchCounterEl.textContent = dispatchCount.toLocaleString();
-    }, 90);
-  }
 
   /* --------------------------------------------------------------------------
      9. Pricing Detailed Comparison Table Accordion Toggle
@@ -344,7 +330,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function applyTheme(theme, savePreference = true) {
     const isLight = theme === 'light';
+    
+    // Add smooth theme transition class to prevent color flashing
+    document.documentElement.classList.add('theme-transitioning');
     document.documentElement.setAttribute('data-theme', isLight ? 'light' : 'dark');
+
+    setTimeout(() => {
+      document.documentElement.classList.remove('theme-transitioning');
+    }, 450);
 
     if (themeToggleBtn) {
       const nextThemeLabel = isLight ? 'Switch to dark theme' : 'Switch to light theme';

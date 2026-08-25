@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MessageYard — The Marketing Cloud with Real Infrastructure Underneath</title>
-  <meta name="description" content="Plan campaigns, build customer journeys, and segment your audience — then send it all through the same messaging infrastructure that powers 12 billion conversations a year.">
+  <meta name="description"
+    content="Plan campaigns, build customer journeys, and segment your audience — then send it all through the same messaging infrastructure that powers 12 billion conversations a year.">
 
   <!-- Typography: Plus Jakarta Sans (Headings), Inter (Body/UI), JetBrains Mono (Code/Telemetry) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+    rel="stylesheet">
 
   <link rel="icon" type="image/png" href="assets/messageyard-icon.png">
   <link rel="stylesheet" href="css/styles.css">
 
   <!-- Immediate Theme Detector (Prevents FOUC, Default: Light) -->
   <script>
-    (function() {
+    (function () {
       try {
         var savedTheme = localStorage.getItem('messageyard-theme');
         if (savedTheme === 'light' || savedTheme === 'dark') {
@@ -30,6 +34,7 @@
     })();
   </script>
 </head>
+
 <body>
 
   <!-- Accessible Skip-to-content -->
@@ -70,10 +75,12 @@
 
       <div class="nav-actions">
         <!-- Light / Dark Theme Toggle Button -->
-        <button class="theme-toggle-btn" id="theme-toggle-btn" type="button" aria-label="Switch to light theme" title="Toggle Light/Dark Theme">
+        <button class="theme-toggle-btn" id="theme-toggle-btn" type="button" aria-label="Switch to light theme"
+          title="Toggle Light/Dark Theme">
           <!-- Sun Icon (shown when light theme is active) -->
           <span class="theme-toggle-icon theme-toggle-icon--sun" aria-hidden="true">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="5"></circle>
               <line x1="12" y1="1" x2="12" y2="3"></line>
               <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -87,7 +94,8 @@
           </span>
           <!-- Moon Icon (shown when dark theme is active) -->
           <span class="theme-toggle-icon theme-toggle-icon--moon" aria-hidden="true">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
             </svg>
           </span>
@@ -96,7 +104,8 @@
         <a href="#contact" class="btn btn-ghost btn-sm">Book a demo</a>
         <a href="#pricing" class="btn btn-primary btn-sm">Start free trial</a>
         <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle navigation menu" aria-expanded="false">
-          <svg class="hamburger-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <svg class="hamburger-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round">
             <line class="line-top" x1="4" y1="7" x2="20" y2="7"></line>
             <line class="line-mid" x1="4" y1="12" x2="20" y2="12"></line>
             <line class="line-bot" x1="4" y1="17" x2="20" y2="17"></line>
@@ -145,9 +154,12 @@
 
           <!-- Dynamic pulse segments -->
           <path id="hero-pulse-1" d="M 120 200 C 400 200, 500 350, 720 350" class="route-line-pulse" />
-          <path id="hero-pulse-2" d="M 1320 180 C 1040 180, 940 350, 720 350" class="route-line-pulse" style="animation-delay: 1.2s;" />
-          <path id="hero-pulse-3" d="M 180 500 C 450 500, 550 380, 720 380" class="route-line-pulse" style="animation-delay: 2.1s;" />
-          <path id="hero-pulse-4" d="M 1360 460 C 1050 460, 920 380, 720 380" class="route-line-pulse" style="animation-delay: 0.8s;" />
+          <path id="hero-pulse-2" d="M 1320 180 C 1040 180, 940 350, 720 350" class="route-line-pulse"
+            style="animation-delay: 1.2s;" />
+          <path id="hero-pulse-3" d="M 180 500 C 450 500, 550 380, 720 380" class="route-line-pulse"
+            style="animation-delay: 2.1s;" />
+          <path id="hero-pulse-4" d="M 1360 460 C 1050 460, 920 380, 720 380" class="route-line-pulse"
+            style="animation-delay: 0.8s;" />
         </svg>
 
         <!-- [1] SMS (Active) -->
@@ -161,7 +173,9 @@
         <!-- [2] WhatsApp (Active) -->
         <div class="hero-channel-tile hero-channel-tile--active hero-tile-2" title="WhatsApp Business">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+            <path
+              d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+            </path>
           </svg>
           <span>WhatsApp</span>
         </div>
@@ -178,7 +192,9 @@
         <!-- [4] Voice -->
         <div class="hero-channel-tile hero-tile-4" title="Voice & SIP">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            <path
+              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+            </path>
           </svg>
           <span>Voice</span>
         </div>
@@ -186,7 +202,9 @@
         <!-- [5] RCS -->
         <div class="hero-channel-tile hero-tile-5" title="Next-Gen RCS">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            <polygon
+              points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+            </polygon>
           </svg>
           <span>RCS</span>
         </div>
@@ -205,8 +223,8 @@
         <!-- Hero Copy Content -->
         <div class="hero-content">
           <div class="hero-eyebrow">
-            <span class="badge badge--active">
-              <span class="badge-dot"></span>
+            <span class="badge badge--brand">
+              <span class="badge-dot badge-dot--brand"></span>
               MARKETING CLOUD + CPaaS
             </span>
           </div>
@@ -216,7 +234,8 @@
           </h1>
 
           <p class="body-large hero-subhead">
-            Plan campaigns, build journeys, and segment audiences — then send it all through the same infrastructure that powers 12 billion conversations a year.
+            Plan campaigns, build journeys, and segment audiences — then send it all through the same infrastructure
+            that powers 12 billion conversations a year.
           </p>
 
           <div class="hero-cta-group">
@@ -281,53 +300,71 @@
               <!-- Tab 1: Journey Builder Canvas -->
               <div class="console-tab-pane active" id="tab-journey" role="tabpanel">
                 <div class="journey-canvas">
-                  <svg class="journey-svg-connections">
-                    <path d="M 230 215 C 340 215, 360 215, 470 215" stroke="rgba(59,130,246,0.5)" stroke-width="2" fill="none" stroke-dasharray="6 4" class="route-line-pulse"></path>
-                    <path d="M 700 215 C 810 215, 830 215, 940 215" stroke="rgba(124,100,246,0.6)" stroke-width="2" fill="none" stroke-dasharray="6 4" class="route-line-pulse"></path>
-                  </svg>
-
-                  <!-- Node 1 -->
-                  <div class="journey-node">
+                  <!-- Node 1: Trigger -->
+                  <div class="journey-node" id="node-1">
                     <div class="journey-node-header">
-                      <span class="badge badge--ingress">INGRESS</span>
-                      <span style="font-size:11px; color:var(--text-tertiary);">00:00</span>
-                    </div>
-                    <div class="journey-node-title">
-                      ⚡ Cart Abandoned (30m)
+                      <span class="node-status-dot node-status-dot--green"></span>
+                      <span class="journey-node-title">Cart Abandoned (30m)</span>
                     </div>
                     <div class="journey-node-desc">
-                      User left checkout with cart items > $100
+                      User left checkout with cart items &gt; $100
                     </div>
                     <div class="journey-node-stat">
                       <span class="badge-dot" style="background:var(--success);"></span> 1,420 entries / hr
                     </div>
+                    <!-- Output Port Ring -->
+                    <span class="node-port node-port--out node-port--green" id="port-node1-out"
+                      title="Output Port"></span>
                   </div>
 
-                  <!-- Node 2 -->
-                  <div class="journey-node">
-                    <div class="journey-node-header">
-                      <span class="badge badge--branch">BRANCH</span>
-                      <span style="font-size:11px; color:var(--text-tertiary);">Filter</span>
+                  <!-- Flow Connector 1 -> 2 -->
+                  <div class="journey-flow-connection" aria-hidden="true">
+                    <div class="flow-track-line">
+                      <span class="flow-track-pulse"></span>
                     </div>
-                    <div class="journey-node-title">
-                      ⌥ VIP Customer?
+                    <svg class="flow-arrow-end" width="8" height="10" viewBox="0 0 8 10" fill="none">
+                      <path d="M1 1.5L7 5L1 8.5Z" fill="#64748B" />
+                    </svg>
+                  </div>
+
+                  <!-- Node 2: Decision / Branch -->
+                  <div class="journey-node" id="node-2">
+                    <!-- Input Port Ring -->
+                    <span class="node-port node-port--in" id="port-node2-in" title="Input Port"></span>
+
+                    <div class="journey-node-header">
+                      <span class="node-status-dot node-status-dot--blue"></span>
+                      <span class="journey-node-title">VIP Customer?</span>
                     </div>
                     <div class="journey-node-desc">
-                      Lifetime order value > $500 & SMS opt-in
+                      Lifetime order value &gt; $500 &amp; SMS opt-in
                     </div>
                     <div class="journey-node-stat">
                       <span class="badge-dot" style="background:var(--blue);"></span> 78% Match Condition
                     </div>
+                    <!-- Output Port Ring -->
+                    <span class="node-port node-port--out node-port--green" id="port-node2-out"
+                      title="Output Port"></span>
                   </div>
 
-                  <!-- Node 3 -->
-                  <div class="journey-node" style="border-color: var(--violet);">
-                    <div class="journey-node-header">
-                      <span class="badge badge--dispatch">DISPATCH</span>
-                      <span style="font-size:11px; color:var(--violet);">Instant</span>
+                  <!-- Flow Connector 2 -> 3 -->
+                  <div class="journey-flow-connection" aria-hidden="true">
+                    <div class="flow-track-line">
+                      <span class="flow-track-pulse flow-track-pulse--violet"></span>
                     </div>
-                    <div class="journey-node-title">
-                      💬 WhatsApp 1-Click Buy
+                    <svg class="flow-arrow-end" width="8" height="10" viewBox="0 0 8 10" fill="none">
+                      <path d="M1 1.5L7 5L1 8.5Z" fill="#64748B" />
+                    </svg>
+                  </div>
+
+                  <!-- Node 3: Dispatch / Action -->
+                  <div class="journey-node journey-node--dispatch" id="node-3">
+                    <!-- Input Port Ring -->
+                    <span class="node-port node-port--in" id="port-node3-in" title="Input Port"></span>
+
+                    <div class="journey-node-header">
+                      <span class="node-status-dot node-status-dot--violet"></span>
+                      <span class="journey-node-title">WhatsApp 1-Click Buy</span>
                     </div>
                     <div class="journey-node-desc">
                       Rich product card with personalized coupon
@@ -345,15 +382,18 @@
                   <div class="composer-form">
                     <div class="composer-input-group">
                       <label class="composer-label">Campaign Name</label>
-                      <input type="text" class="composer-input" value="Flash Weekend VIP Drop — WhatsApp Exclusive" readonly>
+                      <input type="text" class="composer-input" value="Flash Weekend VIP Drop — WhatsApp Exclusive"
+                        readonly>
                     </div>
                     <div class="composer-input-group">
                       <label class="composer-label">Audience Segment</label>
-                      <input type="text" class="composer-input" value="High Intent Shoppers (Last 14 Days) · 48,200 contacts" readonly>
+                      <input type="text" class="composer-input"
+                        value="High Intent Shoppers (Last 14 Days) · 48,200 contacts" readonly>
                     </div>
                     <div class="composer-input-group">
                       <label class="composer-label">Message Payload</label>
-                      <textarea class="composer-input composer-textarea" readonly>Hi {{first_name}} 👋 Your selected items in {{cart_category}} are now 20% off for the next 24 hours. Tap below to claim your reserve link!</textarea>
+                      <textarea class="composer-input composer-textarea"
+                        readonly>Hi {{first_name}} 👋 Your selected items in {{cart_category}} are now 20% off for the next 24 hours. Tap below to claim your reserve link!</textarea>
                     </div>
                     <div style="display:flex; gap:8px; align-items:center;">
                       <span class="tag-pill">{{first_name}}</span>
@@ -364,13 +404,148 @@
                   </div>
 
                   <div class="phone-mockup">
-                    <div class="phone-screen">
-                      <div style="font-size:11px; font-family:var(--font-mono); color:var(--text-tertiary); text-align:center; margin-bottom:12px;">WhatsApp Business · Verified</div>
-                      <div class="whatsapp-chat-bubble">
-                        Hi Sarah 👋 Your selected items in <strong>Audio & Headphones</strong> are now 20% off for the next 24 hours. Tap below to claim your reserve link!
-                        <div class="chat-bubble-btn">
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
-                          Claim 20% Off & Checkout
+                    <div class="phone-frame">
+                      <!-- Speaker & Front Camera -->
+                      <div class="phone-notch">
+                        <span class="phone-camera"></span>
+                        <span class="phone-speaker"></span>
+                      </div>
+
+                      <!-- Phone Screen (WhatsApp UI) -->
+                      <div class="phone-screen whatsapp-ui">
+                        <!-- WhatsApp Top App Bar -->
+                        <div class="wa-app-header">
+                          <div class="wa-header-left">
+                            <svg class="wa-back-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                              stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                              <line x1="19" y1="12" x2="5" y2="12"></line>
+                              <polyline points="12 19 5 12 12 5"></polyline>
+                            </svg>
+                            <div class="wa-avatar-wrap">
+                              <img src="assets/messageyard-icon.png" alt="Avatar" class="wa-avatar-img">
+                              <span class="wa-online-dot"></span>
+                            </div>
+                            <div class="wa-user-details">
+                              <div class="wa-contact-row">
+                                <span class="wa-contact-title">MessageYard</span>
+                                <svg class="wa-verified-icon" width="14" height="14" viewBox="0 0 24 24" fill="#00A884">
+                                  <path
+                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                                </svg>
+                              </div>
+                              <span class="wa-business-label">Verified Business Account</span>
+                            </div>
+                          </div>
+                          <div class="wa-header-right">
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                              <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                            </svg>
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <path
+                                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                              </path>
+                            </svg>
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <circle cx="12" cy="12" r="1"></circle>
+                              <circle cx="12" cy="5" r="1"></circle>
+                              <circle cx="12" cy="19" r="1"></circle>
+                            </svg>
+                          </div>
+                        </div>
+
+                        <!-- WhatsApp Chat Canvas with Classic Doodle Pattern -->
+                        <div class="wa-chat-container">
+                          <!-- Encryption Banner -->
+                          <div class="wa-encrypted-pill">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+                              <path
+                                d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" />
+                            </svg>
+                            <span>Messages are end-to-end encrypted</span>
+                          </div>
+
+                          <div class="wa-date-chip">TODAY</div>
+
+                          <!-- Official WhatsApp Business Interactive Message Card -->
+                          <div class="wa-inbound-bubble">
+                            <div class="wa-bubble-card">
+                              <!-- Rich Media Header -->
+                              <div class="wa-card-image-wrap">
+                                <img src="assets/images/industry-ecommerce.jpg" alt="Cart Items" class="wa-card-image">
+                                <div class="wa-image-overlay-badge">
+                                  <span>20% VIP DISCOUNT</span>
+                                </div>
+                              </div>
+
+                              <!-- Message Body Text -->
+                              <div class="wa-card-body">
+                                <p class="wa-card-msg">
+                                  Hi Sarah 👋 Your selected items in <strong>Audio &amp; Headphones</strong> are now
+                                  <strong>20% off</strong> for the next 24 hours. Tap below to claim your reserve link!
+                                </p>
+                                <div class="wa-card-meta">
+                                  <span class="wa-timestamp">09:41 AM</span>
+                                  <svg class="wa-double-check" width="16" height="11" viewBox="0 0 16 11" fill="none">
+                                    <path d="M11.5 1L5.5 8.5L2 5" stroke="#53BDEB" stroke-width="1.8"
+                                      stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M14.5 1L8.5 8.5L7 7" stroke="#53BDEB" stroke-width="1.8"
+                                      stroke-linecap="round" stroke-linejoin="round" />
+                                  </svg>
+                                </div>
+                              </div>
+
+                              <!-- Quick Action Buttons (Authentic WhatsApp Button Row) -->
+                              <div class="wa-quick-actions">
+                                <button class="wa-action-btn wa-action-btn--primary">
+                                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                                    <line x1="1" y1="10" x2="23" y2="10"></line>
+                                  </svg>
+                                  <span>Claim 20% Off &amp; Checkout</span>
+                                </button>
+                                <button class="wa-action-btn">
+                                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                  </svg>
+                                  <span>Chat with Assistant</span>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- WhatsApp Chat Bottom Input Bar -->
+                        <div class="wa-input-bar">
+                          <div class="wa-input-box">
+                            <span class="wa-emoji-btn">😊</span>
+                            <span class="wa-placeholder-text">Message</span>
+                            <div class="wa-input-icons">
+                              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                  d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
+                              </svg>
+                              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                  d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                                <circle cx="12" cy="13" r="4" />
+                              </svg>
+                            </div>
+                          </div>
+                          <div class="wa-voice-send-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z" />
+                              <path
+                                d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z" />
+                            </svg>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -383,24 +558,31 @@
                 <div class="inbox-grid">
                   <!-- Col 1: Queue -->
                   <div class="inbox-col">
-                    <div class="telemetry-text" style="margin-bottom:12px; color:var(--text-tertiary);">Active Conversations</div>
+                    <div class="telemetry-text" style="margin-bottom:12px; color:var(--text-tertiary);">Active
+                      Conversations</div>
                     <div class="inbox-item active">
-                      <div style="display:flex; justify-content:space-between; font-size:13px; font-weight:600; color:var(--text-primary);">
+                      <div
+                        style="display:flex; justify-content:space-between; font-size:13px; font-weight:600; color:var(--text-primary);">
                         Alex Mercer <span class="badge-dot" style="background:var(--success);"></span>
                       </div>
-                      <div style="font-size:11px; color:var(--text-secondary); margin-top:4px;">"Can you confirm my VIP order?"</div>
+                      <div style="font-size:11px; color:var(--text-secondary); margin-top:4px;">"Can you confirm my VIP
+                        order?"</div>
                     </div>
                     <div class="inbox-item">
-                      <div style="display:flex; justify-content:space-between; font-size:13px; font-weight:600; color:var(--text-primary);">
+                      <div
+                        style="display:flex; justify-content:space-between; font-size:13px; font-weight:600; color:var(--text-primary);">
                         Danielle Ray <span class="badge-dot" style="background:var(--cyan);"></span>
                       </div>
-                      <div style="font-size:11px; color:var(--text-secondary); margin-top:4px;">"Changed my delivery address"</div>
+                      <div style="font-size:11px; color:var(--text-secondary); margin-top:4px;">"Changed my delivery
+                        address"</div>
                     </div>
                     <div class="inbox-item">
-                      <div style="display:flex; justify-content:space-between; font-size:13px; font-weight:600; color:var(--text-primary);">
+                      <div
+                        style="display:flex; justify-content:space-between; font-size:13px; font-weight:600; color:var(--text-primary);">
                         TechCorp IT <span class="badge-dot" style="background:var(--violet);"></span>
                       </div>
-                      <div style="font-size:11px; color:var(--text-secondary); margin-top:4px;">"API Webhook response query"</div>
+                      <div style="font-size:11px; color:var(--text-secondary); margin-top:4px;">"API Webhook response
+                        query"</div>
                     </div>
                   </div>
 
@@ -415,14 +597,16 @@
                       </div>
                     </div>
                     <div style="display:flex; gap:8px; margin-top:12px;">
-                      <input type="text" class="composer-input" placeholder="Type a reply or choose AI assistant..." style="font-size:13px;" readonly>
+                      <input type="text" class="composer-input" placeholder="Type a reply or choose AI assistant..."
+                        style="font-size:13px;" readonly>
                       <button class="btn btn-primary btn-sm">Send</button>
                     </div>
                   </div>
 
                   <!-- Col 3: CRM Profile -->
                   <div class="inbox-col">
-                    <div class="telemetry-text" style="margin-bottom:12px; color:var(--text-tertiary);">Customer Attributes</div>
+                    <div class="telemetry-text" style="margin-bottom:12px; color:var(--text-tertiary);">Customer
+                      Attributes</div>
                     <div class="crm-panel-row">
                       <span style="color:var(--text-tertiary);">Lifetime Spend</span>
                       <strong style="color:var(--success);">$2,450.00</strong>
@@ -476,20 +660,120 @@
       <div class="marquee-wrapper">
         <div class="marquee-track">
           <!-- Logo Set 1 -->
-          <div class="marquee-logo-item"><svg viewBox="0 0 24 24"><polygon points="12 2 2 22 22 22"></polygon></svg> LUMEN</div>
-          <div class="marquee-logo-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8M8 12h8"></path></svg> NORTHBEAM</div>
-          <div class="marquee-logo-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"></rect></svg> FINWAVE</div>
-          <div class="marquee-logo-item"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg> NEXURA</div>
-          <div class="marquee-logo-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle></svg> APEX CLOUD</div>
-          <div class="marquee-logo-item"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg> STRATOS</div>
-          
+          <div class="marquee-logo-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M18.8 6.4c-.1-.3-.4-.5-.7-.5l-4.5-.4-2.6-2.6c-.3-.3-.8-.3-1.1 0L7.3 5.4 3.7 6.2c-.4.1-.7.4-.7.8l2.2 13.5c.1.4.4.7.8.7h12c.4 0 .7-.3.8-.7l2.1-13.4-.1-.7zM11.5 5l1.6 1.6-3 .2 1.4-1.8zm-1.2 5.5c0-.6.4-1.1 1-1.1h1.4c.6 0 1 .5 1 1.1 0 .9-.8 1.4-1.5 1.7-.8.3-1.5.8-1.5 1.7v.5h1.2v-.5c0-.6.5-1 1.2-1.3.9-.4 1.6-.9 1.6-2.1 0-1.3-1-2.3-2.3-2.3-1.3 0-2.3 1-2.3 2.3h1.2v-.2c-.1 0-.3.1-.3.2z" />
+            </svg>
+            <span>Shopify</span>
+          </div>
+          <div class="marquee-logo-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 1.5c-3.1 0-5.3 2.1-5.3 5.3 0 2.4 1.3 5.2 3.8 8.8.7 1 1.2 1.8 1.5 2.3.3-.5.8-1.3 1.5-2.3 2.5-3.6 3.8-6.4 3.8-8.8 0-3.2-2.2-5.3-5.3-5.3zm0 2.2c1.8 0 3.1 1.2 3.1 3.1 0 1.7-1 4-3.1 7-2.1-3-3.1-5.3-3.1-7 0-1.9 1.3-3.1 3.1-3.1zm0 3.8c-.8 0-1.5.7-1.5 1.5s.7 1.5 1.5 1.5 1.5-.7 1.5-1.5-.7-1.5-1.5-1.5z" />
+            </svg>
+            <span>airbnb</span>
+          </div>
+          <div class="marquee-logo-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.623.623 0 0 1-.858.207c-2.348-1.435-5.304-1.76-8.786-.964a.625.625 0 0 1-.28-1.218c3.811-.871 7.079-.496 9.716 1.117a.624.624 0 0 1 .208.858zm1.226-2.724a.782.782 0 0 1-1.077.257c-2.688-1.652-6.785-2.131-9.965-1.166a.781.781 0 1 1-.453-1.495c3.633-1.102 8.148-.568 11.238 1.327a.782.782 0 0 1 .257 1.077zm.105-2.835C14.7 8.948 9.4 8.773 6.335 9.704a.937.937 0 1 1-.544-1.792c3.518-1.068 9.37-.863 13.1 1.353a.938.938 0 1 1-.974 1.604z" />
+            </svg>
+            <span>Spotify</span>
+          </div>
+          <div class="marquee-logo-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M22.955 10.457a4.99 4.99 0 0 0-4.962-4.246H1.045a.55.55 0 0 0-.493.795l3.228 6.456a2.2 2.2 0 0 0 1.968 1.215h12.246a4.99 4.99 0 0 0 4.961-4.22zm-4.962 2.22H7.2a.55.55 0 0 1-.492-.304L4.85 8.632a.55.55 0 0 1 .492-.795h12.651a2.99 2.99 0 0 1 2.977 2.548 2.99 2.99 0 0 1-2.977 2.292z" />
+            </svg>
+            <span>DOORDASH</span>
+          </div>
+          <div class="marquee-logo-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.97 15.932.5 13.155.5 7.702.5 4.024 3.39 4.024 7.765c0 4.793 4.298 5.767 7.02 6.786 2.585.967 3.518 1.69 3.518 2.738 0 .993-.896 1.547-2.398 1.547-2.613 0-5.46-1.196-7.308-2.264l-.914 5.61C5.46 22.957 8.28 23.5 11.233 23.5c5.782 0 9.743-2.81 9.743-7.398 0-4.832-4.38-5.834-7-6.952z" />
+            </svg>
+            <span>stripe</span>
+          </div>
+          <div class="marquee-logo-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M3 3h4.5v18H3V3zm13.5 0h-4.8l-5 9.3V3H3v18h3.7v-7.3l5.3 7.3h5l-6.8-9.3L16.5 3zM21 16.5c-1.2 0-2.2 1-2.2 2.2 0 1.2 1 2.2 2.2 2.2 1.2 0 2.2-1 2.2-2.2 0-1.2-1-2.2-2.2-2.2z" />
+            </svg>
+            <span>Klarna.</span>
+          </div>
+          <div class="marquee-logo-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M17.7 7.8c-.4-.5-1.1-.8-1.8-.7l-7.4.9c-.8.1-1.4.7-1.5 1.5l-.8 7.4c-.1.7.2 1.4.7 1.8.5.4 1.1.5 1.7.3l7.9-2.6c.7-.2 1.2-.8 1.3-1.5l.6-5.4c.1-.7-.1-1.3-.7-1.7zm-2.4 7.2l-6.2 2 .6-6 5.8-.7-.2 4.7zm4.7-10.2l-2.6 1.5c-.3.2-.7.2-1 0l-1.5-1.1c-.4-.3-.5-.8-.3-1.2.2-.4.7-.6 1.1-.4l1.1.8 2.2-1.3c.4-.2.9-.1 1.2.3.3.4.2.9-.2 1.4z" />
+            </svg>
+            <span>instacart</span>
+          </div>
+          <div class="marquee-logo-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-3 8c.8 0 1.5.7 1.5 1.5S9.8 13 9 13s-1.5-.7-1.5-1.5S8.2 10 9 10zm6 0c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5zm-3 7c-2 0-3.5-1.2-3.8-2.8h7.6c-.3 1.6-1.8 2.8-3.8 2.8z" />
+            </svg>
+            <span>duolingo</span>
+          </div>
+
           <!-- Duplicated Logo Set for Seamless Infinite Loop -->
-          <div class="marquee-logo-item"><svg viewBox="0 0 24 24"><polygon points="12 2 2 22 22 22"></polygon></svg> LUMEN</div>
-          <div class="marquee-logo-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8M8 12h8"></path></svg> NORTHBEAM</div>
-          <div class="marquee-logo-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"></rect></svg> FINWAVE</div>
-          <div class="marquee-logo-item"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg> NEXURA</div>
-          <div class="marquee-logo-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle></svg> APEX CLOUD</div>
-          <div class="marquee-logo-item"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg> STRATOS</div>
+          <div class="marquee-logo-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M18.8 6.4c-.1-.3-.4-.5-.7-.5l-4.5-.4-2.6-2.6c-.3-.3-.8-.3-1.1 0L7.3 5.4 3.7 6.2c-.4.1-.7.4-.7.8l2.2 13.5c.1.4.4.7.8.7h12c.4 0 .7-.3.8-.7l2.1-13.4-.1-.7zM11.5 5l1.6 1.6-3 .2 1.4-1.8zm-1.2 5.5c0-.6.4-1.1 1-1.1h1.4c.6 0 1 .5 1 1.1 0 .9-.8 1.4-1.5 1.7-.8.3-1.5.8-1.5 1.7v.5h1.2v-.5c0-.6.5-1 1.2-1.3.9-.4 1.6-.9 1.6-2.1 0-1.3-1-2.3-2.3-2.3-1.3 0-2.3 1-2.3 2.3h1.2v-.2c-.1 0-.3.1-.3.2z" />
+            </svg>
+            <span>Shopify</span>
+          </div>
+          <div class="marquee-logo-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 1.5c-3.1 0-5.3 2.1-5.3 5.3 0 2.4 1.3 5.2 3.8 8.8.7 1 1.2 1.8 1.5 2.3.3-.5.8-1.3 1.5-2.3 2.5-3.6 3.8-6.4 3.8-8.8 0-3.2-2.2-5.3-5.3-5.3zm0 2.2c1.8 0 3.1 1.2 3.1 3.1 0 1.7-1 4-3.1 7-2.1-3-3.1-5.3-3.1-7 0-1.9 1.3-3.1 3.1-3.1zm0 3.8c-.8 0-1.5.7-1.5 1.5s.7 1.5 1.5 1.5 1.5-.7 1.5-1.5-.7-1.5-1.5-1.5z" />
+            </svg>
+            <span>airbnb</span>
+          </div>
+          <div class="marquee-logo-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.623.623 0 0 1-.858.207c-2.348-1.435-5.304-1.76-8.786-.964a.625.625 0 0 1-.28-1.218c3.811-.871 7.079-.496 9.716 1.117a.624.624 0 0 1 .208.858zm1.226-2.724a.782.782 0 0 1-1.077.257c-2.688-1.652-6.785-2.131-9.965-1.166a.781.781 0 1 1-.453-1.495c3.633-1.102 8.148-.568 11.238 1.327a.782.782 0 0 1 .257 1.077zm.105-2.835C14.7 8.948 9.4 8.773 6.335 9.704a.937.937 0 1 1-.544-1.792c3.518-1.068 9.37-.863 13.1 1.353a.938.938 0 1 1-.974 1.604z" />
+            </svg>
+            <span>Spotify</span>
+          </div>
+          <div class="marquee-logo-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M22.955 10.457a4.99 4.99 0 0 0-4.962-4.246H1.045a.55.55 0 0 0-.493.795l3.228 6.456a2.2 2.2 0 0 0 1.968 1.215h12.246a4.99 4.99 0 0 0 4.961-4.22zm-4.962 2.22H7.2a.55.55 0 0 1-.492-.304L4.85 8.632a.55.55 0 0 1 .492-.795h12.651a2.99 2.99 0 0 1 2.977 2.548 2.99 2.99 0 0 1-2.977 2.292z" />
+            </svg>
+            <span>DOORDASH</span>
+          </div>
+          <div class="marquee-logo-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.97 15.932.5 13.155.5 7.702.5 4.024 3.39 4.024 7.765c0 4.793 4.298 5.767 7.02 6.786 2.585.967 3.518 1.69 3.518 2.738 0 .993-.896 1.547-2.398 1.547-2.613 0-5.46-1.196-7.308-2.264l-.914 5.61C5.46 22.957 8.28 23.5 11.233 23.5c5.782 0 9.743-2.81 9.743-7.398 0-4.832-4.38-5.834-7-6.952z" />
+            </svg>
+            <span>stripe</span>
+          </div>
+          <div class="marquee-logo-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M3 3h4.5v18H3V3zm13.5 0h-4.8l-5 9.3V3H3v18h3.7v-7.3l5.3 7.3h5l-6.8-9.3L16.5 3zM21 16.5c-1.2 0-2.2 1-2.2 2.2 0 1.2 1 2.2 2.2 2.2 1.2 0 2.2-1 2.2-2.2 0-1.2-1-2.2-2.2-2.2z" />
+            </svg>
+            <span>Klarna.</span>
+          </div>
+          <div class="marquee-logo-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M17.7 7.8c-.4-.5-1.1-.8-1.8-.7l-7.4.9c-.8.1-1.4.7-1.5 1.5l-.8 7.4c-.1.7.2 1.4.7 1.8.5.4 1.1.5 1.7.3l7.9-2.6c.7-.2 1.2-.8 1.3-1.5l.6-5.4c.1-.7-.1-1.3-.7-1.7zm-2.4 7.2l-6.2 2 .6-6 5.8-.7-.2 4.7zm4.7-10.2l-2.6 1.5c-.3.2-.7.2-1 0l-1.5-1.1c-.4-.3-.5-.8-.3-1.2.2-.4.7-.6 1.1-.4l1.1.8 2.2-1.3c.4-.2.9-.1 1.2.3.3.4.2.9-.2 1.4z" />
+            </svg>
+            <span>instacart</span>
+          </div>
+          <div class="marquee-logo-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-3 8c.8 0 1.5.7 1.5 1.5S9.8 13 9 13s-1.5-.7-1.5-1.5S8.2 10 9 10zm6 0c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5zm-3 7c-2 0-3.5-1.2-3.8-2.8h7.6c-.3 1.6-1.8 2.8-3.8 2.8z" />
+            </svg>
+            <span>duolingo</span>
+          </div>
         </div>
       </div>
     </section>
@@ -498,13 +782,15 @@
          3. TWO PRODUCTS, ONE PLATFORM
          ========================================================================== -->
     <section class="section section--base" id="platform">
-      <div class="glow-orb orb--blue" style="top: 20%; left: 50%; transform: translateX(-50%); opacity: 0.12;" aria-hidden="true"></div>
+      <div class="glow-orb orb--blue" style="top: 20%; left: 50%; transform: translateX(-50%); opacity: 0.12;"
+        aria-hidden="true"></div>
 
       <div class="container">
         <div class="section-header-center reveal-fade-up">
           <div class="section-eyebrow"><span class="eyebrow-dot"></span> Unified Architecture</div>
           <h2 class="section-heading">Two products. <span class="gradient-word">One platform.</span></h2>
-          <p class="body-large">Built for high-velocity marketing teams. Engineered with rock-solid infrastructure for developers.</p>
+          <p class="body-large">Built for high-velocity marketing teams. Engineered with rock-solid infrastructure for
+            developers.</p>
         </div>
 
         <div class="two-products-grid">
@@ -522,10 +808,12 @@
                 <span class="badge badge--ingress">FOR MARKETERS</span>
               </div>
               <h3 class="card-title">Marketing Cloud</h3>
-              <p class="body-regular">No-code journey canvas, unified campaign orchestration, dynamic segmentation, and AI copy generation.</p>
+              <p class="body-regular">No-code journey canvas, unified campaign orchestration, dynamic segmentation, and
+                AI copy generation.</p>
 
               <div class="split-card-preview">
-                <img src="assets/images/product-campaign.jpg" alt="Marketing Cloud Journey Builder" style="width:100%; height:200px; object-fit:cover;">
+                <img src="assets/images/product-campaign.jpg" alt="Marketing Cloud Journey Builder"
+                  style="width:100%; height:200px; object-fit:cover;">
               </div>
             </div>
 
@@ -545,24 +833,26 @@
                 <span class="badge badge--dispatch">FOR ENGINEERS</span>
               </div>
               <h3 class="card-title">CPaaS Infrastructure</h3>
-              <p class="body-regular">Programmable APIs, direct carrier connections, sub-second latency, webhooks, and conversational AI agents.</p>
+              <p class="body-regular">Programmable APIs, direct carrier connections, sub-second latency, webhooks, and
+                conversational AI agents.</p>
 
               <div class="split-card-preview terminal-box">
                 <span style="color:#7C64F6;">POST</span> /v1/messages/dispatch<br>
                 <span style="color:var(--text-tertiary);">{</span><br>
-                &nbsp;&nbsp;<span style="color:#29BBF0;">"to"</span>: <span style="color:#34D399;">"+14155552671"</span>,<br>
-                &nbsp;&nbsp;<span style="color:#29BBF0;">"channel"</span>: <span style="color:#34D399;">"whatsapp"</span>,<br>
-                &nbsp;&nbsp;<span style="color:#29BBF0;">"template"</span>: <span style="color:#34D399;">"vip_checkout_v2"</span>,<br>
-                &nbsp;&nbsp;<span style="color:#29BBF0;">"delivery_sla"</span>: <span style="color:#F59E0B;">"sub_second"</span><br>
+                &nbsp;&nbsp;<span style="color:#29BBF0;">"to"</span>: <span
+                  style="color:#34D399;">"+14155552671"</span>,<br>
+                &nbsp;&nbsp;<span style="color:#29BBF0;">"channel"</span>: <span
+                  style="color:#34D399;">"whatsapp"</span>,<br>
+                &nbsp;&nbsp;<span style="color:#29BBF0;">"template"</span>: <span
+                  style="color:#34D399;">"vip_checkout_v2"</span>,<br>
+                &nbsp;&nbsp;<span style="color:#29BBF0;">"delivery_sla"</span>: <span
+                  style="color:#F59E0B;">"sub_second"</span><br>
                 <span style="color:var(--text-tertiary);">}</span>
               </div>
             </div>
 
             <a href="#contact" class="pillar-link">Explore CPaaS Infrastructure →</a>
           </div>
-
-          <!-- Center connecting bridge line -->
-          <div class="product-connector-bridge"></div>
         </div>
       </div>
     </section>
@@ -584,10 +874,16 @@
             <div class="pillar-watermark">01</div>
             <div>
               <div class="tile step-tile-1" style="margin-bottom:20px;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><path d="M6 9v12"></path><path d="M18 9a9 9 0 0 0-9 9"></path></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="18" cy="18" r="3"></circle>
+                  <circle cx="6" cy="6" r="3"></circle>
+                  <path d="M6 9v12"></path>
+                  <path d="M18 9a9 9 0 0 0-9 9"></path>
+                </svg>
               </div>
               <h3 class="card-title">01 / Journey Builder</h3>
-              <p class="body-regular">Visual drag-and-drop workflow canvas with branching logic, triggers, delays, and real-time path testing.</p>
+              <p class="body-regular">Visual drag-and-drop workflow canvas with branching logic, triggers, delays, and
+                real-time path testing.</p>
             </div>
             <a href="#solutions" class="pillar-link">Learn more →</a>
           </div>
@@ -597,10 +893,16 @@
             <div class="pillar-watermark">02</div>
             <div>
               <div class="tile step-tile-2" style="margin-bottom:20px;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
               </div>
               <h3 class="card-title">02 / Campaign Manager</h3>
-              <p class="body-regular">Unified omnichannel calendar, multi-step approvals, scheduled blasts, and automated throttling controls.</p>
+              <p class="body-regular">Unified omnichannel calendar, multi-step approvals, scheduled blasts, and
+                automated throttling controls.</p>
             </div>
             <a href="#solutions" class="pillar-link">Learn more →</a>
           </div>
@@ -610,10 +912,16 @@
             <div class="pillar-watermark">03</div>
             <div>
               <div class="tile step-tile-3" style="margin-bottom:20px;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
               </div>
               <h3 class="card-title">03 / Audience Segmentation</h3>
-              <p class="body-regular">Dynamic behavioral segmenting updated in real-time. Target RFM tiers without writing single SQL queries.</p>
+              <p class="body-regular">Dynamic behavioral segmenting updated in real-time. Target RFM tiers without
+                writing single SQL queries.</p>
             </div>
             <a href="#solutions" class="pillar-link">Learn more →</a>
           </div>
@@ -623,10 +931,15 @@
             <div class="pillar-watermark">04</div>
             <div>
               <div class="tile step-tile-4" style="margin-bottom:20px;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path
+                    d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83">
+                  </path>
+                </svg>
               </div>
               <h3 class="card-title">04 / Personalization Engine</h3>
-              <p class="body-regular">1:1 dynamic product recommendations, custom merge payloads, and predictive send-time optimization.</p>
+              <p class="body-regular">1:1 dynamic product recommendations, custom merge payloads, and predictive
+                send-time optimization.</p>
             </div>
             <a href="#solutions" class="pillar-link">Learn more →</a>
           </div>
@@ -636,10 +949,15 @@
             <div class="pillar-watermark">05</div>
             <div>
               <div class="tile step-tile-5" style="margin-bottom:20px;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="20" x2="18" y2="10"></line>
+                  <line x1="12" y1="20" x2="12" y2="4"></line>
+                  <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
               </div>
               <h3 class="card-title">05 / Analytics & Attribution</h3>
-              <p class="body-regular">Multi-touch revenue attribution, cohort retention curves, channel ROAS, and real-time delivery graphs.</p>
+              <p class="body-regular">Multi-touch revenue attribution, cohort retention curves, channel ROAS, and
+                real-time delivery graphs.</p>
             </div>
             <a href="#solutions" class="pillar-link">Learn more →</a>
           </div>
@@ -649,10 +967,16 @@
             <div class="pillar-watermark">06</div>
             <div>
               <div class="tile step-tile-6" style="margin-bottom:20px;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                  </path>
+                </svg>
               </div>
               <h3 class="card-title">06 / Omnichannel CPaaS</h3>
-              <p class="body-regular">Native SMS, WhatsApp, Voice, Email, RCS, and Conversational AI delivery straight to tier-1 telco routes.</p>
+              <p class="body-regular">Native SMS, WhatsApp, Voice, Email, RCS, and Conversational AI delivery straight
+                to tier-1 telco routes.</p>
             </div>
             <a href="#solutions" class="pillar-link">Learn more →</a>
           </div>
@@ -671,43 +995,56 @@
           <!-- Left: Value Proposition Argument -->
           <div class="reveal-fade-lateral-left">
             <div class="section-eyebrow"><span class="eyebrow-dot"></span> The Infrastructure Advantage</div>
-            <h2 class="section-heading">Marketing platforms promise omnichannel. <span class="gradient-word">We own the channel.</span></h2>
+            <h2 class="section-heading">Marketing platforms promise omnichannel. <span class="gradient-word">We own the
+                channel.</span></h2>
             <p class="body-large" style="margin-bottom: 24px;">
-              Most marketing clouds sit on top of third-party vendors. MessageYard owns the CPaaS layer end-to-end for zero middleman friction.
+              Most marketing clouds sit on top of third-party vendors. MessageYard owns the CPaaS layer end-to-end for
+              zero middleman friction.
             </p>
 
             <div class="argument-checklist">
               <div class="argument-item">
                 <div class="check-icon-tile">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
                 </div>
                 <div><strong>Zero vendor markup</strong> on every transactional & marketing message sent.</div>
               </div>
 
               <div class="argument-item">
                 <div class="check-icon-tile">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
                 </div>
-                <div><strong>Unified profile architecture</strong> handling marketing blasts and OTPs in one stream.</div>
+                <div><strong>Unified profile architecture</strong> handling marketing blasts and OTPs in one stream.
+                </div>
               </div>
 
               <div class="argument-item">
                 <div class="check-icon-tile">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
                 </div>
                 <div><strong>Sub-second global delivery</strong> across 190+ countries via direct carrier routes.</div>
               </div>
 
               <div class="argument-item">
                 <div class="check-icon-tile">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
                 </div>
                 <div><strong>99.999% uptime SLA</strong> — legally contractual, never aspirational.</div>
               </div>
 
               <div class="argument-item">
                 <div class="check-icon-tile">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
                 </div>
                 <div><strong>SOC 2 Type II, HIPAA & GDPR</strong> ready compliance right out of the box.</div>
               </div>
@@ -728,19 +1065,26 @@
               <div class="telemetry-grid-stats">
                 <div class="telemetry-stat-card">
                   <div class="telemetry-text" style="color:var(--text-tertiary);">Delivery Latency</div>
-                  <div id="telemetry-latency" style="font-family:var(--font-mono); font-size:22px; font-weight:700; color:var(--cyan); margin-top:4px;">12ms</div>
+                  <div id="telemetry-latency"
+                    style="font-family:var(--font-mono); font-size:22px; font-weight:700; color:var(--cyan); margin-top:4px;">
+                    12ms</div>
                 </div>
                 <div class="telemetry-stat-card">
                   <div class="telemetry-text" style="color:var(--text-tertiary);">Uptime SLA</div>
-                  <div style="font-family:var(--font-mono); font-size:22px; font-weight:700; color:var(--success); margin-top:4px;">99.999%</div>
+                  <div
+                    style="font-family:var(--font-mono); font-size:22px; font-weight:700; color:var(--success); margin-top:4px;">
+                    99.999%</div>
                 </div>
                 <div class="telemetry-stat-card">
                   <div class="telemetry-text" style="color:var(--text-tertiary);">Carrier Routes</div>
-                  <div style="font-family:var(--font-mono); font-size:22px; font-weight:700; color:var(--violet); margin-top:4px;">840+ Direct</div>
+                  <div
+                    style="font-family:var(--font-mono); font-size:22px; font-weight:700; color:var(--violet); margin-top:4px;">
+                    840+ Direct</div>
                 </div>
               </div>
 
-              <div class="telemetry-text" style="color:var(--text-tertiary); display:flex; justify-content:space-between;">
+              <div class="telemetry-text"
+                style="color:var(--text-tertiary); display:flex; justify-content:space-between;">
                 <span>Throughput Load (Messages / Sec)</span>
                 <span style="color:var(--cyan);">Peak 48,000 msg/s</span>
               </div>
@@ -781,7 +1125,8 @@
         <div class="section-header-center reveal-fade-up">
           <div class="section-eyebrow"><span class="eyebrow-dot"></span> Tailored Solutions</div>
           <h2 class="section-heading">Built for <span class="gradient-word">your industry.</span></h2>
-          <p class="body-large">Designed for the unique compliance, volume, and customer journey needs of high-growth verticals.</p>
+          <p class="body-large">Designed for the unique compliance, volume, and customer journey needs of high-growth
+            verticals.</p>
         </div>
 
         <div class="industry-solutions-grid stagger-group">
@@ -792,7 +1137,8 @@
               <span class="industry-badge-chip">RETAIL & E-COMMERCE</span>
               <div class="industry-card-content">
                 <h3 class="industry-title">Retail & eCommerce</h3>
-                <p class="industry-desc">Cart recovery journeys, automated back-in-stock alerts & WhatsApp VIP 1-click shopping.</p>
+                <p class="industry-desc">Cart recovery journeys, automated back-in-stock alerts & WhatsApp VIP 1-click
+                  shopping.</p>
               </div>
             </div>
           </div>
@@ -804,19 +1150,21 @@
               <span class="industry-badge-chip">FINANCIAL SERVICES</span>
               <div class="industry-card-content">
                 <h3 class="industry-title">Financial Services</h3>
-                <p class="industry-desc">TCPA-compliant transaction alerts, multi-factor 2FA delivery, and fraud push verification.</p>
+                <p class="industry-desc">TCPA-compliant transaction alerts, multi-factor 2FA delivery, and fraud push
+                  verification.</p>
               </div>
             </div>
           </div>
 
           <!-- Industry 3: Healthcare -->
           <div class="industry-photo-card tilt-card">
-            <img src="assets/images/industry-auto.jpg" alt="Healthcare medical journey" loading="lazy">
+            <img src="assets/images/industry-healthcare.jpg" alt="Healthcare medical journey" loading="lazy">
             <div class="industry-overlay">
               <span class="industry-badge-chip">HEALTHCARE</span>
               <div class="industry-card-content">
                 <h3 class="industry-title">Healthcare</h3>
-                <p class="industry-desc">HIPAA-eligible appointment reminders, post-op care workflows, and prescription refill dispatch.</p>
+                <p class="industry-desc">HIPAA-eligible appointment reminders, post-op care workflows, and prescription
+                  refill dispatch.</p>
               </div>
             </div>
           </div>
@@ -828,7 +1176,8 @@
               <span class="industry-badge-chip">TRAVEL & HOSPITALITY</span>
               <div class="industry-card-content">
                 <h3 class="industry-title">Travel & Hospitality</h3>
-                <p class="industry-desc">Real-time gate changes, boarding pass delivery via Apple Wallet/WhatsApp, and room service chat.</p>
+                <p class="industry-desc">Real-time gate changes, boarding pass delivery via Apple Wallet/WhatsApp, and
+                  room service chat.</p>
               </div>
             </div>
           </div>
@@ -851,7 +1200,8 @@
           <!-- Card 1 -->
           <div class="bubble-frame bubble-frame--tail testimonial-card tilt-card">
             <div class="testimonial-quote">
-              "Switching our journey orchestration to MessageYard cut our vendor bills by 42% while simultaneously dropping our WhatsApp dispatch latency to sub-second speeds."
+              "Switching our journey orchestration to MessageYard cut our vendor bills by 42% while simultaneously
+              dropping our WhatsApp dispatch latency to sub-second speeds."
             </div>
             <div class="testimonial-author">
               <div class="author-avatar-wrap">
@@ -867,7 +1217,8 @@
           <!-- Card 2 -->
           <div class="bubble-frame bubble-frame--tail testimonial-card tilt-card">
             <div class="testimonial-quote">
-              "We run Black Friday flash campaigns across 8 countries simultaneously. MessageYard didn't drop a single packet across 30 million messages in 4 hours."
+              "We run Black Friday flash campaigns across 8 countries simultaneously. MessageYard didn't drop a single
+              packet across 30 million messages in 4 hours."
             </div>
             <div class="testimonial-author">
               <div class="author-avatar-wrap">
@@ -883,7 +1234,8 @@
           <!-- Card 3 -->
           <div class="bubble-frame bubble-frame--tail testimonial-card tilt-card">
             <div class="testimonial-quote">
-              "Our engineering team loves the clean REST APIs, and our growth team loves the no-code visual canvas. It's the first time both departments share one tool."
+              "Our engineering team loves the clean REST APIs, and our growth team loves the no-code visual canvas. It's
+              the first time both departments share one tool."
             </div>
             <div class="testimonial-author">
               <div class="author-avatar-wrap">
@@ -900,27 +1252,41 @@
         <!-- Compliance Badges Row -->
         <div class="compliance-row reveal-fade-up">
           <div class="compliance-badge">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
             SOC 2 Type II
           </div>
           <div class="compliance-badge">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4l3 3"></path></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M12 8v4l3 3"></path>
+            </svg>
             GDPR Ready
           </div>
           <div class="compliance-badge">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+            </svg>
             HIPAA-Eligible
           </div>
           <div class="compliance-badge">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
             ISO 27001
           </div>
           <div class="compliance-badge">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
             TCPA Compliant
           </div>
           <div class="compliance-badge">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
             TLS 1.3 Encryption
           </div>
         </div>
@@ -947,19 +1313,27 @@
 
             <div class="pricing-features-list">
               <div class="pricing-feature-item">
-                <span class="feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                <span class="feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg></span>
                 Up to 5,000 active contacts
               </div>
               <div class="pricing-feature-item">
-                <span class="feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                <span class="feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg></span>
                 SMS & Email channels
               </div>
               <div class="pricing-feature-item">
-                <span class="feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                <span class="feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg></span>
                 1 AI autonomous agent
               </div>
               <div class="pricing-feature-item">
-                <span class="feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                <span class="feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg></span>
                 Community support & docs
               </div>
             </div>
@@ -976,19 +1350,27 @@
 
             <div class="pricing-features-list">
               <div class="pricing-feature-item">
-                <span class="feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                <span class="feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg></span>
                 Up to 100,000 active contacts
               </div>
               <div class="pricing-feature-item">
-                <span class="feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                <span class="feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg></span>
                 All channels: WhatsApp, SMS, RCS, Voice, Email
               </div>
               <div class="pricing-feature-item">
-                <span class="feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                <span class="feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg></span>
                 10 AI Autonomous Agents & Journey Canvas
               </div>
               <div class="pricing-feature-item">
-                <span class="feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                <span class="feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg></span>
                 Priority 24/7 technical support
               </div>
             </div>
@@ -1004,19 +1386,27 @@
 
             <div class="pricing-features-list">
               <div class="pricing-feature-item">
-                <span class="feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                <span class="feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg></span>
                 Unlimited contacts & custom volume SLA
               </div>
               <div class="pricing-feature-item">
-                <span class="feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                <span class="feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg></span>
                 Dedicated telco carrier routes & IP pools
               </div>
               <div class="pricing-feature-item">
-                <span class="feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                <span class="feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg></span>
                 SSO / SAML, HIPAA BAA & Audit logs
               </div>
               <div class="pricing-feature-item">
-                <span class="feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                <span class="feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg></span>
                 Dedicated Solutions Architect & TAM
               </div>
             </div>
@@ -1089,7 +1479,8 @@
         <div class="section-header-center reveal-fade-up">
           <div class="section-eyebrow"><span class="eyebrow-dot"></span> Leadership</div>
           <h2 class="section-heading">Built by builders. <span class="gradient-word">Backed by experience.</span></h2>
-          <p class="body-large">Our leadership team brings decades of experience building tier-1 telecommunications and cloud scale systems.</p>
+          <p class="body-large">Our leadership team brings decades of experience building tier-1 telecommunications and
+            cloud scale systems.</p>
         </div>
 
         <div class="leadership-grid stagger-group">
@@ -1136,13 +1527,18 @@
             <div class="section-eyebrow"><span class="eyebrow-dot"></span> Get in Touch</div>
             <h2 class="section-heading">Let’s connect <span class="gradient-word">your infrastructure.</span></h2>
             <p class="body-large" style="margin-bottom: 32px;">
-              Whether you need to scale custom carrier throughput or orchestrate millions of customer journeys, our team is standing by 24/7.
+              Whether you need to scale custom carrier throughput or orchestrate millions of customer journeys, our team
+              is standing by 24/7.
             </p>
 
             <div class="contact-routes">
               <div class="contact-route-card">
                 <div class="tile tile--sm step-tile-1">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path
+                      d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                    </path>
+                  </svg>
                 </div>
                 <div>
                   <div class="route-email">sales@messageyard.com</div>
@@ -1152,7 +1548,13 @@
 
               <div class="contact-route-card">
                 <div class="tile tile--sm step-tile-3">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                  </svg>
                 </div>
                 <div>
                   <div class="route-email">support@messageyard.com</div>
@@ -1162,7 +1564,10 @@
 
               <div class="contact-route-card">
                 <div class="tile tile--sm step-tile-6">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><path d="M16 12l-4-4-4 4M12 16V8"></path></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M16 12l-4-4-4 4M12 16V8"></path>
+                  </svg>
                 </div>
                 <div>
                   <div class="route-email">partners@messageyard.com</div>
@@ -1174,7 +1579,8 @@
 
           <!-- Contact Form -->
           <div class="contact-form-card reveal-fade-lateral-right">
-            <form id="contact-form" onsubmit="event.preventDefault(); alert('Thank you! Your dispatch request has been received. Our solutions team will contact you shortly.');">
+            <form id="contact-form"
+              onsubmit="event.preventDefault(); alert('Thank you! Your dispatch request has been received. Our solutions team will contact you shortly.');">
               <div class="form-group">
                 <label class="form-label" for="contact-name">Your Name</label>
                 <input type="text" id="contact-name" class="form-input" placeholder="e.g. Sarah Jenkins" required>
@@ -1187,15 +1593,18 @@
 
               <div class="form-group">
                 <label class="form-label" for="contact-company">Company & Monthly Volume</label>
-                <input type="text" id="contact-company" class="form-input" placeholder="Acme Corp · 500k+ messages/mo" required>
+                <input type="text" id="contact-company" class="form-input" placeholder="Acme Corp · 500k+ messages/mo"
+                  required>
               </div>
 
               <div class="form-group">
                 <label class="form-label" for="contact-message">How can we help?</label>
-                <textarea id="contact-message" class="form-textarea" rows="4" placeholder="Tell us about your campaign goals, required channels, or migration timeline..."></textarea>
+                <textarea id="contact-message" class="form-textarea" rows="4"
+                  placeholder="Tell us about your campaign goals, required channels, or migration timeline..."></textarea>
               </div>
 
-              <button type="submit" class="btn btn-primary" style="width:100%; padding:14px;">Send Message Request</button>
+              <button type="submit" class="btn btn-primary" style="width:100%; padding:14px;">Send Message
+                Request</button>
             </form>
           </div>
         </div>
@@ -1208,7 +1617,8 @@
        10. FOOTER & LIVE DISPATCH COUNTER
        ========================================================================== -->
   <footer class="site-footer">
-    <div class="glow-orb orb--blue" style="bottom:-20%; left:50%; transform:translateX(-50%); opacity:0.10;" aria-hidden="true"></div>
+    <div class="glow-orb orb--blue" style="bottom:-20%; left:50%; transform:translateX(-50%); opacity:0.10;"
+      aria-hidden="true"></div>
 
     <div class="container">
       <div class="footer-top-grid">
@@ -1219,7 +1629,8 @@
             <span>MessageYard</span>
           </a>
           <p class="caption-text" style="line-height:1.6; max-width:280px;">
-            The Marketing Cloud with real infrastructure underneath. Composing, routing, and delivering 12B+ conversations.
+            The Marketing Cloud with real infrastructure underneath. Composing, routing, and delivering 12B+
+            conversations.
           </p>
         </div>
 
@@ -1270,19 +1681,31 @@
       </div>
 
       <div class="footer-bottom-bar">
-        <div>© 2026 MessageYard Inc. All rights reserved.</div>
-
-        <!-- Easter Egg: Live Message Dispatch Counter -->
-        <div class="live-dispatch-ticker">
-          <span class="badge-dot" style="background:var(--success); animation:signalPulse 2s infinite;"></span>
-          MESSAGES DISPATCHED SINCE YOU ARRIVED:
-          <span class="live-dispatch-count" id="live-dispatch-counter">4,231</span>
+        <div class="footer-copyright">
+          © 2026 MessageYard Inc. All rights reserved.
         </div>
 
-        <div style="display:flex; gap:16px;">
-          <a href="#" class="footer-link" style="font-size:12px;">Security</a>
-          <a href="#" class="footer-link" style="font-size:12px;">Compliance</a>
-          <a href="#" class="footer-link" style="font-size:12px;">Carrier SLA</a>
+        <div class="footer-bottom-center">
+          <a href="https://byteleaps.com" target="_blank" rel="noopener noreferrer" class="byteleaps-credit-badge"
+            title="Built by Byteleaps">
+            <span class="byteleaps-badge-label">Built by</span>
+            <span class="byteleaps-badge-brand">Byteleaps</span>
+            <svg class="byteleaps-badge-arrow" width="11" height="11" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </a>
+        </div>
+
+        <div class="footer-legal-links">
+          <a href="#" class="footer-legal-link">Security</a>
+          <span class="legal-divider" aria-hidden="true">·</span>
+          <a href="#" class="footer-legal-link">Compliance</a>
+          <span class="legal-divider" aria-hidden="true">·</span>
+          <a href="#" class="footer-legal-link">Carrier SLA</a>
+          <span class="legal-divider" aria-hidden="true">·</span>
+          <a href="#" class="footer-legal-link">Status</a>
         </div>
       </div>
     </div>
@@ -1297,4 +1720,5 @@
 
   <script src="js/app.js"></script>
 </body>
+
 </html>
