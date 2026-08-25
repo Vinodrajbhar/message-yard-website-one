@@ -1,8 +1,13 @@
+providers = ["static"]
+
 [phases.setup]
-nixPkgs = ["nodejs-18_x"]
+nixPkgs = ["caddy"]
 
 [phases.install]
-cmds = ["npm ci"]
+cmds = []
+
+[phases.build]
+cmds = []
 
 [start]
-cmd = "npm start"
+cmd = "caddy file-server --listen :${PORT:-80} --root ."
