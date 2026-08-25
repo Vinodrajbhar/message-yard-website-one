@@ -2,8 +2,10 @@
   "name": "my2",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.html",
   "scripts": {
+    "start": "serve -s . -l ${PORT:-3000}",
+    "dev": "serve -l 3000",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,6 +20,9 @@
     "url": "https://github.com/Vinodrajbhar/message-yard-website-one/issues"
   },
   "homepage": "https://github.com/Vinodrajbhar/message-yard-website-one#readme",
+  "dependencies": {
+    "serve": "^14.2.4"
+  },
   "devDependencies": {
     "clean-css": "^5.3.3",
     "html-minifier-terser": "^7.2.0",
