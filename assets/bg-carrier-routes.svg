@@ -1,0 +1,103 @@
+<svg width="1440" height="900" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .flow-line-1 {
+        stroke-dasharray: 6 14;
+        animation: flowDash1 22s linear infinite;
+      }
+      .flow-line-2 {
+        stroke-dasharray: 8 18;
+        animation: flowDash2 28s linear infinite;
+      }
+      .flow-line-3 {
+        stroke-dasharray: 5 12;
+        animation: flowDash3 18s linear infinite;
+      }
+      .pulse-node {
+        animation: beaconPulse 3.5s ease-in-out infinite;
+        transform-origin: center;
+      }
+      .pulse-node-2 {
+        animation: beaconPulse 4s ease-in-out 1.2s infinite;
+        transform-origin: center;
+      }
+      .pulse-node-3 {
+        animation: beaconPulse 4.5s ease-in-out 2s infinite;
+        transform-origin: center;
+      }
+      .glow-ring {
+        animation: ringExpand 3.5s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+        transform-origin: center;
+      }
+
+      @keyframes flowDash1 {
+        from { stroke-dashoffset: 0; }
+        to { stroke-dashoffset: -360; }
+      }
+      @keyframes flowDash2 {
+        from { stroke-dashoffset: 0; }
+        to { stroke-dashoffset: 400; }
+      }
+      @keyframes flowDash3 {
+        from { stroke-dashoffset: 0; }
+        to { stroke-dashoffset: -300; }
+      }
+      @keyframes beaconPulse {
+        0%, 100% { opacity: 0.35; transform: scale(1); }
+        50% { opacity: 0.75; transform: scale(1.25); }
+      }
+      @keyframes ringExpand {
+        0% { r: 3px; opacity: 0.6; stroke-width: 1.5px; }
+        100% { r: 16px; opacity: 0; stroke-width: 0.5px; }
+      }
+    </style>
+
+    <linearGradient id="lineGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.18"/>
+      <stop offset="50%" stop-color="#2563eb" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.1"/>
+    </linearGradient>
+
+    <linearGradient id="lineGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.16"/>
+      <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#2563eb" stop-opacity="0.08"/>
+    </linearGradient>
+
+    <radialGradient id="meshCenter" cx="50%" cy="50%" r="55%">
+      <stop offset="0%" stop-color="#f8fafc" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#fafcff" stop-opacity="0.4"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1440" height="900" fill="url(#meshCenter)"/>
+
+  <!-- Static Track Lines (Subtle & Below Header Area) -->
+  <path d="M-100 480 C300 380, 600 680, 1100 450 C1300 350, 1500 550, 1600 500" stroke="#cbd5e1" stroke-width="0.75" stroke-opacity="0.2"/>
+  <path d="M-50 780 C400 850, 800 620, 1200 780 C1400 860, 1550 720, 1650 750" stroke="#cbd5e1" stroke-width="0.75" stroke-opacity="0.2"/>
+  <path d="M100 80 C350 280, 650 320, 950 780 C1100 950, 1300 820, 1450 900" stroke="#cbd5e1" stroke-width="0.75" stroke-opacity="0.15"/>
+
+  <!-- Flowing Animated Carrier Trajectories (Non-Intrusive Lower & Periphery Routes) -->
+  <path id="path1" class="flow-line-1" d="M-100 480 C300 380, 600 680, 1100 450 C1300 350, 1500 550, 1600 500" stroke="url(#lineGrad1)" stroke-width="1.2" stroke-linecap="round"/>
+  <path id="path2" class="flow-line-2" d="M-50 780 C400 850, 800 620, 1200 780 C1400 860, 1550 720, 1650 750" stroke="url(#lineGrad2)" stroke-width="1.2" stroke-linecap="round"/>
+  <path id="path3" class="flow-line-3" d="M100 80 C350 280, 650 320, 950 780 C1100 950, 1300 820, 1450 900" stroke="url(#lineGrad1)" stroke-width="1.1" stroke-linecap="round"/>
+
+  <!-- Gentle Pulse Nodes & Halo Rings -->
+  <circle cx="600" cy="680" r="8" fill="none" stroke="#38bdf8" class="glow-ring"/>
+  <circle cx="600" cy="680" r="3.5" fill="#0284c7" class="pulse-node"/>
+
+  <circle cx="1100" cy="450" r="10" fill="none" stroke="#2563eb" class="glow-ring"/>
+  <circle cx="1100" cy="450" r="4" fill="#2563eb" class="pulse-node-2"/>
+
+  <circle cx="800" cy="620" r="8" fill="none" stroke="#7c3aed" class="glow-ring"/>
+  <circle cx="800" cy="620" r="3.5" fill="#7c3aed" class="pulse-node-3"/>
+
+  <!-- Subtle Traveling Light Packets -->
+  <circle r="2.5" fill="#38bdf8" opacity="0.75">
+    <animateMotion dur="11s" repeatCount="indefinite" path="M-100 480 C300 380, 600 680, 1100 450 C1300 350, 1500 550, 1600 500" />
+  </circle>
+
+  <circle r="2.5" fill="#7c3aed" opacity="0.7">
+    <animateMotion dur="14s" begin="2s" repeatCount="indefinite" path="M-50 780 C400 850, 800 620, 1200 780 C1400 860, 1550 720, 1650 750" />
+  </circle>
+</svg>

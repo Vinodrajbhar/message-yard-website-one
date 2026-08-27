@@ -1,0 +1,45 @@
+<svg width="1440" height="900" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .aurora-layer-1 {
+        animation: auroraShift1 16s ease-in-out infinite alternate;
+        transform-origin: 50% 30%;
+      }
+      .aurora-layer-2 {
+        animation: auroraShift2 22s ease-in-out infinite alternate;
+        transform-origin: 60% 40%;
+      }
+      @keyframes auroraShift1 {
+        0% { transform: scale(1) translate(0, 0); opacity: 0.8; }
+        50% { transform: scale(1.15) translate(-30px, 20px); opacity: 1; }
+        100% { transform: scale(0.95) translate(40px, -15px); opacity: 0.85; }
+      }
+      @keyframes auroraShift2 {
+        0% { transform: scale(1) translate(0, 0); opacity: 0.7; }
+        50% { transform: scale(1.2) translate(35px, -25px); opacity: 0.95; }
+        100% { transform: scale(0.9) translate(-40px, 20px); opacity: 0.75; }
+      }
+    </style>
+
+    <radialGradient id="auroraGlow1" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.16"/>
+      <stop offset="50%" stop-color="#818cf8" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="auroraGlow2" cx="60%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.12"/>
+      <stop offset="60%" stop-color="#38bdf8" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+
+    <pattern id="dotGrid" x="0" y="0" width="36" height="36" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.1" fill="#94a3b8" fill-opacity="0.25"/>
+    </pattern>
+  </defs>
+
+  <rect width="1440" height="900" fill="#fafcff"/>
+  <rect class="aurora-layer-1" width="1440" height="900" fill="url(#auroraGlow1)"/>
+  <rect class="aurora-layer-2" width="1440" height="900" fill="url(#auroraGlow2)"/>
+  <rect width="1440" height="900" fill="url(#dotGrid)"/>
+</svg>

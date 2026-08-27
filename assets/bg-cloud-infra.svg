@@ -1,0 +1,56 @@
+<svg width="1440" height="900" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .radar-ring-1 {
+        animation: radarPulse 8s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+        transform-origin: 720px 450px;
+      }
+      .radar-ring-2 {
+        animation: radarPulse 8s cubic-bezier(0.2, 0.8, 0.2, 1) 2.6s infinite;
+        transform-origin: 720px 450px;
+      }
+      .radar-ring-3 {
+        animation: radarPulse 8s cubic-bezier(0.2, 0.8, 0.2, 1) 5.3s infinite;
+        transform-origin: 720px 450px;
+      }
+      .grid-cross {
+        animation: crossGlow 4s ease-in-out infinite alternate;
+      }
+      @keyframes radarPulse {
+        0% { transform: scale(0.2); opacity: 0.8; stroke-width: 2px; }
+        100% { transform: scale(1.4); opacity: 0; stroke-width: 0.5px; }
+      }
+      @keyframes crossGlow {
+        0% { opacity: 0.2; }
+        100% { opacity: 0.65; }
+      }
+    </style>
+
+    <linearGradient id="gridLine" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#2563eb" stop-opacity="0.04"/>
+    </linearGradient>
+
+    <pattern id="squareGrid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#cbd5e1" stroke-width="0.75" stroke-opacity="0.35"/>
+      <circle cx="0" cy="0" r="1.5" fill="#94a3b8" opacity="0.3"/>
+    </pattern>
+  </defs>
+
+  <rect width="1440" height="900" fill="#fafcff"/>
+  <rect width="1440" height="900" fill="url(#squareGrid)"/>
+
+  <!-- Center Ambient Core -->
+  <circle cx="720" cy="450" r="380" fill="url(#gridLine)"/>
+
+  <!-- Radar Pulse Rings -->
+  <circle class="radar-ring-1" cx="720" cy="450" r="300" fill="none" stroke="#38bdf8"/>
+  <circle class="radar-ring-2" cx="720" cy="450" r="300" fill="none" stroke="#2563eb"/>
+  <circle class="radar-ring-3" cx="720" cy="450" r="300" fill="none" stroke="#7c3aed"/>
+
+  <!-- Sub-surface Data Intersections -->
+  <circle class="grid-cross" cx="480" cy="300" r="3" fill="#38bdf8"/>
+  <circle class="grid-cross" cx="960" cy="300" r="3" fill="#2563eb"/>
+  <circle class="grid-cross" cx="480" cy="600" r="3" fill="#7c3aed"/>
+  <circle class="grid-cross" cx="960" cy="600" r="3" fill="#38bdf8"/>
+</svg>

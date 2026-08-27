@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MessageYard — 3D Three.js Animation Hub</title>
+  <meta name="description" content="Dedicated full-screen Three.js 3D isometric MessageYard animation hub.">
+
+  <!-- Typography: Inter, JetBrains Mono, Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap"
+    rel="stylesheet">
+
+  <link rel="icon" type="image/png" href="assets/messageyard-icon.png">
+  <link rel="stylesheet" href="css/animation.css">
+</head>
+
+<body>
+
+  <!-- Full-Screen Three.js Canvas Viewport -->
+  <div id="canvas-container"></div>
+
+  <!-- Floating Header & Branding -->
+  <header class="top-nav">
+    <a href="index.html" class="brand-badge" title="Return to Home">
+      <img src="assets/messageyard-icon.png" alt="MessageYard">
+      <span>MessageYard · 3D Engine</span>
+      <span class="status-pill">
+        <span class="status-dot"></span> 3D LIVE
+      </span>
+    </a>
+
+    <!-- Top Action Controls -->
+    <div class="floating-toolbar">
+      <button class="tool-btn btn-burst" id="btn-burst">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
+        Simulate Burst
+      </button>
+      <button class="tool-btn" id="btn-reset-cam">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+          <path d="M3 3v5h5"></path>
+        </svg>
+        Reset Camera
+      </button>
+      <button class="tool-btn" id="btn-sound">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+          <line x1="23" y1="9" x2="17" y2="15"></line>
+          <line x1="17" y1="9" x2="23" y2="15"></line>
+        </svg>
+        Sound: Off
+      </button>
+      <button class="tool-btn" id="btn-theme">🌙 Dark Mode</button>
+    </div>
+  </header>
+
+  <!-- Bottom Channel Filters -->
+  <nav class="channel-bar" aria-label="Channel Filters">
+    <button class="ch-filter-btn active" data-filter="all">All Channels</button>
+    <button class="ch-filter-btn" data-filter="whatsapp">
+      <span class="ch-dot" style="background:#0ea5e9;"></span> WhatsApp
+    </button>
+    <button class="ch-filter-btn" data-filter="sms">
+      <span class="ch-dot" style="background:#a855f7;"></span> SMS / RCS
+    </button>
+    <button class="ch-filter-btn" data-filter="email">
+      <span class="ch-dot" style="background:#f43f5e;"></span> Email
+    </button>
+    <button class="ch-filter-btn" data-filter="push">
+      <span class="ch-dot" style="background:#eab308;"></span> Push &amp; Hooks
+    </button>
+  </nav>
+
+  <!-- Bottom Left 3D Interaction Hint -->
+  <div class="orbit-hint">
+    <span>🖱️ Drag to Orbit · Scroll to Zoom · Click Terminal Cubes</span>
+  </div>
+
+  <!-- Live Telemetry Card (Opens on Terminal Click) -->
+  <div class="telemetry-card hidden" id="telemetry-card">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-icon" id="card-icon">💬</div>
+        <div>
+          <h4 class="card-title" id="card-title">WhatsApp Cloud</h4>
+          <span class="card-sub" id="card-sub">Meta Cloud Direct Gateway</span>
+        </div>
+      </div>
+      <button class="card-close-btn" id="card-close-btn" aria-label="Close">✕</button>
+    </div>
+
+    <div class="card-stats-grid">
+      <div class="card-stat-box">
+        <div class="stat-title">Throughput</div>
+        <div class="stat-number" id="stat-rate">45,800 /s</div>
+      </div>
+      <div class="card-stat-box">
+        <div class="stat-title">Latency</div>
+        <div class="stat-number" id="stat-latency">12 ms</div>
+      </div>
+      <div class="card-stat-box">
+        <div class="stat-title">Success Rate</div>
+        <div class="stat-number" id="stat-success">99.99%</div>
+      </div>
+      <div class="card-stat-box">
+        <div class="stat-title">Live Sessions</div>
+        <div class="stat-number" id="stat-sessions">342,900</div>
+      </div>
+    </div>
+
+    <div>
+      <div style="display:flex; justify-content:space-between; font-size:11px; color:#94a3b8;">
+        <span>Channel Health</span>
+        <span style="color:#10b981; font-weight:600;">100% Operational</span>
+      </div>
+      <div class="health-bar">
+        <div class="health-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Three.js Core, Loaders & Post-Processing Pipeline -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/DRACOLoader.js"></script>
+  
+  <!-- Unreal Bloom & Post-Processing Shaders -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+
+  <!-- Master 3D Animation Controller -->
+  <script src="js/animation.js"></script>
+</body>
+
+</html>
