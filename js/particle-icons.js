@@ -22,14 +22,14 @@ class CardBackgroundParticle {
     this.height = 0;
     this.particles = [];
 
-    // Interaction Physics
+    // Interaction Physics (Soothing, Silky Fluid Dynamics)
     this.mouseX = -9999;
     this.mouseY = -9999;
     this.isHovered = false;
-    this.mouseRadius = 85;
-    this.mousePower = 9;
-    this.spring = 0.075;
-    this.friction = 0.84;
+    this.mouseRadius = 75;
+    this.mousePower = 3.2;
+    this.spring = 0.045;
+    this.friction = 0.885;
     this.settled = false;
     this.animId = null;
 
@@ -82,32 +82,38 @@ class CardBackgroundParticle {
       const offsetX = this.width - sampleSize - 20;
       const offsetY = this.height - sampleSize - 10;
 
-      const step = 3; // Particle grid density
+      const step = 2.2; // Fine micro-stardust resolution
       for (let y = 0; y < sampleSize; y += step) {
         for (let x = 0; x < sampleSize; x += step) {
-          const idx = (y * sampleSize + x) * 4;
+          const px = Math.floor(x);
+          const py = Math.floor(y);
+          const idx = (py * sampleSize + px) * 4;
           const alpha = data[idx + 3];
 
-          if (alpha > 45) {
+          if (alpha > 40) {
             const posX = offsetX + x;
             const posY = offsetY + y;
             const normX = x / sampleSize;
+            const normY = y / sampleSize;
 
-            let color = '#2563eb';
-            if (normX < 0.35) color = '#38bdf8';
-            else if (normX > 0.7) color = '#7c3aed';
+            let color = '#38bdf8';
+            if (normX < 0.3) color = '#38bdf8';
+            else if (normX < 0.65) color = '#60a5fa';
+            else if (normY > 0.5) color = '#c084fc';
+            else color = '#818cf8';
 
             this.particles.push({
               originX: posX,
               originY: posY,
               x: posX,
               y: posY,
-              vx: (Math.random() - 0.5) * 0.4,
-              vy: (Math.random() - 0.5) * 0.4,
-              size: Math.random() * 0.8 + 1.8,
+              vx: (Math.random() - 0.5) * 0.2,
+              vy: (Math.random() - 0.5) * 0.2,
+              size: Math.random() * 0.35 + 0.85, // Ultra-fine micro particles
               color: color,
-              restAlpha: 0.18,
-              activeAlpha: 0.75,
+              restAlpha: 0.14,
+              activeAlpha: 0.68,
+              currentAlpha: 0.14,
               noiseOffset: Math.random() * 100
             });
           }
@@ -124,10 +130,10 @@ class CardBackgroundParticle {
     this.card.addEventListener('mouseenter', () => {
       this.isHovered = true;
       this.wake();
-      // Burst initial particle energy
+      // Gentle, soothing expansion wave
       this.particles.forEach(p => {
         const angle = Math.random() * Math.PI * 2;
-        const speed = Math.random() * 4.5 + 2;
+        const speed = Math.random() * 1.5 + 0.8;
         p.vx += Math.cos(angle) * speed;
         p.vy += Math.sin(angle) * speed;
       });
@@ -176,27 +182,27 @@ class CardBackgroundParticle {
     this.ctx.clearRect(0, 0, this.width, this.height);
 
     let maxVelocity = 0;
-    const time = performance.now() * 0.0028;
+    const time = performance.now() * 0.0018;
 
     for (let i = 0; i < this.particles.length; i++) {
       const p = this.particles[i];
 
-      // 1. Mouse Repulsion Force Field (Bruno Imbrizi Physics)
+      // 1. Mouse Repulsion Force Field (Smooth quadratic falloff)
       const dx = p.x - this.mouseX;
       const dy = p.y - this.mouseY;
       const dist = Math.sqrt(dx * dx + dy * dy);
 
       if (dist < this.mouseRadius && dist > 0) {
-        const force = (1 - dist / this.mouseRadius) * this.mousePower;
+        const force = Math.pow(1 - dist / this.mouseRadius, 1.5) * this.mousePower;
         const angle = Math.atan2(dy, dx);
         p.vx += Math.cos(angle) * force;
         p.vy += Math.sin(angle) * force;
       }
 
-      // 2. Ambient Hover Energy & Micro-Wander
+      // 2. Soothing Ambient Levitation
       if (this.isHovered) {
-        p.vx += Math.sin(time + p.noiseOffset) * 0.4;
-        p.vy += Math.cos(time + p.noiseOffset) * 0.4;
+        p.vx += Math.sin(time + p.noiseOffset) * 0.12;
+        p.vy += Math.cos(time + p.noiseOffset) * 0.12;
       }
 
       // 3. Spring Return Force (Hooke's Law)
@@ -205,7 +211,7 @@ class CardBackgroundParticle {
       p.vx += homeX * this.spring;
       p.vy += homeY * this.spring;
 
-      // 4. Friction / Damping
+      // 4. Damping / Friction
       p.vx *= this.friction;
       p.vy *= this.friction;
 
@@ -218,9 +224,13 @@ class CardBackgroundParticle {
         maxVelocity = currentVel;
       }
 
-      // 6. Draw Particle
+      // 6. Smooth Alpha Transition
+      const targetAlpha = this.isHovered ? p.activeAlpha : p.restAlpha;
+      p.currentAlpha += (targetAlpha - p.currentAlpha) * 0.08;
+
+      // 7. Draw Ultra-Fine Particle
       this.ctx.fillStyle = p.color;
-      this.ctx.globalAlpha = this.isHovered ? p.activeAlpha : p.restAlpha;
+      this.ctx.globalAlpha = p.currentAlpha;
       this.ctx.beginPath();
       this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
       this.ctx.fill();
@@ -229,7 +239,7 @@ class CardBackgroundParticle {
     this.ctx.globalAlpha = 1;
 
     // Sleep when settled and not hovered to conserve battery/CPU
-    if (!this.isHovered && maxVelocity < 0.04) {
+    if (!this.isHovered && maxVelocity < 0.025) {
       this.settled = true;
       this.animId = null;
       // Draw resting state
@@ -240,6 +250,7 @@ class CardBackgroundParticle {
         p.y = p.originY;
         p.vx = 0;
         p.vy = 0;
+        p.currentAlpha = p.restAlpha;
         this.ctx.fillStyle = p.color;
         this.ctx.globalAlpha = p.restAlpha;
         this.ctx.beginPath();
