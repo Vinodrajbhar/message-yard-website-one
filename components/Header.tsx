@@ -62,7 +62,7 @@ export default function Header() {
             src="/assets/messageyard-icon.png"
             alt="MessageYard"
             style={{
-              width: "clamp(11rem, 16vw, 13.5rem)",
+              width: "clamp(11.5rem, 15vw, 15.5rem)",
               height: "auto",
               maxHeight: "3.25rem",
               objectFit: "contain",
