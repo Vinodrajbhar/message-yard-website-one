@@ -5,10 +5,81 @@ import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
 
 const TABS = [
   { id: "tab-data", num: "01 / Ingestion", title: "Data & Profiles" },
-  { id: "tab-journeys", num: "02 / Automation", title: "Journey Canvas" },
+  { id: "tab-journeys", num: "02 / Automation", title: "Journey & Workflows" },
   { id: "tab-cpaas", num: "03 / Delivery", title: "CPaaS APIs" },
-  { id: "tab-analytics", num: "04 / Intelligence", title: "Attribution" },
+  {
+    id: "tab-analytics",
+    num: "04 / Intelligence",
+    title: "Performance Intelligence",
+  },
 ];
+
+function PlatformVideoPlayer({
+  driveId,
+  r2Key,
+  title,
+  isActive = true,
+}: {
+  driveId?: string;
+  r2Key: string;
+  title: string;
+  isActive?: boolean;
+}) {
+  const cdnBase = process.env.NEXT_PUBLIC_R2_PUBLIC_URL?.replace(/\/$/, "");
+  const directCdnUrl = cdnBase ? `${cdnBase}/${encodeURIComponent(r2Key)}` : "";
+  const r2StreamUrl = `/api/r2/video?key=${encodeURIComponent(r2Key)}`;
+  const videoSrc = directCdnUrl || r2StreamUrl;
+
+  const [hasError, setHasError] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const drivePreviewUrl = driveId
+    ? `https://drive.google.com/file/d/${driveId}/preview`
+    : "";
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (isActive) {
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {});
+      }
+    } else {
+      video.pause();
+    }
+  }, [isActive]);
+
+  return (
+    <div className="pipeline-video-viewport">
+      {!hasError ? (
+        <video
+          ref={videoRef}
+          className="pipeline-video-element"
+          src={videoSrc}
+          autoPlay={isActive}
+          muted
+          loop
+          playsInline
+          preload="auto"
+          onError={() => setHasError(true)}
+        />
+      ) : drivePreviewUrl ? (
+        <iframe
+          src={drivePreviewUrl}
+          className="pipeline-video-iframe"
+          title={title}
+          allow="autoplay; encrypted-media; fullscreen"
+          allowFullScreen
+        />
+      ) : (
+        <div style={{ color: "#94a3b8", fontSize: "0.85rem" }}>
+          Video stream unavailable
+        </div>
+      )}
+    </div>
+  );
+}
 
 function CopyButton({ textToCopy }: { textToCopy: string }) {
   const [copied, setCopied] = useState(false);
@@ -46,7 +117,6 @@ function CopyButton({ textToCopy }: { textToCopy: string }) {
 
 export default function Platform() {
   const [activeTab, setActiveTab] = useState("tab-data");
-  const [codeLang, setCodeLang] = useState<"curl" | "node" | "python">("curl");
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -71,6 +141,22 @@ export default function Platform() {
       window.removeEventListener("switch-platform-tab", handleSwitchTab);
   }, []);
 
+  useEffect(() => {
+    // Preload video streams into browser media cache immediately on page mount
+    const videoKeys = [
+      "Workflows.mov",
+      "Channel Dashboard.mov",
+      "Product Dashboard video.mov",
+    ];
+    videoKeys.forEach((key) => {
+      const link = document.createElement("link");
+      link.rel = "preload";
+      link.as = "video";
+      link.href = `/api/r2/video?key=${encodeURIComponent(key)}`;
+      document.head.appendChild(link);
+    });
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
@@ -82,40 +168,6 @@ export default function Platform() {
     [0, 1],
     [15, -15],
   );
-
-  const CODE_SNIPPETS = {
-    curl: `curl -X POST https://api.messageyard.com/v1/messages/send \\
-  -H "Authorization: Bearer my_live_token_77a" \\
-  -H "Content-Type: application/json" \\
-  -d '{
-    "to": "+14155550199",
-    "channel": "whatsapp",
-    "template": "vip_cart_recovery",
-    "carrier_route": "tier_1_direct"
-  }'`,
-    node: `import { MessageYard } from "@messageyard/sdk";
-
-const client = new MessageYard({ apiKey: process.env.MY_API_KEY });
-
-await client.messages.dispatch({
-  to: "+14155550199",
-  channel: "whatsapp",
-  template: "vip_cart_recovery",
-  carrierRoute: "tier_1_direct",
-  fallback: { channel: "rcs", timeoutMs: 3000 }
-});`,
-    python: `from messageyard import Client
-
-client = Client(api_key="my_live_token_77a")
-
-response = client.messages.dispatch(
-    to="+14155550199",
-    channel="whatsapp",
-    template="vip_cart_recovery",
-    carrier_route="tier_1_direct",
-    webhook_tracking=True
-)`,
-  };
 
   return (
     <section ref={sectionRef} className="how-it-works" id="platform">
@@ -157,18 +209,33 @@ response = client.messages.dispatch(
           className="platform-tab-panels-container"
           style={{ position: "relative", minHeight: "480px" }}
         >
-          <AnimatePresence mode="wait">
-            {/* TAB 1: DATA & PROFILES (INGESTION) */}
-            {activeTab === "tab-data" && (
-              <motion.div
-                key="tab-data"
-                className="platform-tab-panel active"
-                id="tab-data"
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -14 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
-              >
+          {/* Background Hidden Preloader ensuring instant video buffering */}
+          <div
+            style={{
+              position: "absolute",
+              width: "1px",
+              height: "1px",
+              padding: 0,
+              margin: "-1px",
+              overflow: "hidden",
+              clip: "rect(0, 0, 0, 0)",
+              whiteSpace: "nowrap",
+              border: 0,
+              pointerEvents: "none",
+            }}
+            aria-hidden="true"
+          >
+            <video src="/api/r2/video?key=Workflows.mov" preload="auto" muted playsInline />
+            <video src="/api/r2/video?key=Channel%20Dashboard.mov" preload="auto" muted playsInline />
+            <video src="/api/r2/video?key=Product%20Dashboard%20video.mov" preload="auto" muted playsInline />
+          </div>
+
+          {/* TAB 1: DATA & PROFILES (INGESTION) */}
+          <div
+            key="tab-data"
+            className={`platform-tab-panel ${activeTab === "tab-data" ? "active" : ""}`}
+            id="tab-data"
+          >
                 <div className="panel-text">
                   <span
                     style={{
@@ -189,20 +256,20 @@ response = client.messages.dispatch(
                   </p>
                   <ul className="panel-bullets">
                     <li>
-                      <strong>Unified Campaign Intelligence:</strong> Compare
+                      <strong>Unified Campaign Intelligence —</strong> Compare
                       engagement and conversions across channels.
                     </li>
                     <li>
-                      <strong>Campaign & Channel Effectiveness:</strong> Know
+                      <strong>Campaign & Channel Effectiveness —</strong> Know
                       which campaigns, messages and channels drive results.
                     </li>
                     <li>
-                      <strong>Real-Time Performance Signals:</strong> Spot
+                      <strong>Real-Time Performance Signals —</strong> Spot
                       winning campaigns, engagement drops and opportunities
                       instantly.
                     </li>
                     <li>
-                      <strong>Next-Best Insights:</strong> Use engagement
+                      <strong>Next-Best Insights —</strong> Use engagement
                       intelligence to improve channel, timing and future
                       campaigns.
                     </li>
@@ -224,13 +291,6 @@ response = client.messages.dispatch(
                         <span></span>
                         <span></span>
                       </div>
-                      <span className="pipeline-header-path">
-                        mesh://identity-engine/graph-stitcher
-                      </span>
-                    </div>
-                    <div className="pipeline-live-badge">
-                      <span className="pipeline-live-dot"></span>
-                      <span>Streaming Active</span>
                     </div>
                   </div>
 
@@ -376,20 +436,14 @@ response = client.messages.dispatch(
                     </div>
                   </div>
                 </motion.div>
-              </motion.div>
-            )}
+              </div>
 
-            {/* TAB 2: JOURNEY CANVAS (AUTOMATION) */}
-            {activeTab === "tab-journeys" && (
-              <motion.div
-                key="tab-journeys"
-                className="platform-tab-panel active"
-                id="tab-journeys"
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -14 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
-              >
+            {/* TAB 2: JOURNEY & WORKFLOWS (AUTOMATION) */}
+            <div
+              key="tab-journeys"
+              className={`platform-tab-panel ${activeTab === "tab-journeys" ? "active" : ""}`}
+              id="tab-journeys"
+            >
                 <div className="panel-text">
                   <span
                     style={{
@@ -405,21 +459,29 @@ response = client.messages.dispatch(
                   <h3>Drag, drop, and branch across every channel.</h3>
                   <p>
                     Build customer journeys that react to real behavior in real
-                    time. Trigger a workflow off a purchase, a support ticket,
-                    or an abandoned cart, and let it route across WhatsApp, RCS,
-                    or voice automatically.
+                    time, or deploy predefined workflows to reduce manual
+                    efforts. Trigger a workflow off a purchase, a support
+                    ticket, or an abandoned cart, and let it route across
+                    WhatsApp, RCS, or voice automatically.
                   </p>
                   <ul className="panel-bullets">
                     <li>
-                      Visual branching logic based on user interaction and time
-                      delays
+                      <strong>Visual Branching Logic —</strong> Branch based on
+                      user interaction, conditional tags, and custom time
+                      delays.
                     </li>
                     <li>
-                      Send-time AI optimization tailored to each individual
-                      recipient
+                      <strong>Predefined Workflows —</strong> Out-of-the-box
+                      automation templates to reduce manual efforts and launch
+                      faster.
                     </li>
                     <li>
-                      Multivariate A/B testing with automated traffic winners
+                      <strong>Send-Time Optimization —</strong> AI-powered
+                      delivery windows tailored to each individual recipient.
+                    </li>
+                    <li>
+                      <strong>Multivariate A/B Testing —</strong> Automated
+                      traffic routing to winning message variations.
                     </li>
                   </ul>
                 </div>
@@ -432,195 +494,22 @@ response = client.messages.dispatch(
                     y: panelMockupTranslateY,
                   }}
                 >
-                  <div className="pipeline-console-header">
-                    <div className="pipeline-header-left">
-                      <div className="pipeline-dots">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                      </div>
-                      <span className="pipeline-header-path">
-                        canvas://workflows/vip-cart-recovery.flow
-                      </span>
-                    </div>
-                    <div className="pipeline-live-badge">
-                      <span className="pipeline-live-dot"></span>
-                      <span>98.4% Completion</span>
-                    </div>
-                  </div>
 
-                  <div className="pipeline-console-body">
-                    {/* Visual Journey Node Tree */}
-                    <div className="pipeline-workflow-layout">
-                      {/* Step 1: Trigger */}
-                      <div className="pipeline-flow-step">
-                        <div className="pipeline-step-indicator">
-                          <span className="pipeline-step-dot"></span>
-                          <span className="pipeline-step-line"></span>
-                        </div>
-                        <div className="pipeline-node-box highlight">
-                          <div className="pipeline-node-content">
-                            <h5>⚡ TRIGGER: Cart Abandoned</h5>
-                            <p>
-                              Condition: Cart Value &gt; $150 · Exit Intent
-                              Detected
-                            </p>
-                          </div>
-                          <span
-                            style={{
-                              fontSize: "0.685rem",
-                              fontWeight: 600,
-                              color: "#2563eb",
-                            }}
-                          >
-                            0ms
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Step 2: Delay Node */}
-                      <div className="pipeline-flow-step">
-                        <div className="pipeline-step-indicator">
-                          <span
-                            className="pipeline-step-dot"
-                            style={{ background: "#6366f1" }}
-                          ></span>
-                          <span className="pipeline-step-line"></span>
-                        </div>
-                        <div className="pipeline-node-box">
-                          <div className="pipeline-node-content">
-                            <h5>⏳ DELAY: Wait 15 Minutes</h5>
-                            <p>Verify checkout status === false</p>
-                          </div>
-                          <span
-                            style={{
-                              fontSize: "0.685rem",
-                              fontWeight: 600,
-                              color: "#64748b",
-                            }}
-                          >
-                            15m
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Step 3: Split Branches */}
-                      <div className="pipeline-branch-split">
-                        <div className="pipeline-branch-card whatsapp">
-                          <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              alignItems: "center",
-                              marginBottom: "0.25rem",
-                            }}
-                          >
-                            <strong style={{ color: "#16a34a" }}>
-                              Branch A (78%) · WhatsApp
-                            </strong>
-                            <span
-                              style={{
-                                fontSize: "0.65rem",
-                                background: "rgba(34,197,94,0.15)",
-                                color: "#15803d",
-                                padding: "1px 5px",
-                                borderRadius: "4px",
-                              }}
-                            >
-                              Delivered 0.8s
-                            </span>
-                          </div>
-                          <p style={{ margin: 0, color: "#334155" }}>
-                            "Hi Alex, your reserved items are holding for 1 hr.
-                            [Complete Order]"
-                          </p>
-                        </div>
-
-                        <div className="pipeline-branch-card sms">
-                          <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              alignItems: "center",
-                              marginBottom: "0.25rem",
-                            }}
-                          >
-                            <strong style={{ color: "#0284c7" }}>
-                              Branch B (22%) · RCS / SMS
-                            </strong>
-                            <span
-                              style={{
-                                fontSize: "0.65rem",
-                                background: "rgba(2,132,199,0.15)",
-                                color: "#0369a1",
-                                padding: "1px 5px",
-                                borderRadius: "4px",
-                              }}
-                            >
-                              Failover
-                            </span>
-                          </div>
-                          <p style={{ margin: 0, color: "#334155" }}>
-                            "Exclusive VIP 10% applied to your bag: msg.yd/cart"
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Step 4: Conversion Goal */}
-                      <div
-                        className="pipeline-flow-step"
-                        style={{ marginTop: "0.25rem" }}
-                      >
-                        <div className="pipeline-step-indicator">
-                          <span
-                            className="pipeline-step-dot"
-                            style={{ background: "#10b981" }}
-                          ></span>
-                        </div>
-                        <div
-                          className="pipeline-node-box"
-                          style={{
-                            borderColor: "rgba(16,185,129,0.35)",
-                            background: "rgba(16,185,129,0.04)",
-                          }}
-                        >
-                          <div className="pipeline-node-content">
-                            <h5 style={{ color: "#059669" }}>
-                              🎉 GOAL CONVERTED: Checkout Completed
-                            </h5>
-                            <p>
-                              Attributed Revenue: +$284.50 · Conversion Time: 3m
-                              42s
-                            </p>
-                          </div>
-                          <span
-                            style={{
-                              fontSize: "0.685rem",
-                              fontWeight: 700,
-                              color: "#059669",
-                            }}
-                          >
-                            SUCCESS
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <PlatformVideoPlayer
+                    r2Key="Workflows.mov"
+                    driveId="1wyQkKe0-sxS6gCt4Rw1M-9VTfGrcXtFw"
+                    title="Journey & Workflows Automation Demonstration"
+                    isActive={activeTab === "tab-journeys"}
+                  />
                 </motion.div>
-              </motion.div>
-            )}
+              </div>
 
             {/* TAB 3: CPAAS APIS (DELIVERY) */}
-            {activeTab === "tab-cpaas" && (
-              <motion.div
-                key="tab-cpaas"
-                className="platform-tab-panel active"
-                id="tab-cpaas"
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -14 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
-              >
+            <div
+              key="tab-cpaas"
+              className={`platform-tab-panel ${activeTab === "tab-cpaas" ? "active" : ""}`}
+              id="tab-cpaas"
+            >
                 <div className="panel-text">
                   <span
                     style={{
@@ -641,12 +530,17 @@ response = client.messages.dispatch(
                     is already unified.
                   </p>
                   <ul className="panel-bullets">
-                    <li>Tier-1 direct carrier routes in 190+ countries</li>
                     <li>
-                      Sub-second global latency with automatic failover routing
+                      <strong>Tier-1 Direct Carrier Routes —</strong> Direct
+                      routes in 190+ countries for carrier-grade deliverability.
                     </li>
                     <li>
-                      Programmable webhooks for real-time delivery receipts
+                      <strong>Sub-Second Global Latency —</strong> Real-time
+                      edge routing with automatic zero-loss failover.
+                    </li>
+                    <li>
+                      <strong>Programmable Webhooks —</strong> Event streams for
+                      delivery receipts, clicks, and read states.
                     </li>
                   </ul>
                 </div>
@@ -659,126 +553,22 @@ response = client.messages.dispatch(
                     y: panelMockupTranslateY,
                   }}
                 >
-                  <div className="pipeline-console-header">
-                    <div className="pipeline-header-left">
-                      <div className="pipeline-dots">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                      </div>
-                      <span className="pipeline-header-path">
-                        cpaas-mesh://carrier-routing/v1/dispatch
-                      </span>
-                    </div>
-                    <div className="pipeline-live-badge">
-                      <span className="pipeline-live-dot"></span>
-                      <span>8ms Edge Latency</span>
-                    </div>
-                  </div>
 
-                  <div className="pipeline-console-body">
-                    {/* Carrier Routing Matrix */}
-                    <div className="pipeline-carrier-grid">
-                      <div className="pipeline-carrier-pill">
-                        <span className="pipeline-carrier-name">
-                          AT&T Tier-1
-                        </span>
-                        <span className="pipeline-carrier-latency">
-                          ● 3.2ms · Direct
-                        </span>
-                      </div>
-                      <div className="pipeline-carrier-pill">
-                        <span className="pipeline-carrier-name">
-                          Verizon Wireless
-                        </span>
-                        <span className="pipeline-carrier-latency">
-                          ● 2.8ms · Direct
-                        </span>
-                      </div>
-                      <div className="pipeline-carrier-pill">
-                        <span className="pipeline-carrier-name">
-                          Vodafone Global
-                        </span>
-                        <span className="pipeline-carrier-latency">
-                          ● 4.1ms · Direct
-                        </span>
-                      </div>
-                      <div className="pipeline-carrier-pill">
-                        <span className="pipeline-carrier-name">
-                          Airtel International
-                        </span>
-                        <span className="pipeline-carrier-latency">
-                          ● 5.2ms · Direct
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Interactive Code Switcher */}
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                      }}
-                    >
-                      <div className="pipeline-code-tabs">
-                        <button
-                          type="button"
-                          className={`pipeline-code-tab ${codeLang === "curl" ? "active" : ""}`}
-                          onClick={() => setCodeLang("curl")}
-                        >
-                          cURL
-                        </button>
-                        <button
-                          type="button"
-                          className={`pipeline-code-tab ${codeLang === "node" ? "active" : ""}`}
-                          onClick={() => setCodeLang("node")}
-                        >
-                          Node.js / TS
-                        </button>
-                        <button
-                          type="button"
-                          className={`pipeline-code-tab ${codeLang === "python" ? "active" : ""}`}
-                          onClick={() => setCodeLang("python")}
-                        >
-                          Python
-                        </button>
-                      </div>
-
-                      <CopyButton textToCopy={CODE_SNIPPETS[codeLang]} />
-                    </div>
-
-                    {/* Syntax Code View */}
-                    <div
-                      className="pipeline-terminal-ticker"
-                      style={{ minHeight: "150px" }}
-                    >
-                      <pre
-                        style={{
-                          margin: 0,
-                          overflowX: "auto",
-                          fontFamily: "inherit",
-                        }}
-                      >
-                        <code>{CODE_SNIPPETS[codeLang]}</code>
-                      </pre>
-                    </div>
-                  </div>
+                  <PlatformVideoPlayer
+                    r2Key="Channel Dashboard.mov"
+                    driveId="1JvC449D_8MUWziLfkPQCxng1zqCIluvn"
+                    title="CPaaS APIs Channel Video Demonstration"
+                    isActive={activeTab === "tab-cpaas"}
+                  />
                 </motion.div>
-              </motion.div>
-            )}
+              </div>
 
-            {/* TAB 4: ATTRIBUTION (INTELLIGENCE) */}
-            {activeTab === "tab-analytics" && (
-              <motion.div
-                key="tab-analytics"
-                className="platform-tab-panel active"
-                id="tab-analytics"
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -14 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
-              >
+            {/* TAB 4: PERFORMANCE INTELLIGENCE */}
+            <div
+              key="tab-analytics"
+              className={`platform-tab-panel ${activeTab === "tab-analytics" ? "active" : ""}`}
+              id="tab-analytics"
+            >
                 <div className="panel-text">
                   <span
                     style={{
@@ -789,27 +579,32 @@ response = client.messages.dispatch(
                       textTransform: "uppercase",
                     }}
                   >
-                    Pipeline Stage 04 · Closed-Loop ROI
+                    Pipeline Stage 04 · Performance Intelligence
                   </span>
-                  <h3>Know exactly which message generated revenue.</h3>
+                  <h3>See the complete impact of every campaign.</h3>
                   <p>
-                    Connect campaign sends directly to closed sales, pipeline
-                    velocity, and customer retention. View multi-touch
-                    attribution reports across all channels in one executive
-                    dashboard.
+                    Understand how every campaign and channel performs—from
+                    delivery and engagement to responses, conversions and
+                    revenue. Compare Email, SMS, WhatsApp and RCS in one
+                    intelligent view to uncover what works and what needs
+                    improvement.
                   </p>
                   <ul className="panel-bullets">
                     <li>
-                      Multi-touch first-click, last-click, and linear revenue
-                      models
+                      Campaign-level delivery, engagement, response and
+                      conversion insights
                     </li>
                     <li>
-                      Cohort analysis tracked against lifetime customer value
-                      (LTV)
+                      Channel-wise performance and cross-channel effectiveness
+                      comparison
                     </li>
                     <li>
-                      Direct integration with Snowflake, BigQuery, and
-                      Databricks
+                      Track clicks, interactions, drop-offs, conversions and
+                      revenue impact
+                    </li>
+                    <li>
+                      Identify top-performing campaigns, channels and engagement
+                      trends
                     </li>
                   </ul>
                 </div>
@@ -822,158 +617,15 @@ response = client.messages.dispatch(
                     y: panelMockupTranslateY,
                   }}
                 >
-                  <div className="pipeline-console-header">
-                    <div className="pipeline-header-left">
-                      <div className="pipeline-dots">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                      </div>
-                      <span className="pipeline-header-path">
-                        bi-engine://attribution/revenue-cohorts
-                      </span>
-                    </div>
-                    <div className="pipeline-live-badge">
-                      <span className="pipeline-live-dot"></span>
-                      <span>Real-time ROI</span>
-                    </div>
-                  </div>
 
-                  <div className="pipeline-console-body">
-                    {/* 4 Metrics Grid */}
-                    <div className="pipeline-analytics-grid">
-                      <div className="pipeline-metric-stat">
-                        <span className="pipeline-stat-title">
-                          Delivery Rate
-                          <span
-                            style={{
-                              color: "#10b981",
-                              fontSize: "0.7rem",
-                              fontWeight: 700,
-                            }}
-                          >
-                            +0.04%
-                          </span>
-                        </span>
-                        <span
-                          className="pipeline-stat-value"
-                          style={{ color: "#059669" }}
-                        >
-                          99.98%
-                        </span>
-                      </div>
-                      <div className="pipeline-metric-stat">
-                        <span className="pipeline-stat-title">
-                          Avg Latency
-                          <span
-                            style={{
-                              color: "#2563eb",
-                              fontSize: "0.7rem",
-                              fontWeight: 700,
-                            }}
-                          >
-                            P99
-                          </span>
-                        </span>
-                        <span
-                          className="pipeline-stat-value"
-                          style={{ color: "#2563eb" }}
-                        >
-                          4.2ms
-                        </span>
-                      </div>
-                      <div className="pipeline-metric-stat">
-                        <span className="pipeline-stat-title">
-                          Annual Volume
-                          <span
-                            style={{ color: "#64748b", fontSize: "0.7rem" }}
-                          >
-                            Global
-                          </span>
-                        </span>
-                        <span className="pipeline-stat-value">12.4B</span>
-                      </div>
-                      <div className="pipeline-metric-stat">
-                        <span className="pipeline-stat-title">
-                          Attributed Rev
-                          <span
-                            style={{
-                              color: "#10b981",
-                              fontSize: "0.7rem",
-                              fontWeight: 700,
-                            }}
-                          >
-                            +34% MoM
-                          </span>
-                        </span>
-                        <span
-                          className="pipeline-stat-value"
-                          style={{ color: "#0f172a" }}
-                        >
-                          $2.62M
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Channel Revenue Attribution Progress Bars */}
-                    <div className="pipeline-channel-bars">
-                      <div className="pipeline-bar-row">
-                        <div className="pipeline-bar-header">
-                          <span>WhatsApp Business (39.2%)</span>
-                          <span>$1,027,000</span>
-                        </div>
-                        <div className="pipeline-bar-track">
-                          <div
-                            className="pipeline-bar-fill"
-                            style={{ width: "39.2%", background: "#25d366" }}
-                          ></div>
-                        </div>
-                      </div>
-
-                      <div className="pipeline-bar-row">
-                        <div className="pipeline-bar-header">
-                          <span>RCS Rich Messaging (28.4%)</span>
-                          <span>$744,000</span>
-                        </div>
-                        <div className="pipeline-bar-track">
-                          <div
-                            className="pipeline-bar-fill"
-                            style={{ width: "28.4%", background: "#38bdf8" }}
-                          ></div>
-                        </div>
-                      </div>
-
-                      <div className="pipeline-bar-row">
-                        <div className="pipeline-bar-header">
-                          <span>High-Priority SMS (21.6%)</span>
-                          <span>$565,000</span>
-                        </div>
-                        <div className="pipeline-bar-track">
-                          <div
-                            className="pipeline-bar-fill"
-                            style={{ width: "21.6%", background: "#2563eb" }}
-                          ></div>
-                        </div>
-                      </div>
-
-                      <div className="pipeline-bar-row">
-                        <div className="pipeline-bar-header">
-                          <span>Conversational Voice (10.8%)</span>
-                          <span>$284,000</span>
-                        </div>
-                        <div className="pipeline-bar-track">
-                          <div
-                            className="pipeline-bar-fill"
-                            style={{ width: "10.8%", background: "#8b5cf6" }}
-                          ></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <PlatformVideoPlayer
+                    r2Key="Product Dashboard video.mov"
+                    driveId="11ZHWECERMDFvgn88l1dHqQVm6eNzcHuo"
+                    title="Performance Intelligence Demonstration"
+                    isActive={activeTab === "tab-analytics"}
+                  />
                 </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+              </div>
         </div>
       </div>
     </section>

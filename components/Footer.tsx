@@ -66,9 +66,9 @@ export default function Footer() {
               src="/assets/messageyard-icon.png"
               alt="MessageYard"
               style={{
-                width: "clamp(12.5rem, 20vw, 15rem)",
+                width: "clamp(12.5rem, 17vw, 17rem)",
                 height: "auto",
-                maxHeight: "3.75rem",
+                maxHeight: "3.5rem",
                 objectFit: "contain",
                 display: "block",
               }}

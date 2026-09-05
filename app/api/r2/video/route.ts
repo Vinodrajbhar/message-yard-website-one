@@ -43,8 +43,14 @@ export async function GET(req: Request) {
     // Convert AWS SDK Stream to Web ReadableStream
     const webStream = s3Response.Body.transformToWebStream();
 
+    // Set content type - ensure HTML5 video player compatibility (H.264 in QuickTime container plays best as video/mp4)
+    const contentType =
+      key.toLowerCase().endsWith(".mov")
+        ? "video/mp4"
+        : s3Response.ContentType || "video/mp4";
+
     const headers = new Headers();
-    headers.set("Content-Type", s3Response.ContentType || "video/mp4");
+    headers.set("Content-Type", contentType);
     headers.set("Accept-Ranges", "bytes");
 
     if (s3Response.ContentLength !== undefined) {
@@ -55,8 +61,12 @@ export async function GET(req: Request) {
       headers.set("Content-Range", s3Response.ContentRange);
     }
 
-    // Cache control: cache in browser for 2 hours, revalidate
-    headers.set("Cache-Control", "public, max-age=7200, stale-while-revalidate=86400");
+    // CDN & Browser Edge Caching:
+    // Allow global Cloudflare / Vercel Edge CDNs to cache video segments for up to 1 year (immutable)
+    headers.set("Cache-Control", "public, max-age=31536000, s-maxage=31536000, immutable");
+    headers.set("CDN-Cache-Control", "max-age=31536000");
+    headers.set("Cloudflare-CDN-Cache-Control", "max-age=31536000");
+    headers.set("Access-Control-Allow-Origin", "*");
 
     const status = rangeHeader && s3Response.ContentRange ? 206 : 200;
 

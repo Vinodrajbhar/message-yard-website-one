@@ -14,8 +14,8 @@ const FG_PILL_ITEMS = [
     id: "whatsapp",
     className: "pill pill-whatsapp saas-card",
     title: "WhatsApp Business Verified API",
-    deltaX: -160,
-    deltaY: -70,
+    deltaX: -140,
+    deltaY: -60,
     depth: 1.4,
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor">
@@ -62,9 +62,9 @@ const FG_PILL_ITEMS = [
     id: "rcs",
     className: "pill pill-rcs saas-card",
     title: "Universal RCS Upgrade",
-    deltaX: 170,
-    deltaY: -60,
-    depth: 1.5,
+    deltaX: -150,
+    deltaY: 45,
+    depth: 1.3,
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -94,8 +94,8 @@ const FG_PILL_ITEMS = [
     id: "journey",
     className: "pill pill-journey saas-card",
     title: "Visual Customer Journey Canvas",
-    deltaX: -180,
-    deltaY: 55,
+    deltaX: -170,
+    deltaY: 70,
     depth: 1.1,
     icon: (
       <svg
@@ -126,8 +126,8 @@ const FG_PILL_ITEMS = [
     id: "cpaas",
     className: "pill pill-cpaas saas-card",
     title: "Direct Carrier CPaaS Infrastructure",
-    deltaX: 185,
-    deltaY: 65,
+    deltaX: 140,
+    deltaY: -60,
     depth: 1.3,
     icon: (
       <svg
@@ -156,9 +156,9 @@ const FG_PILL_ITEMS = [
     id: "agent",
     className: "pill pill-agent saas-card",
     title: "Autonomous Conversational AI Agents",
-    deltaX: -110,
-    deltaY: 130,
-    depth: 1.0,
+    deltaX: 150,
+    deltaY: 45,
+    depth: 1.2,
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -184,8 +184,8 @@ const FG_PILL_ITEMS = [
     id: "uptime",
     className: "pill pill-uptime saas-card",
     title: "Carrier-Grade 99.999% SLA",
-    deltaX: 125,
-    deltaY: 135,
+    deltaX: 170,
+    deltaY: 70,
     depth: 1.2,
     icon: (
       <svg
