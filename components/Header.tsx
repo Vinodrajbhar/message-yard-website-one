@@ -11,7 +11,7 @@ export default function Header() {
   const navigateToSection = (
     e: React.MouseEvent,
     sectionId: string,
-    tabOrChannelId?: string
+    tabOrChannelId?: string,
   ) => {
     e.preventDefault();
     setMobileOpen(false);
@@ -21,13 +21,13 @@ export default function Header() {
         window.dispatchEvent(
           new CustomEvent("switch-platform-tab", {
             detail: { tab: tabOrChannelId },
-          })
+          }),
         );
       } else if (sectionId === "channels" && tabOrChannelId) {
         window.dispatchEvent(
           new CustomEvent("highlight-channel", {
             detail: { channel: tabOrChannelId },
-          })
+          }),
         );
       }
 
@@ -90,7 +90,9 @@ export default function Header() {
                 <li>
                   <a
                     href="/"
-                    onClick={(e) => navigateToSection(e, "platform", "tab-journeys")}
+                    onClick={(e) =>
+                      navigateToSection(e, "platform", "tab-journeys")
+                    }
                     className="nav-item"
                   >
                     Journey Builder
@@ -99,7 +101,9 @@ export default function Header() {
                 <li>
                   <a
                     href="/"
-                    onClick={(e) => navigateToSection(e, "platform", "tab-campaigns")}
+                    onClick={(e) =>
+                      navigateToSection(e, "platform", "tab-campaigns")
+                    }
                     className="nav-item"
                   >
                     Campaign Manager
@@ -108,7 +112,9 @@ export default function Header() {
                 <li>
                   <a
                     href="/"
-                    onClick={(e) => navigateToSection(e, "platform", "tab-data")}
+                    onClick={(e) =>
+                      navigateToSection(e, "platform", "tab-data")
+                    }
                     className="nav-item"
                   >
                     Audience Segmentation
@@ -117,7 +123,9 @@ export default function Header() {
                 <li>
                   <a
                     href="/"
-                    onClick={(e) => navigateToSection(e, "platform", "tab-analytics")}
+                    onClick={(e) =>
+                      navigateToSection(e, "platform", "tab-analytics")
+                    }
                     className="nav-item"
                   >
                     Analytics & Attribution
@@ -152,7 +160,9 @@ export default function Header() {
                 <li>
                   <a
                     href="/"
-                    onClick={(e) => navigateToSection(e, "channels", "whatsapp")}
+                    onClick={(e) =>
+                      navigateToSection(e, "channels", "whatsapp")
+                    }
                     className="nav-item"
                   >
                     WhatsApp Business
@@ -273,22 +283,34 @@ export default function Header() {
             </a>
           </li>
           <li style={{ paddingLeft: "1rem", opacity: 0.85 }}>
-            <a href="/" onClick={(e) => navigateToSection(e, "platform", "tab-journeys")}>
+            <a
+              href="/"
+              onClick={(e) => navigateToSection(e, "platform", "tab-journeys")}
+            >
               ↳ Journey Builder
             </a>
           </li>
           <li style={{ paddingLeft: "1rem", opacity: 0.85 }}>
-            <a href="/" onClick={(e) => navigateToSection(e, "platform", "tab-campaigns")}>
+            <a
+              href="/"
+              onClick={(e) => navigateToSection(e, "platform", "tab-campaigns")}
+            >
               ↳ Campaign Manager
             </a>
           </li>
           <li style={{ paddingLeft: "1rem", opacity: 0.85 }}>
-            <a href="/" onClick={(e) => navigateToSection(e, "platform", "tab-data")}>
+            <a
+              href="/"
+              onClick={(e) => navigateToSection(e, "platform", "tab-data")}
+            >
               ↳ Audience Segmentation
             </a>
           </li>
           <li style={{ paddingLeft: "1rem", opacity: 0.85 }}>
-            <a href="/" onClick={(e) => navigateToSection(e, "platform", "tab-analytics")}>
+            <a
+              href="/"
+              onClick={(e) => navigateToSection(e, "platform", "tab-analytics")}
+            >
               ↳ Analytics & Attribution
             </a>
           </li>

@@ -56,7 +56,12 @@ export default function Footer() {
     <footer id="footer">
       <div className="top">
         <div className="left">
-          <a href="/" className="logo" aria-label="MessageYard Home" style={{ display: "inline-block", marginBottom: "1.25rem" }}>
+          <a
+            href="/"
+            className="logo"
+            aria-label="MessageYard Home"
+            style={{ display: "inline-block", marginBottom: "0.55rem" }}
+          >
             <img
               src="/assets/messageyard-icon.png"
               alt="MessageYard"
