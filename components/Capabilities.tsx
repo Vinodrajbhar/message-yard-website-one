@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 
 const CARDS_DATA = [
@@ -66,16 +66,73 @@ const CARDS_DATA = [
   },
 ];
 
+function CapabilityCard({
+  card,
+  idx,
+  scrollYProgress,
+  cardScrollY,
+}: {
+  card: (typeof CARDS_DATA)[0];
+  idx: number;
+  scrollYProgress: any;
+  cardScrollY: any;
+}) {
+  const cardSpreadX = card.spreadDir * 40;
+  const x = useTransform(scrollYProgress, (sy: number) => {
+    if (typeof window !== "undefined" && window.innerWidth <= 768) return 0;
+    if (sy <= 0.2) return cardSpreadX * -0.5;
+    if (sy >= 0.8) return cardSpreadX * 0.5;
+    const t = (sy - 0.2) / 0.6;
+    return cardSpreadX * -0.5 + t * cardSpreadX;
+  });
+
+  return (
+    <motion.div
+      className="card-item"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.8, delay: idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
+      style={{
+        y: cardScrollY,
+        x,
+      }}
+      whileHover={{ y: -6, transition: { duration: 0.25 } }}
+    >
+      <div className="card-top">
+        <div className="card-header-flex">
+          <span
+            className="card-tag"
+            style={
+              {
+                "--card-badge-bg": card.badgeBg,
+                "--card-badge-border": card.badgeBorder,
+              } as React.CSSProperties
+            }
+          >
+            {card.tag}
+          </span>
+          <div className="micro-telemetry">{card.telemetry}</div>
+        </div>
+        <h4>{card.title}</h4>
+        <p className="card-desc">{card.desc}</p>
+      </div>
+      <ul className="card-pills-list">
+        {card.pills.map((pillText, pIdx) => (
+          <li key={pIdx}>
+            <svg className="pill-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            {pillText}
+          </li>
+        ))}
+      </ul>
+    </motion.div>
+  );
+}
+
 export default function Capabilities() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile, { passive: true });
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -87,59 +144,15 @@ export default function Capabilities() {
   return (
     <section ref={sectionRef} className="cards" id="capabilities">
       <div className="cards-grid">
-        {CARDS_DATA.map((card, idx) => {
-          // Dynamic spread based on scroll progress
-          const cardSpreadX = isMobile ? 0 : card.spreadDir * 40;
-
-          return (
-            <motion.div
-              key={card.id}
-              className="card-item"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.8, delay: idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
-              style={{
-                y: cardScrollY,
-                x: useTransform(
-                  scrollYProgress,
-                  [0.2, 0.8],
-                  [cardSpreadX * -0.5, cardSpreadX * 0.5]
-                ),
-              }}
-              whileHover={{ y: -6, transition: { duration: 0.25 } }}
-            >
-              <div className="card-top">
-                <div className="card-header-flex">
-                  <span
-                    className="card-tag"
-                    style={
-                      {
-                        "--card-badge-bg": card.badgeBg,
-                        "--card-badge-border": card.badgeBorder,
-                      } as React.CSSProperties
-                    }
-                  >
-                    {card.tag}
-                  </span>
-                  <div className="micro-telemetry">{card.telemetry}</div>
-                </div>
-                <h4>{card.title}</h4>
-                <p className="card-desc">{card.desc}</p>
-              </div>
-              <ul className="card-pills-list">
-                {card.pills.map((pillText, pIdx) => (
-                  <li key={pIdx}>
-                    <svg className="pill-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                      <polyline points="20 6 9 17 4 12"></polyline>
-                    </svg>
-                    {pillText}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          );
-        })}
+        {CARDS_DATA.map((card, idx) => (
+          <CapabilityCard
+            key={card.id}
+            card={card}
+            idx={idx}
+            scrollYProgress={scrollYProgress}
+            cardScrollY={cardScrollY}
+          />
+        ))}
       </div>
     </section>
   );

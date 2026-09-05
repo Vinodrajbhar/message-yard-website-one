@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   motion,
   useScroll,
@@ -411,9 +411,84 @@ function HeroMeshCanvas() {
   return <canvas ref={canvasRef} id="hero-mesh" className="hero-bottom-mesh" />;
 }
 
+function BgPillItem({
+  cfg,
+  smoothMouseX,
+  smoothMouseY,
+  pillScrollProgress,
+}: {
+  cfg: (typeof BG_PILL_CONFIGS)[0];
+  smoothMouseX: any;
+  smoothMouseY: any;
+  pillScrollProgress: any;
+}) {
+  const x = useTransform(
+    [smoothMouseX, pillScrollProgress],
+    ([mx, sy]: number[]) => mx * cfg.depth * 5 + cfg.deltaX * sy,
+  );
+  const y = useTransform(
+    [smoothMouseY, pillScrollProgress],
+    ([my, sy]: number[]) => my * cfg.depth * 5 + cfg.deltaY * sy,
+  );
+  const opacity = useTransform(pillScrollProgress, [0, 0.5], [0.5, 0]);
+  const scale = useTransform(pillScrollProgress, [0, 0.6], [1, 0.8]);
+
+  return (
+    <motion.div
+      className="pill"
+      style={{
+        x,
+        y,
+        opacity,
+        scale,
+      }}
+    />
+  );
+}
+
+function FgPillItem({
+  item,
+  smoothMouseX,
+  smoothMouseY,
+  pillScrollProgress,
+}: {
+  item: (typeof FG_PILL_ITEMS)[0];
+  smoothMouseX: any;
+  smoothMouseY: any;
+  pillScrollProgress: any;
+}) {
+  const x = useTransform(
+    [smoothMouseX, pillScrollProgress],
+    ([mx, sy]: number[]) => mx * item.depth * 8 + item.deltaX * sy * 1.2,
+  );
+  const y = useTransform(
+    [smoothMouseY, pillScrollProgress],
+    ([my, sy]: number[]) => my * item.depth * 8 + item.deltaY * sy * 1.2,
+  );
+  const opacity = useTransform(pillScrollProgress, [0, 0.45], [1, 0]);
+  const scale = useTransform(pillScrollProgress, [0, 0.5], [1, 0.85]);
+
+  return (
+    <motion.div
+      className={item.className}
+      title={item.title}
+      style={{
+        x,
+        y,
+        opacity,
+        scale,
+      }}
+    >
+      <div className="card-pill-header">
+        <div className="icon">{item.icon}</div>
+        {item.content}
+      </div>
+    </motion.div>
+  );
+}
+
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
 
   // Mouse coordinates mapped from -1 to 1
   const mouseX = useMotionValue(0);
@@ -422,10 +497,6 @@ export default function Hero() {
   const smoothMouseY = useSpring(mouseY, { stiffness: 100, damping: 22 });
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile, { passive: true });
-
     const handleMouseMove = (e: MouseEvent) => {
       const { innerWidth, innerHeight } = window;
       mouseX.set((e.clientX / innerWidth - 0.5) * 2);
@@ -438,10 +509,9 @@ export default function Hero() {
     };
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    window.addEventListener("mouseleave", handleMouseLeave, { passive: true });
+    window.addEventListener("mouseleave", handleMouseLeave);
 
     return () => {
-      window.removeEventListener("resize", checkMobile);
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseleave", handleMouseLeave);
     };
@@ -462,58 +532,28 @@ export default function Hero() {
         {/* Background soft pills */}
         <div className="bg">
           {BG_PILL_CONFIGS.map((cfg, i) => (
-            <motion.div
+            <BgPillItem
               key={i}
-              className="pill"
-              style={{
-                x: useTransform(
-                  [smoothMouseX, pillScrollProgress],
-                  ([mx, sy]: number[]) =>
-                    isMobile ? 0 : mx * cfg.depth * 5 + cfg.deltaX * sy,
-                ),
-                y: useTransform(
-                  [smoothMouseY, pillScrollProgress],
-                  ([my, sy]: number[]) =>
-                    isMobile ? 0 : my * cfg.depth * 5 + cfg.deltaY * sy,
-                ),
-                opacity: useTransform(pillScrollProgress, [0, 0.5], [0.5, 0]),
-                scale: useTransform(pillScrollProgress, [0, 0.6], [1, 0.8]),
-              }}
+              cfg={cfg}
+              smoothMouseX={smoothMouseX}
+              smoothMouseY={smoothMouseY}
+              pillScrollProgress={pillScrollProgress}
             />
           ))}
         </div>
 
         {/* Foreground feature cards */}
-        {!isMobile && (
-          <div className="fg">
-            {FG_PILL_ITEMS.map((item) => (
-              <motion.div
-                key={item.id}
-                className={item.className}
-                title={item.title}
-                style={{
-                  x: useTransform(
-                    [smoothMouseX, pillScrollProgress],
-                    ([mx, sy]: number[]) =>
-                      mx * item.depth * 8 + item.deltaX * sy * 1.2,
-                  ),
-                  y: useTransform(
-                    [smoothMouseY, pillScrollProgress],
-                    ([my, sy]: number[]) =>
-                      my * item.depth * 8 + item.deltaY * sy * 1.2,
-                  ),
-                  opacity: useTransform(pillScrollProgress, [0, 0.45], [1, 0]),
-                  scale: useTransform(pillScrollProgress, [0, 0.5], [1, 0.85]),
-                }}
-              >
-                <div className="card-pill-header">
-                  <div className="icon">{item.icon}</div>
-                  {item.content}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        )}
+        <div className="fg">
+          {FG_PILL_ITEMS.map((item) => (
+            <FgPillItem
+              key={item.id}
+              item={item}
+              smoothMouseX={smoothMouseX}
+              smoothMouseY={smoothMouseY}
+              pillScrollProgress={pillScrollProgress}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Main hero typography & CTAs */}
