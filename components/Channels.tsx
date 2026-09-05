@@ -18,6 +18,11 @@ interface Particle {
   noiseOffset: number;
 }
 
+interface HighlightItem {
+  label: string;
+  sub: string;
+}
+
 interface ChannelCardProps {
   channel: string;
   badge: string;
@@ -26,6 +31,8 @@ interface ChannelCardProps {
   actionText: string;
   svgIcon: React.ReactNode;
   svgString: string;
+  featured?: boolean;
+  highlights?: HighlightItem[];
 }
 
 function ChannelCard({
@@ -36,6 +43,8 @@ function ChannelCard({
   actionText,
   svgIcon,
   svgString,
+  featured,
+  highlights,
 }: ChannelCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -300,7 +309,12 @@ function ChannelCard({
   }, [svgString]);
 
   return (
-    <div ref={cardRef} className="channel-box" data-channel={channel} id={`channel-${channel}`}>
+    <div
+      ref={cardRef}
+      className={`channel-box ${featured ? "channel-box-featured" : ""}`}
+      data-channel={channel}
+      id={`channel-${channel}`}
+    >
       <canvas
         ref={canvasRef}
         className="channel-particle-canvas"
@@ -315,16 +329,49 @@ function ChannelCard({
         }}
       />
       {svgIcon}
-      <div className="channel-content" style={{ position: "relative", zIndex: 2 }}>
-        <span className="channel-badge">{badge}</span>
-        <h4>{title}</h4>
-        <p>{desc}</p>
-        <span className="channel-action">
-          {actionText}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
-            <path d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
-        </span>
+      <div className={`channel-content ${featured ? "featured-content" : ""}`} style={{ position: "relative", zIndex: 2 }}>
+        {featured ? (
+          <div className="featured-layout-split">
+            <div className="featured-main-info">
+              <div>
+                <span className="channel-badge">{badge}</span>
+                <h4>{title}</h4>
+                <p>{desc}</p>
+              </div>
+              <span className="channel-action">
+                {actionText}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </span>
+            </div>
+            {highlights && highlights.length > 0 && (
+              <div className="featured-caps-grid">
+                {highlights.map((h, i) => (
+                  <div key={i} className="featured-cap-card">
+                    <span className="cap-dot" />
+                    <div className="cap-body">
+                      <div className="cap-label">{h.label}</div>
+                      <div className="cap-sub">{h.sub}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ) : (
+          <>
+            <span className="channel-badge">{badge}</span>
+            <h4>{title}</h4>
+            <p>{desc}</p>
+            <span className="channel-action">
+              {actionText}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </span>
+          </>
+        )}
       </div>
     </div>
   );
@@ -390,6 +437,25 @@ const CHANNELS_DATA = [
     title: "Conversational AI",
     desc: "Autonomous LLM-powered agents that pick up any conversation on any channel, answer complex questions, and resolve orders.",
     actionText: "AI Copilot Docs",
+    featured: true,
+    highlights: [
+      {
+        label: "Sub-200ms Streaming",
+        sub: "Real-time voice & text turns with zero perceived latency.",
+      },
+      {
+        label: "Deep Tool Calling",
+        sub: "Executes refunds, bookings, and live CRM actions autonomously.",
+      },
+      {
+        label: "Enterprise RAG Memory",
+        sub: "Grounded in private knowledge bases & vector catalogs.",
+      },
+      {
+        label: "Omnichannel Handoff",
+        sub: "Frictionless escalation to human agents with full conversation context.",
+      },
+    ],
     svgIcon: (
       <svg className="particle-source-svg" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2">
         <circle cx="12" cy="12" r="10" />
@@ -468,6 +534,7 @@ export default function Channels() {
           {CHANNELS_DATA.map((ch, idx) => (
             <motion.div
               key={ch.channel}
+              className={`channel-grid-item ${ch.featured ? "featured" : ""}`}
               initial={{ opacity: 0, y: 35 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -481,6 +548,8 @@ export default function Channels() {
                 actionText={ch.actionText}
                 svgIcon={ch.svgIcon}
                 svgString={ch.svgString}
+                featured={ch.featured}
+                highlights={ch.highlights}
               />
             </motion.div>
           ))}
