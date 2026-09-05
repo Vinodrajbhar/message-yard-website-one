@@ -10,7 +10,7 @@ export default function Footer() {
   const navigateToSection = (
     e: React.MouseEvent,
     sectionId: string,
-    tabOrChannelId?: string
+    tabOrChannelId?: string,
   ) => {
     e.preventDefault();
 
@@ -19,13 +19,13 @@ export default function Footer() {
         window.dispatchEvent(
           new CustomEvent("switch-platform-tab", {
             detail: { tab: tabOrChannelId },
-          })
+          }),
         );
       } else if (sectionId === "channels" && tabOrChannelId) {
         window.dispatchEvent(
           new CustomEvent("highlight-channel", {
             detail: { channel: tabOrChannelId },
-          })
+          }),
         );
       }
 
@@ -56,18 +56,18 @@ export default function Footer() {
     <footer id="footer">
       <div className="top">
         <div className="left">
-          <a href="/" className="logo">
+          <a href="/" className="logo" aria-label="MessageYard Home" style={{ display: "inline-block", marginBottom: "1.25rem" }}>
             <img
               src="/assets/messageyard-icon.png"
-              alt="MessageYard Icon"
+              alt="MessageYard"
               style={{
-                width: "2rem",
-                height: "2rem",
+                width: "clamp(12.5rem, 20vw, 15rem)",
+                height: "auto",
+                maxHeight: "3.75rem",
                 objectFit: "contain",
-                borderRadius: "4px",
+                display: "block",
               }}
             />
-            MessageYard
           </a>
           <p>
             The Marketing Cloud with real messaging infrastructure under the
@@ -84,7 +84,9 @@ export default function Footer() {
                   <li>
                     <a
                       href="/"
-                      onClick={(e) => navigateToSection(e, "platform", "tab-journeys")}
+                      onClick={(e) =>
+                        navigateToSection(e, "platform", "tab-journeys")
+                      }
                       className="nav-item"
                     >
                       Journey Builder
@@ -93,7 +95,9 @@ export default function Footer() {
                   <li>
                     <a
                       href="/"
-                      onClick={(e) => navigateToSection(e, "platform", "tab-campaigns")}
+                      onClick={(e) =>
+                        navigateToSection(e, "platform", "tab-campaigns")
+                      }
                       className="nav-item"
                     >
                       Campaign Manager
@@ -102,7 +106,9 @@ export default function Footer() {
                   <li>
                     <a
                       href="/"
-                      onClick={(e) => navigateToSection(e, "platform", "tab-data")}
+                      onClick={(e) =>
+                        navigateToSection(e, "platform", "tab-data")
+                      }
                       className="nav-item"
                     >
                       Audience Segments
@@ -111,7 +117,9 @@ export default function Footer() {
                   <li>
                     <a
                       href="/"
-                      onClick={(e) => navigateToSection(e, "platform", "tab-analytics")}
+                      onClick={(e) =>
+                        navigateToSection(e, "platform", "tab-analytics")
+                      }
                       className="nav-item"
                     >
                       Attribution Engine
@@ -126,7 +134,9 @@ export default function Footer() {
                   <li>
                     <a
                       href="/"
-                      onClick={(e) => navigateToSection(e, "channels", "sms-rcs")}
+                      onClick={(e) =>
+                        navigateToSection(e, "channels", "sms-rcs")
+                      }
                       className="nav-item"
                     >
                       SMS & RCS API
@@ -135,7 +145,9 @@ export default function Footer() {
                   <li>
                     <a
                       href="/"
-                      onClick={(e) => navigateToSection(e, "channels", "whatsapp")}
+                      onClick={(e) =>
+                        navigateToSection(e, "channels", "whatsapp")
+                      }
                       className="nav-item"
                     >
                       WhatsApp API
@@ -166,7 +178,11 @@ export default function Footer() {
                 <span className="dd-label">Company</span>
                 <ul className="sub-menu">
                   <li>
-                    <a href="/" onClick={(e) => navigateToSection(e, "why-messageyard")} className="nav-item">
+                    <a
+                      href="/"
+                      onClick={(e) => navigateToSection(e, "why-messageyard")}
+                      className="nav-item"
+                    >
                       About Us
                     </a>
                   </li>

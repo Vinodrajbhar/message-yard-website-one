@@ -76,7 +76,7 @@
   --gradient-primary: linear-gradient(135deg, #090d16 0%, #1e293b 100%);
   --gradient-accent: linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #7c3aed 100%);
 
-  --header-height: 4.25rem;
+  --header-height: 4.85rem;
   --grid-column-count: 16;
   --container-pad: clamp(1.5rem, 2.25vw + 1rem, 3.5rem);
   --grid-gap: clamp(1rem, 0.75vw + 0.8rem, 1.5rem);
@@ -85,7 +85,7 @@
 @media not (min-width: 58.75rem) {
   :root {
     --grid-column-count: 8;
-    --header-height: 3.75rem;
+    --header-height: 4.25rem;
   }
 }
 
@@ -257,6 +257,19 @@ header#header a.logo {
   letter-spacing: -0.025rem;
   color: var(--clr-black-900);
   flex-shrink: 0;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+header#header a.logo:hover {
+  transform: scale(1.02);
+}
+
+header#header a.logo img {
+  width: clamp(11rem, 16vw, 13.5rem);
+  height: auto;
+  max-height: 3.25rem;
+  object-fit: contain;
+  display: block;
 }
 
 header#header nav.main-nav {
@@ -2521,7 +2534,20 @@ footer#footer .top .left a.logo {
   display: inline-flex;
   align-items: center;
   gap: 0.65rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+footer#footer .top .left a.logo:hover {
+  transform: scale(1.02);
+}
+
+footer#footer .top .left a.logo img {
+  width: clamp(12.5rem, 20vw, 15.5rem);
+  height: auto;
+  max-height: 4rem;
+  object-fit: contain;
+  display: block;
 }
 
 footer#footer .top .left p {

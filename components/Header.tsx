@@ -57,18 +57,18 @@ export default function Header() {
   return (
     <header id="header">
       <div className="nav-bar">
-        <a href="/" className="logo">
+        <a href="/" className="logo" aria-label="MessageYard Home">
           <img
             src="/assets/messageyard-icon.png"
-            alt="MessageYard Icon"
+            alt="MessageYard"
             style={{
-              width: "8.85rem",
+              width: "clamp(11rem, 16vw, 13.5rem)",
               height: "auto",
+              maxHeight: "3.25rem",
               objectFit: "contain",
-              borderRadius: "0",
+              display: "block",
             }}
           />
-          {/* MessageYard */}
         </a>
 
         <nav className="main-nav" aria-label="Main Navigation">
