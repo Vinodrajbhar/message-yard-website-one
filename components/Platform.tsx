@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
 
 const TABS = [
-  { id: "tab-data", num: "01 / Ingestion", title: "Data & Profiles" },
-  { id: "tab-journeys", num: "02 / Automation", title: "Journey Canvas" },
-  { id: "tab-cpaas", num: "03 / Delivery", title: "CPaaS APIs" },
-  { id: "tab-analytics", num: "04 / Intelligence", title: "Attribution" },
+  { id: "tab-journeys", num: "01 / Workflows", title: "Journey Builder" },
+  { id: "tab-campaigns", num: "02 / Broadcasts", title: "Campaign Manager" },
+  { id: "tab-data", num: "03 / Ingestion", title: "Audience Segmentation" },
+  { id: "tab-analytics", num: "04 / Intelligence", title: "Analytics & Attribution" },
 ];
 
 function CopyButton({ textToCopy }: { textToCopy: string }) {
@@ -36,9 +36,39 @@ function CopyButton({ textToCopy }: { textToCopy: string }) {
 }
 
 export default function Platform() {
-  const [activeTab, setActiveTab] = useState("tab-data");
+  const [activeTab, setActiveTab] = useState("tab-journeys");
+  const [campaignMode, setCampaignMode] = useState<"broadcast" | "api">("broadcast");
   const [codeLang, setCodeLang] = useState<"curl" | "node" | "python">("curl");
   const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const handleSwitch = (e: Event) => {
+      const customEvent = e as CustomEvent<{ tab: string }>;
+      const target = customEvent.detail?.tab;
+      if (target) {
+        if (target === "tab-cpaas") {
+          setActiveTab("tab-campaigns");
+        } else {
+          setActiveTab(target);
+        }
+      }
+    };
+    window.addEventListener("switch-platform-tab", handleSwitch);
+
+    try {
+      const pendingTab = sessionStorage.getItem("platform_active_tab");
+      if (pendingTab) {
+        sessionStorage.removeItem("platform_active_tab");
+        if (pendingTab === "tab-cpaas") {
+          setActiveTab("tab-campaigns");
+        } else {
+          setActiveTab(pendingTab);
+        }
+      }
+    } catch {}
+
+    return () => window.removeEventListener("switch-platform-tab", handleSwitch);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -120,131 +150,7 @@ response = client.messages.dispatch(
 
         <div className="platform-tab-panels-container" style={{ position: "relative", minHeight: "480px" }}>
           <AnimatePresence mode="wait">
-            {/* TAB 1: DATA & PROFILES (INGESTION) */}
-            {activeTab === "tab-data" && (
-              <motion.div
-                key="tab-data"
-                className="platform-tab-panel active"
-                id="tab-data"
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -14 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
-              >
-                <div className="panel-text">
-                  <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "#2563eb", letterSpacing: "0.05em", textTransform: "uppercase" }}>
-                    Pipeline Stage 01 · Ingestion
-                  </span>
-                  <h3>Unify customer data without data silos.</h3>
-                  <p>
-                    Stream raw customer events from your product database, CRM, and Shopify store. MessageYard compiles a
-                    persistent, real-time identity graph across email, phone numbers, and WhatsApp IDs.
-                  </p>
-                  <ul className="panel-bullets">
-                    <li>Zero-latency event ingestion via HTTP streaming webhooks</li>
-                    <li>Automatic duplicate resolution and cross-device identity stitching</li>
-                    <li>Custom attributes with typed schemas and computed dynamic traits</li>
-                  </ul>
-                </div>
-
-                <motion.div
-                  className="pipeline-console-card"
-                  style={{
-                    perspective: 1000,
-                    rotateX: tiltX,
-                    y: panelMockupTranslateY,
-                  }}
-                >
-                  <div className="pipeline-console-header">
-                    <div className="pipeline-header-left">
-                      <div className="pipeline-dots">
-                        <span></span><span></span><span></span>
-                      </div>
-                      <span className="pipeline-header-path">mesh://identity-engine/graph-stitcher</span>
-                    </div>
-                    <div className="pipeline-live-badge">
-                      <span className="pipeline-live-dot"></span>
-                      <span>Streaming Active</span>
-                    </div>
-                  </div>
-
-                  <div className="pipeline-console-body">
-                    {/* Visual Identity Graph Architecture */}
-                    <div className="pipeline-identity-layout">
-                      {/* Left: Sources */}
-                      <div className="pipeline-sources-col">
-                        <div className="pipeline-source-item">
-                          <span className="pipeline-source-icon">🛍️</span>
-                          <div className="pipeline-source-info">
-                            <span className="pipeline-source-name">Shopify Webhook</span>
-                            <span className="pipeline-source-detail">order/created · $320.00</span>
-                          </div>
-                        </div>
-                        <div className="pipeline-source-item">
-                          <span className="pipeline-source-icon">🗄️</span>
-                          <div className="pipeline-source-info">
-                            <span className="pipeline-source-name">PostgreSQL Sync</span>
-                            <span className="pipeline-source-detail">users.sync · Tier: VIP</span>
-                          </div>
-                        </div>
-                        <div className="pipeline-source-item">
-                          <span className="pipeline-source-icon">📱</span>
-                          <div className="pipeline-source-info">
-                            <span className="pipeline-source-name">Mobile App SDK</span>
-                            <span className="pipeline-source-detail">push_token: valid</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Center: Identity Hub */}
-                      <div className="pipeline-engine-hub">
-                        <div className="pipeline-hub-pulse">
-                          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <circle cx="12" cy="12" r="3"></circle>
-                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                          </svg>
-                        </div>
-                        <span className="pipeline-hub-label">Stitching Core</span>
-                      </div>
-
-                      {/* Right: Unified Profile Card */}
-                      <div className="pipeline-profile-card">
-                        <div className="pipeline-profile-header">
-                          <div className="pipeline-profile-avatar">
-                            <div className="pipeline-avatar-circle">AR</div>
-                            <span className="pipeline-profile-name">Alex Rivera</span>
-                          </div>
-                          <span className="pipeline-vip-tag">VIP · $3,840</span>
-                        </div>
-
-                        <div className="pipeline-stitched-badges">
-                          <span className="pipeline-stitch-pill active">✓ WhatsApp: wa_9281</span>
-                          <span className="pipeline-stitch-pill active">✓ SMS: +1 415 ••• 2100</span>
-                          <span className="pipeline-stitch-pill">✓ Email: Verified</span>
-                        </div>
-
-                        <div style={{ fontSize: "0.725rem", color: "#64748b", background: "#f8fafc", padding: "0.35rem 0.5rem", borderRadius: "4px" }}>
-                          Dynamic Trait: <strong style={{ color: "#0f172a" }}>Cart Abandoned ($320)</strong>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Bottom: Live Telemetry Ticker */}
-                    <div className="pipeline-terminal-ticker">
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.08)", paddingBottom: "0.4rem", marginBottom: "0.2rem" }}>
-                        <span style={{ color: "#94a3b8", fontSize: "0.7rem", fontWeight: 600 }}>EVENT STREAM TELEMETRY</span>
-                        <CopyButton textToCopy={`[INBOUND] event: "checkout_completed" | id: "usr_99x"\n[RESOLVE] stitched phone: +1 (415) 890-2100 -> id: "usr_99x"\n[SEGMENT] user matched: "High-LTV VIPs" (Spend > $1,200)\n[STATUS] Latency: 1.4ms · Protocol: TLS 1.3 · Status: OK`} />
-                      </div>
-                      <div><span style={{ color: "#60a5fa" }}>[INBOUND]</span> event: "checkout_completed" | user_id: "usr_99x"</div>
-                      <div><span style={{ color: "#34d399" }}>[RESOLVE]</span> stitched phone: +1 (415) 890-2100 &rarr; wa_id_9281</div>
-                      <div><span style={{ color: "#94a3b8" }}>[STATUS]</span> Ingestion: 1.4ms · Deduplication: OK · Identity Mesh Synced</div>
-                    </div>
-                  </div>
-                </motion.div>
-              </motion.div>
-            )}
-
-            {/* TAB 2: JOURNEY CANVAS (AUTOMATION) */}
+            {/* TAB 1: JOURNEY CANVAS (AUTOMATION) */}
             {activeTab === "tab-journeys" && (
               <motion.div
                 key="tab-journeys"
@@ -257,7 +163,7 @@ response = client.messages.dispatch(
               >
                 <div className="panel-text">
                   <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "#2563eb", letterSpacing: "0.05em", textTransform: "uppercase" }}>
-                    Pipeline Stage 02 · Automation
+                    Pipeline Stage 01 · Automation
                   </span>
                   <h3>Drag, drop, and branch across every channel.</h3>
                   <p>
@@ -363,12 +269,12 @@ response = client.messages.dispatch(
               </motion.div>
             )}
 
-            {/* TAB 3: CPAAS APIS (DELIVERY) */}
-            {activeTab === "tab-cpaas" && (
+            {/* TAB 2: CAMPAIGN MANAGER (BROADCASTS) */}
+            {activeTab === "tab-campaigns" && (
               <motion.div
-                key="tab-cpaas"
+                key="tab-campaigns"
                 className="platform-tab-panel active"
-                id="tab-cpaas"
+                id="tab-campaigns"
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -14 }}
@@ -376,17 +282,18 @@ response = client.messages.dispatch(
               >
                 <div className="panel-text">
                   <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "#2563eb", letterSpacing: "0.05em", textTransform: "uppercase" }}>
-                    Pipeline Stage 03 · Delivery Layer
+                    Pipeline Stage 02 · Omnichannel Broadcasts
                   </span>
-                  <h3>Direct carrier connectivity. Zero middleman markup.</h3>
+                  <h3>Launch high-velocity campaigns across any channel in seconds.</h3>
                   <p>
-                    Every channel used by the Marketing Cloud console is available directly as a REST API. When your developers
-                    need custom in-app messaging or automated voice calling, the code is already unified.
+                    Compose rich promotional and transactional broadcasts with instant preview, AI copy assistance, and
+                    multi-channel failover routing. MessageYard intelligently throttles delivery to maximize carrier inbox
+                    placement.
                   </p>
                   <ul className="panel-bullets">
-                    <li>Tier-1 direct carrier routes in 190+ countries</li>
-                    <li>Sub-second global latency with automatic failover routing</li>
-                    <li>Programmable webhooks for real-time delivery receipts</li>
+                    <li>Cross-channel broadcast scheduler with automatic timezone delivery</li>
+                    <li>Smart frequency capping across WhatsApp, SMS, RCS, and Email</li>
+                    <li>Direct carrier connectivity with sub-millisecond send queueing</li>
                   </ul>
                 </div>
 
@@ -403,69 +310,257 @@ response = client.messages.dispatch(
                       <div className="pipeline-dots">
                         <span></span><span></span><span></span>
                       </div>
-                      <span className="pipeline-header-path">cpaas-mesh://carrier-routing/v1/dispatch</span>
+                      <span className="pipeline-header-path">broadcasts://campaigns/summer-vip-launch.dispatch</span>
                     </div>
                     <div className="pipeline-live-badge">
                       <span className="pipeline-live-dot"></span>
-                      <span>8ms Edge Latency</span>
+                      <span>Dispatch Active</span>
                     </div>
                   </div>
 
                   <div className="pipeline-console-body">
-                    {/* Carrier Routing Matrix */}
-                    <div className="pipeline-carrier-grid">
-                      <div className="pipeline-carrier-pill">
-                        <span className="pipeline-carrier-name">AT&T Tier-1</span>
-                        <span className="pipeline-carrier-latency">● 3.2ms · Direct</span>
-                      </div>
-                      <div className="pipeline-carrier-pill">
-                        <span className="pipeline-carrier-name">Verizon Wireless</span>
-                        <span className="pipeline-carrier-latency">● 2.8ms · Direct</span>
-                      </div>
-                      <div className="pipeline-carrier-pill">
-                        <span className="pipeline-carrier-name">Vodafone Global</span>
-                        <span className="pipeline-carrier-latency">● 4.1ms · Direct</span>
-                      </div>
-                      <div className="pipeline-carrier-pill">
-                        <span className="pipeline-carrier-name">Airtel International</span>
-                        <span className="pipeline-carrier-latency">● 5.2ms · Direct</span>
-                      </div>
-                    </div>
-
-                    {/* Interactive Code Switcher */}
+                    {/* View Switcher: Campaign Console vs API Payload */}
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                       <div className="pipeline-code-tabs">
                         <button
                           type="button"
-                          className={`pipeline-code-tab ${codeLang === "curl" ? "active" : ""}`}
-                          onClick={() => setCodeLang("curl")}
+                          className={`pipeline-code-tab ${campaignMode === "broadcast" ? "active" : ""}`}
+                          onClick={() => setCampaignMode("broadcast")}
                         >
-                          cURL
+                          Campaign Console
                         </button>
                         <button
                           type="button"
-                          className={`pipeline-code-tab ${codeLang === "node" ? "active" : ""}`}
-                          onClick={() => setCodeLang("node")}
+                          className={`pipeline-code-tab ${campaignMode === "api" ? "active" : ""}`}
+                          onClick={() => setCampaignMode("api")}
                         >
-                          Node.js / TS
-                        </button>
-                        <button
-                          type="button"
-                          className={`pipeline-code-tab ${codeLang === "python" ? "active" : ""}`}
-                          onClick={() => setCodeLang("python")}
-                        >
-                          Python
+                          Developer API Payload
                         </button>
                       </div>
-
-                      <CopyButton textToCopy={CODE_SNIPPETS[codeLang]} />
+                      {campaignMode === "api" && (
+                        <div style={{ display: "flex", gap: "0.35rem" }}>
+                          {(["curl", "node", "python"] as const).map((lang) => (
+                            <button
+                              key={lang}
+                              type="button"
+                              className={`pipeline-code-tab ${codeLang === lang ? "active" : ""}`}
+                              onClick={() => setCodeLang(lang)}
+                            >
+                              {lang === "curl" ? "cURL" : lang === "node" ? "Node.js" : "Python"}
+                            </button>
+                          ))}
+                        </div>
+                      )}
                     </div>
 
-                    {/* Syntax Code View */}
-                    <div className="pipeline-terminal-ticker" style={{ minHeight: "150px" }}>
-                      <pre style={{ margin: 0, overflowX: "auto", fontFamily: "inherit" }}>
-                        <code>{CODE_SNIPPETS[codeLang]}</code>
-                      </pre>
+                    {campaignMode === "broadcast" ? (
+                      <>
+                        <div className="pipeline-campaign-summary">
+                          <div className="pipeline-campaign-meta">
+                            <span className="pipeline-campaign-title">VIP Early Access · Summer Drop</span>
+                            <span className="pipeline-campaign-sub">Audience: 184,300 High-LTV Profiles</span>
+                          </div>
+                          <div className="pipeline-campaign-speed">
+                            <span>⚡</span>
+                            <span>14,800 msgs / sec</span>
+                          </div>
+                        </div>
+
+                        <div className="pipeline-channel-row">
+                          <div className="pipeline-channel-stat-card">
+                            <div className="pipeline-channel-stat-header">
+                              <span>WhatsApp</span>
+                              <span style={{ color: "#16a34a" }}>99.4%</span>
+                            </div>
+                            <span className="pipeline-channel-stat-num">48,200</span>
+                            <span className="pipeline-channel-stat-sub">64.2% Read Rate</span>
+                          </div>
+
+                          <div className="pipeline-channel-stat-card">
+                            <div className="pipeline-channel-stat-header">
+                              <span>RCS / SMS</span>
+                              <span style={{ color: "#0284c7" }}>98.9%</span>
+                            </div>
+                            <span className="pipeline-channel-stat-num">24,100</span>
+                            <span className="pipeline-channel-stat-sub">18.5% Click Rate</span>
+                          </div>
+
+                          <div className="pipeline-channel-stat-card">
+                            <div className="pipeline-channel-stat-header">
+                              <span>Email API</span>
+                              <span style={{ color: "#8b5cf6" }}>99.9%</span>
+                            </div>
+                            <span className="pipeline-channel-stat-num">112,000</span>
+                            <span className="pipeline-channel-stat-sub">42.1% Open Rate</span>
+                          </div>
+                        </div>
+
+                        {/* Carrier Routing Matrix */}
+                        <div className="pipeline-carrier-grid">
+                          <div className="pipeline-carrier-pill">
+                            <span className="pipeline-carrier-name">AT&T Direct</span>
+                            <span className="pipeline-carrier-latency">● 3.2ms</span>
+                          </div>
+                          <div className="pipeline-carrier-pill">
+                            <span className="pipeline-carrier-name">Verizon Wire</span>
+                            <span className="pipeline-carrier-latency">● 2.8ms</span>
+                          </div>
+                          <div className="pipeline-carrier-pill">
+                            <span className="pipeline-carrier-name">Vodafone Hub</span>
+                            <span className="pipeline-carrier-latency">● 4.1ms</span>
+                          </div>
+                          <div className="pipeline-carrier-pill">
+                            <span className="pipeline-carrier-name">Airtel Mesh</span>
+                            <span className="pipeline-carrier-latency">● 5.2ms</span>
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                          <CopyButton textToCopy={CODE_SNIPPETS[codeLang]} />
+                        </div>
+                        <div className="pipeline-terminal-ticker" style={{ minHeight: "150px" }}>
+                          <pre style={{ margin: 0, overflowX: "auto", fontFamily: "inherit" }}>
+                            <code>{CODE_SNIPPETS[codeLang]}</code>
+                          </pre>
+                        </div>
+                      </>
+                    )}
+
+                    {/* Bottom: Live Telemetry Ticker */}
+                    <div className="pipeline-terminal-ticker">
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.08)", paddingBottom: "0.4rem", marginBottom: "0.2rem" }}>
+                        <span style={{ color: "#94a3b8", fontSize: "0.7rem", fontWeight: 600 }}>DISPATCH PIPELINE MONITOR</span>
+                        <span style={{ color: "#10b981", fontSize: "0.685rem", fontWeight: 600 }}>MESH BALANCED</span>
+                      </div>
+                      <div><span style={{ color: "#60a5fa" }}>[DISPATCH]</span> Batch #409: 5,000 WhatsApp interactive templates acknowledged</div>
+                      <div><span style={{ color: "#34d399" }}>[THROTTLE]</span> Carrier backpressure: None · Dynamic pace: 14.8k/sec (P99 1.8ms)</div>
+                      <div><span style={{ color: "#94a3b8" }}>[TELEMETRY]</span> Edge nodes synchronized across 190+ countries</div>
+                    </div>
+                  </div>
+                </motion.div>
+              </motion.div>
+            )}
+
+            {/* TAB 3: DATA & PROFILES (INGESTION & AUDIENCE SEGMENTATION) */}
+            {activeTab === "tab-data" && (
+              <motion.div
+                key="tab-data"
+                className="platform-tab-panel active"
+                id="tab-data"
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -14 }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+              >
+                <div className="panel-text">
+                  <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "#2563eb", letterSpacing: "0.05em", textTransform: "uppercase" }}>
+                    Pipeline Stage 03 · Ingestion &amp; Audience
+                  </span>
+                  <h3>Unify customer data without data silos.</h3>
+                  <p>
+                    Stream raw customer events from your product database, CRM, and Shopify store. MessageYard compiles a
+                    persistent, real-time identity graph across email, phone numbers, and WhatsApp IDs.
+                  </p>
+                  <ul className="panel-bullets">
+                    <li>Zero-latency event ingestion via HTTP streaming webhooks</li>
+                    <li>Automatic duplicate resolution and cross-device identity stitching</li>
+                    <li>Custom attributes with typed schemas and computed dynamic traits</li>
+                  </ul>
+                </div>
+
+                <motion.div
+                  className="pipeline-console-card"
+                  style={{
+                    perspective: 1000,
+                    rotateX: tiltX,
+                    y: panelMockupTranslateY,
+                  }}
+                >
+                  <div className="pipeline-console-header">
+                    <div className="pipeline-header-left">
+                      <div className="pipeline-dots">
+                        <span></span><span></span><span></span>
+                      </div>
+                      <span className="pipeline-header-path">mesh://identity-engine/graph-stitcher</span>
+                    </div>
+                    <div className="pipeline-live-badge">
+                      <span className="pipeline-live-dot"></span>
+                      <span>Streaming Active</span>
+                    </div>
+                  </div>
+
+                  <div className="pipeline-console-body">
+                    {/* Visual Identity Graph Architecture */}
+                    <div className="pipeline-identity-layout">
+                      {/* Left: Sources */}
+                      <div className="pipeline-sources-col">
+                        <div className="pipeline-source-item">
+                          <span className="pipeline-source-icon">🛍️</span>
+                          <div className="pipeline-source-info">
+                            <span className="pipeline-source-name">Shopify Webhook</span>
+                            <span className="pipeline-source-detail">order/created · $320.00</span>
+                          </div>
+                        </div>
+                        <div className="pipeline-source-item">
+                          <span className="pipeline-source-icon">🗄️</span>
+                          <div className="pipeline-source-info">
+                            <span className="pipeline-source-name">PostgreSQL Sync</span>
+                            <span className="pipeline-source-detail">users.sync · Tier: VIP</span>
+                          </div>
+                        </div>
+                        <div className="pipeline-source-item">
+                          <span className="pipeline-source-icon">📱</span>
+                          <div className="pipeline-source-info">
+                            <span className="pipeline-source-name">Mobile App SDK</span>
+                            <span className="pipeline-source-detail">push_token: valid</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Center: Identity Hub */}
+                      <div className="pipeline-engine-hub">
+                        <div className="pipeline-hub-pulse">
+                          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                          </svg>
+                        </div>
+                        <span className="pipeline-hub-label">Stitching Core</span>
+                      </div>
+
+                      {/* Right: Unified Profile Card */}
+                      <div className="pipeline-profile-card">
+                        <div className="pipeline-profile-header">
+                          <div className="pipeline-profile-avatar">
+                            <div className="pipeline-avatar-circle">AR</div>
+                            <span className="pipeline-profile-name">Alex Rivera</span>
+                          </div>
+                          <span className="pipeline-vip-tag">VIP · $3,840</span>
+                        </div>
+
+                        <div className="pipeline-stitched-badges">
+                          <span className="pipeline-stitch-pill active">✓ WhatsApp: wa_9281</span>
+                          <span className="pipeline-stitch-pill active">✓ SMS: +1 415 ••• 2100</span>
+                          <span className="pipeline-stitch-pill">✓ Email: Verified</span>
+                        </div>
+
+                        <div style={{ fontSize: "0.725rem", color: "#64748b", background: "#f8fafc", padding: "0.35rem 0.5rem", borderRadius: "4px" }}>
+                          Dynamic Trait: <strong style={{ color: "#0f172a" }}>Cart Abandoned ($320)</strong>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Bottom: Live Telemetry Ticker */}
+                    <div className="pipeline-terminal-ticker">
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.08)", paddingBottom: "0.4rem", marginBottom: "0.2rem" }}>
+                        <span style={{ color: "#94a3b8", fontSize: "0.7rem", fontWeight: 600 }}>EVENT STREAM TELEMETRY</span>
+                        <CopyButton textToCopy={`[INBOUND] event: "checkout_completed" | id: "usr_99x"\n[RESOLVE] stitched phone: +1 (415) 890-2100 -> id: "usr_99x"\n[SEGMENT] user matched: "High-LTV VIPs" (Spend > $1,200)\n[STATUS] Latency: 1.4ms · Protocol: TLS 1.3 · Status: OK`} />
+                      </div>
+                      <div><span style={{ color: "#60a5fa" }}>[INBOUND]</span> event: "checkout_completed" | user_id: "usr_99x"</div>
+                      <div><span style={{ color: "#34d399" }}>[RESOLVE]</span> stitched phone: +1 (415) 890-2100 &rarr; wa_id_9281</div>
+                      <div><span style={{ color: "#94a3b8" }}>[STATUS]</span> Ingestion: 1.4ms · Deduplication: OK · Identity Mesh Synced</div>
                     </div>
                   </div>
                 </motion.div>

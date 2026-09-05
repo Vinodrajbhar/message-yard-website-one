@@ -8,14 +8,35 @@ export default function Header() {
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const navigateToSection = (e: React.MouseEvent, sectionId: string) => {
+  const navigateToSection = (
+    e: React.MouseEvent,
+    sectionId: string,
+    tabOrChannelId?: string,
+  ) => {
     e.preventDefault();
     setMobileOpen(false);
 
     if (pathname === "/") {
+      if (sectionId === "platform" && tabOrChannelId) {
+        window.dispatchEvent(
+          new CustomEvent("switch-platform-tab", {
+            detail: { tab: tabOrChannelId },
+          }),
+        );
+      } else if (sectionId === "channels" && tabOrChannelId) {
+        window.dispatchEvent(
+          new CustomEvent("highlight-channel", {
+            detail: { channel: tabOrChannelId },
+          }),
+        );
+      }
+
       const target = document.getElementById(sectionId);
       if (target) {
         target.scrollIntoView({ behavior: "smooth" });
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: "smooth" });
+        }, 120);
       }
       if (window.location.hash) {
         window.history.replaceState(null, "", window.location.pathname);
@@ -23,6 +44,11 @@ export default function Header() {
     } else {
       try {
         sessionStorage.setItem("scroll_to_section", sectionId);
+        if (sectionId === "platform" && tabOrChannelId) {
+          sessionStorage.setItem("platform_active_tab", tabOrChannelId);
+        } else if (sectionId === "channels" && tabOrChannelId) {
+          sessionStorage.setItem("channel_active_target", tabOrChannelId);
+        }
       } catch {}
       router.push("/");
     }
@@ -31,18 +57,18 @@ export default function Header() {
   return (
     <header id="header">
       <div className="nav-bar">
-        <a href="/" className="logo">
+        <a href="/" className="logo" aria-label="MessageYard Home">
           <img
             src="/assets/messageyard-icon.png"
-            alt="MessageYard Icon"
+            alt="MessageYard"
             style={{
-              width: "8.85rem",
+              width: "clamp(11rem, 16vw, 13.5rem)",
               height: "auto",
+              maxHeight: "3.25rem",
               objectFit: "contain",
-              borderRadius: "0",
+              display: "block",
             }}
           />
-          {/* MessageYard */}
         </a>
 
         <nav className="main-nav" aria-label="Main Navigation">
@@ -64,7 +90,9 @@ export default function Header() {
                 <li>
                   <a
                     href="/"
-                    onClick={(e) => navigateToSection(e, "platform")}
+                    onClick={(e) =>
+                      navigateToSection(e, "platform", "tab-journeys")
+                    }
                     className="nav-item"
                   >
                     Journey Builder
@@ -73,7 +101,9 @@ export default function Header() {
                 <li>
                   <a
                     href="/"
-                    onClick={(e) => navigateToSection(e, "platform")}
+                    onClick={(e) =>
+                      navigateToSection(e, "platform", "tab-campaigns")
+                    }
                     className="nav-item"
                   >
                     Campaign Manager
@@ -82,7 +112,9 @@ export default function Header() {
                 <li>
                   <a
                     href="/"
-                    onClick={(e) => navigateToSection(e, "platform")}
+                    onClick={(e) =>
+                      navigateToSection(e, "platform", "tab-data")
+                    }
                     className="nav-item"
                   >
                     Audience Segmentation
@@ -91,7 +123,9 @@ export default function Header() {
                 <li>
                   <a
                     href="/"
-                    onClick={(e) => navigateToSection(e, "platform")}
+                    onClick={(e) =>
+                      navigateToSection(e, "platform", "tab-analytics")
+                    }
                     className="nav-item"
                   >
                     Analytics & Attribution
@@ -117,7 +151,7 @@ export default function Header() {
                 <li>
                   <a
                     href="/"
-                    onClick={(e) => navigateToSection(e, "channels")}
+                    onClick={(e) => navigateToSection(e, "channels", "sms-rcs")}
                     className="nav-item"
                   >
                     SMS & RCS
@@ -126,7 +160,9 @@ export default function Header() {
                 <li>
                   <a
                     href="/"
-                    onClick={(e) => navigateToSection(e, "channels")}
+                    onClick={(e) =>
+                      navigateToSection(e, "channels", "whatsapp")
+                    }
                     className="nav-item"
                   >
                     WhatsApp Business
@@ -135,7 +171,7 @@ export default function Header() {
                 <li>
                   <a
                     href="/"
-                    onClick={(e) => navigateToSection(e, "channels")}
+                    onClick={(e) => navigateToSection(e, "channels", "voice")}
                     className="nav-item"
                   >
                     Voice API
@@ -144,7 +180,7 @@ export default function Header() {
                 <li>
                   <a
                     href="/"
-                    onClick={(e) => navigateToSection(e, "channels")}
+                    onClick={(e) => navigateToSection(e, "channels", "email")}
                     className="nav-item"
                   >
                     Email API
@@ -153,7 +189,7 @@ export default function Header() {
                 <li>
                   <a
                     href="/"
-                    onClick={(e) => navigateToSection(e, "channels")}
+                    onClick={(e) => navigateToSection(e, "channels", "ai")}
                     className="nav-item"
                   >
                     Conversational AI
@@ -243,7 +279,39 @@ export default function Header() {
           </li>
           <li>
             <a href="/" onClick={(e) => navigateToSection(e, "platform")}>
-              Architecture
+              Platform Architecture
+            </a>
+          </li>
+          <li style={{ paddingLeft: "1rem", opacity: 0.85 }}>
+            <a
+              href="/"
+              onClick={(e) => navigateToSection(e, "platform", "tab-journeys")}
+            >
+              ↳ Journey Builder
+            </a>
+          </li>
+          <li style={{ paddingLeft: "1rem", opacity: 0.85 }}>
+            <a
+              href="/"
+              onClick={(e) => navigateToSection(e, "platform", "tab-campaigns")}
+            >
+              ↳ Campaign Manager
+            </a>
+          </li>
+          <li style={{ paddingLeft: "1rem", opacity: 0.85 }}>
+            <a
+              href="/"
+              onClick={(e) => navigateToSection(e, "platform", "tab-data")}
+            >
+              ↳ Audience Segmentation
+            </a>
+          </li>
+          <li style={{ paddingLeft: "1rem", opacity: 0.85 }}>
+            <a
+              href="/"
+              onClick={(e) => navigateToSection(e, "platform", "tab-analytics")}
+            >
+              ↳ Analytics & Attribution
             </a>
           </li>
           <li>

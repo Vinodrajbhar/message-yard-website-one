@@ -300,7 +300,7 @@ function ChannelCard({
   }, [svgString]);
 
   return (
-    <div ref={cardRef} className="channel-box" data-channel={channel}>
+    <div ref={cardRef} className="channel-box" data-channel={channel} id={`channel-${channel}`}>
       <canvas
         ref={canvasRef}
         className="channel-particle-canvas"
@@ -402,6 +402,39 @@ const CHANNELS_DATA = [
 ];
 
 export default function Channels() {
+  useEffect(() => {
+    const handleHighlight = (e: Event) => {
+      const customEvent = e as CustomEvent<{ channel: string }>;
+      const ch = customEvent.detail?.channel;
+      if (ch) {
+        const el = document.getElementById(`channel-${ch}`);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "center" });
+          el.classList.add("channel-box-highlight");
+          setTimeout(() => el.classList.remove("channel-box-highlight"), 2500);
+        }
+      }
+    };
+    window.addEventListener("highlight-channel", handleHighlight);
+
+    try {
+      const savedTarget = sessionStorage.getItem("channel_active_target");
+      if (savedTarget) {
+        sessionStorage.removeItem("channel_active_target");
+        setTimeout(() => {
+          const el = document.getElementById(`channel-${savedTarget}`);
+          if (el) {
+            el.scrollIntoView({ behavior: "smooth", block: "center" });
+            el.classList.add("channel-box-highlight");
+            setTimeout(() => el.classList.remove("channel-box-highlight"), 2500);
+          }
+        }, 300);
+      }
+    } catch {}
+
+    return () => window.removeEventListener("highlight-channel", handleHighlight);
+  }, []);
+
   return (
     <section className="link-grid" id="channels">
       <div className="link-grid-wrapper">
@@ -415,7 +448,8 @@ export default function Channels() {
             <span className="text-tag">Delivery Layer</span>
             <h3>When Marketing Cloud isn't enough, the API is right there.</h3>
           </motion.div>
-          <motion.a
+          {/* Explore Developer Docs button hidden for now */}
+          {/* <motion.a
             href="/contact"
             className="btn-luxury secondary"
             initial={{ opacity: 0, y: 15 }}
@@ -427,7 +461,7 @@ export default function Channels() {
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
-          </motion.a>
+          </motion.a> */}
         </div>
 
         <div className="channel-grid">

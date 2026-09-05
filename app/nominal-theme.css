@@ -76,7 +76,7 @@
   --gradient-primary: linear-gradient(135deg, #090d16 0%, #1e293b 100%);
   --gradient-accent: linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #7c3aed 100%);
 
-  --header-height: 4.25rem;
+  --header-height: 4.85rem;
   --grid-column-count: 16;
   --container-pad: clamp(1.5rem, 2.25vw + 1rem, 3.5rem);
   --grid-gap: clamp(1rem, 0.75vw + 0.8rem, 1.5rem);
@@ -85,7 +85,7 @@
 @media not (min-width: 58.75rem) {
   :root {
     --grid-column-count: 8;
-    --header-height: 3.75rem;
+    --header-height: 4.25rem;
   }
 }
 
@@ -257,6 +257,19 @@ header#header a.logo {
   letter-spacing: -0.025rem;
   color: var(--clr-black-900);
   flex-shrink: 0;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+header#header a.logo:hover {
+  transform: scale(1.02);
+}
+
+header#header a.logo img {
+  width: clamp(11rem, 16vw, 13.5rem);
+  height: auto;
+  max-height: 3.25rem;
+  object-fit: contain;
+  display: block;
 }
 
 header#header nav.main-nav {
@@ -2025,6 +2038,99 @@ section.how-it-works {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+/* Tab 2: Campaign Manager Console Styles */
+.pipeline-campaign-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: #ffffff;
+  border: 1px solid var(--clr-mint-200);
+  border-radius: 8px;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.pipeline-campaign-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.pipeline-campaign-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.pipeline-campaign-sub {
+  font-size: 0.725rem;
+  color: #64748b;
+}
+
+.pipeline-campaign-speed {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.725rem;
+  font-weight: 700;
+  color: #2563eb;
+  background: rgba(37, 99, 235, 0.08);
+  padding: 0.3rem 0.65rem;
+  border-radius: 6px;
+}
+
+.pipeline-channel-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.65rem;
+}
+
+@media (max-width: 640px) {
+  .pipeline-channel-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pipeline-channel-stat-card {
+  background: #ffffff;
+  border: 1px solid var(--clr-mint-200);
+  border-radius: 8px;
+  padding: 0.65rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.pipeline-channel-stat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.725rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.pipeline-channel-stat-num {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+  font-family: "Retorika", sans-serif;
+}
+
+.pipeline-channel-stat-sub {
+  font-size: 0.675rem;
+  color: #059669;
+  font-weight: 600;
+}
+
+.channel-box-highlight {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25), 0 20px 40px rgba(37, 99, 235, 0.12) !important;
+  transform: translateY(-4px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 /* ==========================================================================
    ERP & Channel Integration Grid (link-grid)
    ========================================================================== */
@@ -2428,7 +2534,20 @@ footer#footer .top .left a.logo {
   display: inline-flex;
   align-items: center;
   gap: 0.65rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+footer#footer .top .left a.logo:hover {
+  transform: scale(1.02);
+}
+
+footer#footer .top .left a.logo img {
+  width: clamp(12.5rem, 20vw, 15.5rem);
+  height: auto;
+  max-height: 4rem;
+  object-fit: contain;
+  display: block;
 }
 
 footer#footer .top .left p {
