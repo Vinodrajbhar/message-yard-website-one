@@ -448,7 +448,8 @@ export default function Channels() {
             <span className="text-tag">Delivery Layer</span>
             <h3>When Marketing Cloud isn't enough, the API is right there.</h3>
           </motion.div>
-          <motion.a
+          {/* Explore Developer Docs button hidden for now */}
+          {/* <motion.a
             href="/contact"
             className="btn-luxury secondary"
             initial={{ opacity: 0, y: 15 }}
@@ -460,7 +461,7 @@ export default function Channels() {
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
-          </motion.a>
+          </motion.a> */}
         </div>
 
         <div className="channel-grid">
