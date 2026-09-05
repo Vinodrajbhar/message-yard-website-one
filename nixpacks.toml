@@ -1,11 +1,11 @@
 [phases.setup]
-nixPkgs = ["caddy"]
+nixPkgs = ["nodejs"]
 
 [phases.install]
-cmds = []
+cmds = ["npm ci"]
 
 [phases.build]
-cmds = []
+cmds = ["npm run build"]
 
 [start]
-cmd = "caddy file-server --listen :${PORT:-80} --root ."
+cmd = "npm run start -- -p ${PORT:-3000}"

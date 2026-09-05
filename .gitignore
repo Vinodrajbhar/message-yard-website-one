@@ -1,0 +1,10 @@
+.agents
+.claude
+.DS_Store
+node_modules
+.next
+legacy/
+*.tsbuildinfo
+.env*.local
+.env
+.codegraph
