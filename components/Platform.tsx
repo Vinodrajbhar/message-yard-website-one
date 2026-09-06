@@ -82,7 +82,6 @@ function PlatformVideoPlayer({
   );
 }
 
-
 export default function Platform() {
   const [activeTab, setActiveTab] = useState("tab-data");
   const sectionRef = useRef<HTMLElement>(null);

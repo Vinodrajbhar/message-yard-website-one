@@ -90,33 +90,33 @@ export default function Footer() {
                     <a
                       href="/"
                       onClick={(e) =>
-                        navigateToSection(e, "platform", "tab-journeys")
-                      }
-                      className="nav-item"
-                    >
-                      Journey Builder
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/"
-                      onClick={(e) =>
-                        navigateToSection(e, "platform", "tab-campaigns")
-                      }
-                      className="nav-item"
-                    >
-                      Campaign Manager
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/"
-                      onClick={(e) =>
                         navigateToSection(e, "platform", "tab-data")
                       }
                       className="nav-item"
                     >
-                      Audience Segments
+                      Data & Profiles
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/"
+                      onClick={(e) =>
+                        navigateToSection(e, "platform", "tab-journeys")
+                      }
+                      className="nav-item"
+                    >
+                      Journey & Workflows
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/"
+                      onClick={(e) =>
+                        navigateToSection(e, "platform", "tab-cpaas")
+                      }
+                      className="nav-item"
+                    >
+                      CPaaS APIs
                     </a>
                   </li>
                   <li>
@@ -127,7 +127,7 @@ export default function Footer() {
                       }
                       className="nav-item"
                     >
-                      Attribution Engine
+                      Performance Intelligence
                     </a>
                   </li>
                 </ul>

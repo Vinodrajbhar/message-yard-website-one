@@ -91,33 +91,33 @@ export default function Header() {
                   <a
                     href="/"
                     onClick={(e) =>
-                      navigateToSection(e, "platform", "tab-journeys")
-                    }
-                    className="nav-item"
-                  >
-                    Journey Builder
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/"
-                    onClick={(e) =>
-                      navigateToSection(e, "platform", "tab-campaigns")
-                    }
-                    className="nav-item"
-                  >
-                    Campaign Manager
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/"
-                    onClick={(e) =>
                       navigateToSection(e, "platform", "tab-data")
                     }
                     className="nav-item"
                   >
-                    Audience Segmentation
+                    Data & Profiles
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/"
+                    onClick={(e) =>
+                      navigateToSection(e, "platform", "tab-journeys")
+                    }
+                    className="nav-item"
+                  >
+                    Journey & Workflows
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/"
+                    onClick={(e) =>
+                      navigateToSection(e, "platform", "tab-cpaas")
+                    }
+                    className="nav-item"
+                  >
+                    CPaaS APIs
                   </a>
                 </li>
                 <li>
@@ -128,7 +128,7 @@ export default function Header() {
                     }
                     className="nav-item"
                   >
-                    Analytics & Attribution
+                    Performance Intelligence
                   </a>
                 </li>
               </ul>
@@ -285,25 +285,25 @@ export default function Header() {
           <li style={{ paddingLeft: "1rem", opacity: 0.85 }}>
             <a
               href="/"
-              onClick={(e) => navigateToSection(e, "platform", "tab-journeys")}
-            >
-              ↳ Journey Builder
-            </a>
-          </li>
-          <li style={{ paddingLeft: "1rem", opacity: 0.85 }}>
-            <a
-              href="/"
-              onClick={(e) => navigateToSection(e, "platform", "tab-campaigns")}
-            >
-              ↳ Campaign Manager
-            </a>
-          </li>
-          <li style={{ paddingLeft: "1rem", opacity: 0.85 }}>
-            <a
-              href="/"
               onClick={(e) => navigateToSection(e, "platform", "tab-data")}
             >
-              ↳ Audience Segmentation
+              ↳ Data & Profiles
+            </a>
+          </li>
+          <li style={{ paddingLeft: "1rem", opacity: 0.85 }}>
+            <a
+              href="/"
+              onClick={(e) => navigateToSection(e, "platform", "tab-journeys")}
+            >
+              ↳ Journey & Workflows
+            </a>
+          </li>
+          <li style={{ paddingLeft: "1rem", opacity: 0.85 }}>
+            <a
+              href="/"
+              onClick={(e) => navigateToSection(e, "platform", "tab-cpaas")}
+            >
+              ↳ CPaaS APIs
             </a>
           </li>
           <li style={{ paddingLeft: "1rem", opacity: 0.85 }}>
@@ -311,7 +311,7 @@ export default function Header() {
               href="/"
               onClick={(e) => navigateToSection(e, "platform", "tab-analytics")}
             >
-              ↳ Analytics & Attribution
+              ↳ Performance Intelligence
             </a>
           </li>
           <li>
