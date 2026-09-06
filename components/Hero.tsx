@@ -570,12 +570,12 @@ export default function Hero() {
           Marketing Cloud + Native CPaaS
         </div> */}
 
-        <h1>The Marketing Cloud with real infrastructure underneath.</h1>
+        <h1>Endless Conversations. Real Impact
+          One Marketing Cloud. Every Customer Conversation.</h1>
 
         <p className="hero-desc">
-          Plan campaigns, build customer journeys, and segment your audience —
-          then send it all through the same messaging infrastructure that powers
-          12 billion conversations a year.
+          Create, automate and measure customer engagement across Email, SMS, WhatsApp and RCS — from one unified platform.
+          Build campaigns. Orchestrate journeys. Understand performance. Scale conversations.
         </p>
 
         <div className="hero-cta-group">
