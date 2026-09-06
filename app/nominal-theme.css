@@ -3004,8 +3004,8 @@ footer#footer .bottom .right {
 
 .side-nav-track {
   position: absolute;
-  top: 8px;
-  bottom: 8px;
+  top: 5.5px;
+  bottom: 5.5px;
   width: 2px;
   background: rgba(148, 163, 184, 0.25);
   border-radius: 2px;
@@ -3019,7 +3019,7 @@ footer#footer .bottom .right {
   width: 100%;
   height: 0%;
   background: linear-gradient(180deg, #38bdf8 0%, #2563eb 50%, #7c3aed 100%);
-  transition: height 0.15s ease-out;
+  transition: height 0.06s ease-out;
 }
 
 .side-nav-list {
@@ -3052,6 +3052,12 @@ footer#footer .bottom .right {
   border-color: #38bdf8;
   transform: scale(1.35);
   box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+
+.side-nav-dot.passed {
+  background: #2563eb;
+  border-color: #38bdf8;
+  box-shadow: 0 0 6px rgba(37, 99, 235, 0.35);
 }
 
 .side-nav-dot.active {

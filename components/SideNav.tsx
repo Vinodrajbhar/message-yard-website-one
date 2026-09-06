@@ -19,28 +19,78 @@ export default function SideNav() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (totalHeight > 0) {
-        const progress = Math.min(1, Math.max(0, window.scrollY / totalHeight));
-        setScrollProgress(progress);
-      }
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const docHeight = document.documentElement.scrollHeight;
+      const maxScroll = Math.max(1, docHeight - windowHeight);
 
-      // Determine active section by vertical proximity
-      const scrollPos = window.scrollY + window.innerHeight * 0.35;
-      for (let i = SECTIONS.length - 1; i >= 0; i--) {
-        const el = document.getElementById(SECTIONS[i].id);
-        if (el && el.offsetTop <= scrollPos) {
-          setActiveSection(SECTIONS[i].id);
-          break;
+      // Collect target trigger offsets for each section
+      const offsets = SECTIONS.map((sec, i) => {
+        if (i === 0) return 0;
+        const el = document.getElementById(sec.id);
+        if (!el) return (i / (SECTIONS.length - 1)) * maxScroll;
+        // Section activates when its top edge is in the upper third of viewport
+        return Math.max(0, el.offsetTop - windowHeight * 0.35);
+      });
+
+      // The final section activates when near bottom
+      offsets[offsets.length - 1] = Math.min(
+        offsets[offsets.length - 1],
+        maxScroll - 80
+      );
+
+      // Find which section interval [i, i + 1] the current scroll falls into
+      let currentIndex = 0;
+      let fraction = 0;
+
+      if (scrollY <= offsets[0]) {
+        currentIndex = 0;
+        fraction = 0;
+      } else if (scrollY >= maxScroll - 5) {
+        currentIndex = SECTIONS.length - 1;
+        fraction = 0;
+      } else {
+        for (let i = 0; i < offsets.length - 1; i++) {
+          const start = offsets[i];
+          const end = offsets[i + 1];
+          if (scrollY >= start && scrollY < end) {
+            currentIndex = i;
+            const span = Math.max(1, end - start);
+            fraction = Math.min(1, Math.max(0, (scrollY - start) / span));
+            break;
+          }
+        }
+        if (scrollY >= offsets[offsets.length - 1]) {
+          currentIndex = SECTIONS.length - 1;
+          fraction = 0;
         }
       }
+
+      // 6 intervals between 7 dots: continuous progress moves accurately between dots
+      const totalIntervals = SECTIONS.length - 1;
+      const continuousIndex = currentIndex + fraction;
+      const progress = continuousIndex / totalIntervals;
+      setScrollProgress(Math.min(1, Math.max(0, progress)));
+
+      // Active section switches halfway through the interval to next section
+      const activeIdx = Math.min(
+        SECTIONS.length - 1,
+        fraction >= 0.5 ? currentIndex + 1 : currentIndex
+      );
+      setActiveSection(SECTIONS[activeIdx].id);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll, { passive: true });
     handleScroll();
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
   }, []);
+
+  const activeIndex = SECTIONS.findIndex((s) => s.id === activeSection);
 
   const handleDotClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -63,18 +113,23 @@ export default function SideNav() {
         />
       </div>
       <ul className="side-nav-list">
-        {SECTIONS.map((sec) => (
-          <li key={sec.id}>
-            <a
-              href="/"
-              data-section={sec.id}
-              className={`side-nav-dot ${activeSection === sec.id ? "active" : ""}`}
-              onClick={(e) => handleDotClick(e, sec.id)}
-            >
-              <span className="nav-tooltip">{sec.label}</span>
-            </a>
-          </li>
-        ))}
+        {SECTIONS.map((sec, idx) => {
+          const isActive = activeSection === sec.id;
+          const isPassed = idx < activeIndex;
+
+          return (
+            <li key={sec.id}>
+              <a
+                href="/"
+                data-section={sec.id}
+                className={`side-nav-dot ${isActive ? "active" : ""} ${isPassed ? "passed" : ""}`}
+                onClick={(e) => handleDotClick(e, sec.id)}
+              >
+                <span className="nav-tooltip">{sec.label}</span>
+              </a>
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );
